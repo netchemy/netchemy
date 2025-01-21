@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 20px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+
+    .policy-section {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .policy-section h2 {
+      font-size: 1.2rem;
+      color: #444;
+      cursor: pointer;
+      padding: 15px;
+      background-color: #f7f7fa;
+      transition: background-color 0.3s ease;
+      margin: 0;
+    }
+
+    .policy-section h2:hover {
+      background-color: #ececff;
+    }
+
+    .policy-content {
+      display: none;
+      padding: 15px;
+      background-color: #ffffff;
+      border-top: 1px solid #ddd;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .policy-content ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+
+    .policy-content ul li {
+      margin: 5px 0;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      padding: 10px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    footer a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Privacy Policy</h1>
+    <p>
+        Effective Date: [Insert Date]
+        
+        Trekato Private Limited (“Trekato”) is committed to safeguarding the privacy of users (“Users”) who access and use Netchemy. This Privacy Policy explains how we collect, use, and protect your personal data in compliance with applicable laws.
+        </p>
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">1. Data Collection</h2>
+      <div class="policy-content">
+        <ul>
+          <li><strong>Personal Information:</strong> Name, email address, phone number, payment information, and billing address during registration or transactions.</li>
+          <li><strong>Usage Information:</strong> Device details, IP address, browser type, operating system, and app usage behavior.</li>
+          <li><strong>Content Information:</strong> Resources, comments, or messages uploaded or shared on Netchemy.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">2. Data Usage</h2>
+      <div class="policy-content">
+        <ul>
+          <li>Provide, operate, and improve Netchemy services.</li>
+          <li>Personalize the user experience.</li>
+          <li>Process payments, transactions, and invoices.</li>
+          <li>Respond to customer inquiries and support requests.</li>
+          <li>Ensure security and monitor for fraud or misuse.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">3. Third-party Sharing</h2>
+      <div class="policy-content">
+        <ul>
+          <li>With service providers (e.g., payment gateways, analytics providers) to facilitate Netchemy’s operation.</li>
+          <li>To comply with legal obligations or enforce our Terms of Use.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">4. Data Retention</h2>
+      <div class="policy-content">
+        <p>We retain your data for as long as necessary to fulfill the purposes outlined in this Privacy Policy unless otherwise required by law.</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">5. Data Security</h2>
+      <div class="policy-content">
+        <p>We employ appropriate technical and organizational measures to protect your data. However, we cannot guarantee absolute security due to the inherent risks of online services.</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">6. Your Rights</h2>
+      <div class="policy-content">
+        <ul>
+          <li>Access, update, or delete your personal data.</li>
+          <li>Withdraw consent for data collection or request restrictions on data processing by contacting us at [Insert Contact Email].</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">7. Changes to Privacy Policy</h2>
+      <div class="policy-content">
+        <p>We reserve the right to update this policy. Changes will be notified via email or the Netchemy platform. Continued use of our services indicates acceptance of the revised policy.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Need help? <a href="#">Contact us</a>.</p>
+  </footer>
+
+  <script>
+    function toggleContent(element) {
+      const content = element.nextElementSibling;
+      const isVisible = content.style.display === "block";
+      document.querySelectorAll('.policy-content').forEach(el => el.style.display = "none");
+      content.style.display = isVisible ? "none" : "block";
+    }
+  </script>
+</body>
+</html>

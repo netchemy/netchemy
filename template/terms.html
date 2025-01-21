@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Use</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    .effective-date {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 30px;
+    }
+
+    .terms-section {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .terms-section h2 {
+      font-size: 1.2rem;
+      color: #333;
+      background-color: #f1f1f4;
+      padding: 15px;
+      margin: 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .terms-section h2:hover {
+      background-color: #e0e0e6;
+    }
+
+    .terms-content {
+      display: none;
+      padding: 15px;
+      background-color: #ffffff;
+      border-top: 1px solid #ddd;
+    }
+
+    .terms-content ul {
+      padding-left: 20px;
+    }
+
+    .terms-content ul li {
+      margin: 8px 0;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 30px;
+      color: #666;
+    }
+
+    .footer a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 20px;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Terms of Use</h1>
+    <p class="effective-date">Effective Date: [Insert Date]</p>
+
+    <div class="terms-section">
+      <h2 onclick="toggleSection(this)">1. Provision of Netchemy by Trekato</h2>
+      <div class="terms-content">
+        <p>Trekato provides Netchemy exclusively for use by adult consumers and businesses in India. Use by minors is strictly prohibited.</p>
+        <ul>
+          <li>Trekato reserves the right to refuse service, suspend access, or terminate agreements for policy violations.</li>
+          <li>Netchemy offers features like resource publishing, job postings, and supplementary services.</li>
+          <li>No guarantee of uninterrupted service or error-free performance is provided.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="terms-section">
+      <h2 onclick="toggleSection(this)">2. Use of Netchemy by Users</h2>
+      <div class="terms-content">
+        <ul>
+          <li>Users must comply with all applicable laws and these Terms.</li>
+          <li>Trekato reserves the right to monitor usage and suspend access for violations.</li>
+          <li>Users must not share account credentials, reverse-engineer, or misuse Netchemy services.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="terms-section">
+      <h2 onclick="toggleSection(this)">3. Registration of User Accounts</h2>
+      <div class="terms-content">
+        <ul>
+          <li>Users must register to access certain features like resource publishing or job postings.</li>
+          <li>Accounts may be suspended for policy violations or prolonged inactivity.</li>
+          <li>Users are responsible for safeguarding their account credentials.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="terms-section">
+      <h2 onclick="toggleSection(this)">4. Supplementary Services</h2>
+      <div class="terms-content">
+        <ul>
+          <li>Publishing Resources: Paid users can upload and sell templates and components.</li>
+          <li>Job Listings: Paid users can post job opportunities and receive applications.</li>
+          <li>Subscription Services: Includes app development, marketing, and more.</li>
+        </ul>
+        <p>Trekato is not liable for third-party service provider issues.</p>
+      </div>
+    </div>
+
+    <div class="terms-section">
+      <h2 onclick="toggleSection(this)">5. Right of Use</h2>
+      <div class="terms-content">
+        <ul>
+          <li>Trekato grants a limited, non-transferable license to use Netchemy.</li>
+          <li>Users may not modify, exploit, or infringe on intellectual property rights.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="terms-section">
+      <h2 onclick="toggleSection(this)">6. Payment and Pricing</h2>
+      <div class="terms-content">
+        <ul>
+          <li>Users must pay applicable fees for subscription or service access.</li>
+          <li>Pricing and payment terms are subject to change with prior notice.</li>
+        </ul>
+        <p>Payments are non-refundable unless explicitly stated otherwise by Trekato.</p>
+      </div>
+    </div>
+
+    <div class="terms-section">
+      <h2 onclick="toggleSection(this)">7. Liability and Disclaimer</h2>
+      <div class="terms-content">
+        <p>Trekato disclaims liability for losses caused by unauthorized account access, third-party services, or unforeseen circumstances.</p>
+        <p>Liability for damages is limited to the amount paid in the preceding 12 months.</p>
+      </div>
+    </div>
+
+    <div class="terms-section">
+      <h2 onclick="toggleSection(this)">8. Indemnification</h2>
+      <div class="terms-content">
+        <p>Users agree to indemnify Trekato from claims arising from policy violations or misuse of Netchemy.</p>
+      </div>
+    </div>
+
+    <div class="terms-section">
+      <h2 onclick="toggleSection(this)">9. Term and Termination</h2>
+      <div class="terms-content">
+        <p>Users must cease all use of Netchemy upon termination of this agreement.</p>
+        <p>Trekato may terminate accounts for non-compliance or non-payment.</p>
+      </div>
+    </div>
+
+    <div class="terms-section">
+      <h2 onclick="toggleSection(this)">10. Amendments to the Terms of Use</h2>
+      <div class="terms-content">
+        <p>Trekato may update these Terms with 30 days’ notice. Continued use constitutes acceptance of the revised Terms.</p>
+      </div>
+    </div>
+
+    <div class="terms-section">
+      <h2 onclick="toggleSection(this)">11. Governing Law and Dispute Resolution</h2>
+      <div class="terms-content">
+        <p>These Terms are governed by Indian law, with disputes subject to the exclusive jurisdiction of Bangalore courts.</p>
+      </div>
+    </div>
+
+    <p>For inquiries, contact Trekato Private Limited at [Insert Contact Email].</p>
+  </div>
+
+  <div class="footer">
+    <p>Need assistance? <a href="#">Contact Us</a>.</p>
+  </div>
+
+  <script>
+    function toggleSection(element) {
+      const content = element.nextElementSibling;
+      const isVisible = content.style.display === "block";
+      document.querySelectorAll('.terms-content').forEach(el => el.style.display = "none");
+      content.style.display = isVisible ? "none" : "block";
+    }
+  </script>
+</body>
+</html>

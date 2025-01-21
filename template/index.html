@@ -1,0 +1,455 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Netchemy</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/n.svg' %}" rel="icon">
+  <link href="{% static 'img/n.svg' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: QuickStart
+  * Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
+  * Updated: May 18 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto">
+        <img src="{% static 'img/n1.svg' %}" alt="">
+        <h1 class="sitename">Netchemy</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu d-flex align-items-center me-auto">
+        <ul>
+          
+          <li><a href="{% url 'market' %}" class="">Explore</a></li>
+          <li><a href="{% url 'index' %}">Sell</a></li>
+          <li><a href="{% url 'About' %}">About</a></li>
+          <li><a href="{% url 'About' %}">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="{% url 'login' %}">Log in</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+     
+      <div class="container text-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+
+            <a  class="mar-logo d-flex align-items-center">
+                <img src="{% static 'img/n1.svg' %}" alt="">
+                <h1 class="marketTitle">Marketplace</h1>
+              </a>
+
+          <h1 data-aos="fade-up" class="market-slogan">Turn your code into  <span id="market-cash">c|</span></h1>
+          <p data-aos="fade-up" data-aos-delay="100" class="">Netchemy is the alchemy for you to Monetize your code like never before.
+             Sell your software, design assets, launch courses and watch your income - incoming!<br></p>
+          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+            <a href="{% url 'signup' %}" class="btn-get-started">Start Selling Now</a>
+          </div>
+         
+        </div>
+
+        <div class="market-ben">
+            <div class="market-ben-item">Codebases</div>
+            <div class="market-ben-item">APIs & libraries</div>
+            <div class="market-ben-item">Scripts</div>
+            <div class="market-ben-item">Bots</div>
+            <div class="market-ben-item">UI kits</div>
+            <div class="market-ben-item">Design templates</div>
+            <div class="market-ben-item">Icon packs</div>
+            <div class="market-ben-item">Custom fonts</div>
+            <div class="market-ben-item">3D models</div>
+            <div class="market-ben-item">Mockups</div>
+            <div class="market-ben-item">Illustrations</div>
+          </div>
+          
+
+
+      </div>
+
+    </section><!-- /Hero Section -->
+
+   
+    <!-- Features Details Section -->
+    <section id="market" class="market section">
+
+      <div class="container">
+        <div class="heading">What's Included</div>
+        <div class="list">
+            <div class="list-item">0% Commission</div>
+            <div class="list-item">Set Your Value</div>
+            <div class="list-item">Simple Listing</div>
+            <div class="list-item">Monetization</div>
+            <div class="list-item">  1:1 Mentoring<span class="coming-soon">Coming soon</span>
+            </div>
+            <div class="list-item">  Community<span class="coming-soon">Coming soon</span>
+            </div>
+            <div class="list-item">  Academy<span class="coming-soon">Coming soon</span>
+            </div>
+            <div class="list-item">  Courses <span class="coming-soon">Coming soon</span>
+            </div>
+        </div>
+        <div class="button-container">
+            <a href="{% url 'signup' %}" class="join-button">Join now</a>
+        </div>
+    
+
+        </div><!-- Features Item -->
+
+      </div>
+
+    </section><!-- /Features Details Section -->
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        
+        <p>Pricing</p>
+        <h2>Get access now</h2>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="pricing-item featured">
+                <h3>Founding Creator</h3>
+                <h4><sup>$</sup>$99<span> /lifetime</span></h4>
+                <ul>
+                    <li> <span>+ 0% Commission</span></li>
+                    <li> <span>+ Set your own price </span></li>
+                    <li> <span>+ Unlimited listings</span></li>
+                    <li> <span>+ Community forums</span></li>
+                    <li> <span>+ Advanced analytics</span></li>
+                    <li> <span>+ Secure payment processing</span></li>
+                    <li> <span>+ Instant Payouts</span></li>
+                    <li> <span>+ 24/7 support</span></li>
+                    <li> <span>+ Access to all upcoming features</span></li>
+                    <li></li>
+                </ul>
+                <a href="{% url 'signup' %}" class="cta-btn">Choose lifetime plan</a>
+            </div>
+          </div><!-- End Pricing Item -->
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+            <div class="pricing-item ">
+              <h3>Pro</h3>
+              <h4><sup>$</sup>29<span> / year</span></h4>
+         
+              <ul>
+                <li> <span>+ 0% Commission</span></li>
+                <li><span>+ Set your own price</span></li>
+                <li><span>+ 4 listings per month</span></li>
+                <li><span>+ Community forums</span></li>
+                <li><span>+ Advanced analytics</span></li>
+                <li><span>+ Secure payment processing</span></li>
+                <li></i> <span>+ Instant payouts</span></li>
+                <li></i> <span>+ 24/7 support</span></li>
+                <li></i> <span>+ Access to all upcoming features</span></li>
+              </ul>
+              <a href="{% url 'signup' %}" class="cta-btn">Choose monthly plan</a>
+            </div>
+          </div><!-- End Pricing Item -->
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+            <div class="pricing-item ">
+              <h3>Basic</h3>
+            
+              <h4><sup>$</sup>3<span> / month</span></h4>
+             
+              <ul>
+                <li><span>+ 0% Commission</span></li>
+                <li><span>+ Set your own price</span></li>
+                <li><span>+ 2 listing per month</span></li>
+                <li><span>+ Community forums</span></li>
+                <li><span>+ Basic analytics</span></li>
+                <li><span>+ Secure payment processing</span></li>
+                <li><span>+ Instant payouts</span></li>
+                <li><span>+ 24/7 support</span></li>
+                <li><span>+ Limited-Access to upcoming features</span></li>
+              </ul>
+              <a href="{% url 'signup' %}" class="cta-btn">Choose monthly plan</a>
+            </div>
+          </div><!-- End Pricing Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Pricing Section -->
+
+
+    <!-- Testimonials Section 
+    <section id="testimonials" class="testimonials section">
+
+    
+      <div class="contain" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper">
+         <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 1000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "breakpoints": {
+                "320": {
+                  "slidesPerView": 1,
+                  "spaceBetween": 10
+                },
+                "1200": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 0
+                }
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide  align-items-center">
+              <div class="testimonial-item">
+               
+                <div class="profile mt-auto">
+              
+                  <h3>Codebases</h3>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                
+                <div class="profile mt-auto">
+          
+                  <h3>Visuals</h3>
+         
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+ 
+                <div class="profile mt-auto">
+                 
+                  <h3>Micro-Interactions</h3>
+                 
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+               
+                <div class="profile mt-auto">
+               
+                  <h3>User Interfaces</h3>
+        
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                
+                <div class="profile mt-auto">
+                  <h3>Functions</h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="testimonial-item">
+                  
+                  <div class="profile mt-auto">
+                    <h3>Frameworks</h3>
+                  </div>
+                </div>
+              </div>
+  
+          </div>
+         
+        </div>
+
+      </div>
+
+    </section> -->
+
+    
+
+  </main>
+
+  <footer id="footer" class="footer position-relative">
+
+    <div class="container footer-top">
+      <div class="row gy-3">
+
+ 
+        <div class="col-lg-4 col-md-6   footer-newsletter">
+            <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
+            <p>Contact: hello@netchemy.com</p>
+            <p>RMZ MILLENIA BUSINESS PARK,<br>
+              Perungudi, Chennai, 600096</p>
+            <form action="https://formsubmit.co/netchemy.hq@gmail.com" method="post" class="php-email-form">
+              <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+            </form>
+          </div>
+
+
+
+        
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="{% url 'terms' %}">Terms of service</a></li>
+            <li><a href="{% url 'privacy' %}">Privacy policy</a></li>
+            <li><a href="{% url 'cookie' %}">Cookies</a></li>
+            <li><a href="{% url 'norefund' %}">Refund policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Netchemy</h4>
+          <ul>
+            <li><a href="{% url 'About' %}">About</a></li>
+            <li><a href="{% url 'About' %}">Contact</a></li>
+            <li><a href="{% url 'market' %}">Marketplace</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://x.com/NetchemyHq">Twitter</a></li>
+            <li><a href="#">Discord</a></li>
+            <li><a href="https://www.linkedin.com/company/netchemy/">Linkedln</a></li>
+          </ul>
+        </div>
+        
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <strong class="px-1 sitename">NETCHEMY 2025</strong><span>All Rights Reserved</span></p>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+
+  <!--functions-->
+  {% if messages %}
+  <script>
+      {% for message in messages %}
+          alert("{{ message|escapejs }}");
+      {% endfor %}
+      // Clear the message from session storage
+      window.location.href = window.location.href.split("?")[0];
+  </script>
+{% endif %}
+  
+  <script>
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const titleElement = document.getElementById('market-cash');
+      const titles = ['c|','ca|', 'cas|','cash|',];
+      let currentIndex = 0;
+    
+      function showNextTitle() {
+        titleElement.classList.remove('show');
+        setTimeout(() => {
+          currentIndex = (currentIndex + 1) % titles.length;
+          titleElement.textContent = titles[currentIndex];
+          titleElement.classList.add('show');
+        }, 1500); // This timeout should match the transition duration
+      }
+    
+      titleElement.classList.add('show'); 
+      setInterval(showNextTitle, 600); 
+    });
+
+
+
+
+    
+
+
+
+
+
+
+</script>
+
+
+</body>
+
+</html>

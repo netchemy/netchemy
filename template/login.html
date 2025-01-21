@@ -1,0 +1,80 @@
+{% load socialaccount %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Screen</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+</head>
+<body>
+
+    
+   
+
+    <div class="login-container">
+
+       <!-- Login Form -->
+        <form id="login-form" class="form active" action="{% url 'Entry' %}" method="post" role="form">
+            {% csrf_token %}
+            <h1>Login</h1>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <a href = "{% url 'signup' %}">Don't have an account? Sign up here</a>
+        </form>
+
+
+
+        <div>
+            <br>
+            <div id="g_id_onload"
+            data-client_id="263398124569-d32ks8kjbe4edjhpdhgdjt3gstt79nbg.apps.googleusercontent.com"
+            data-context="signin"
+            data-ux_mode="redirect"
+            data-login_uri="http://localhost:8000/auth-receiver"
+            data-itp_support="true">
+       </div>
+       
+       <div class="g_id_signin"
+            data-type="standard"
+            data-shape="rectangular"
+            data-theme="outline"
+            data-text="signin_with"
+            data-size="large"
+            data-logo_alignment="left">
+       </div>
+       
+    
+        <a href="" class="github-button">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo">
+            Sign up with GitHub
+        </a>
+
+
+    </div>
+
+
+    <!--functions-->
+  {% if messages %}
+  <script>
+      {% for message in messages %}
+          alert("{{ message|escapejs }}");
+      {% endfor %}
+      // Clear the message from session storage
+      window.location.href = window.location.href.split("?")[0];
+  </script>
+{% endif %}
+</body>
+
+
+
+<script src="https://accounts.google.com/gsi/client" async></script>
+</html>

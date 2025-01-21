@@ -1,0 +1,226 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>netchemy</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/1.svg' %}" rel="icon">
+  <link href="{% static 'img/1.svg' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: QuickStart
+  * Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
+  * Updated: May 18 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto">
+        <img src="{% static 'img/n.svg' %}" alt="">
+        <h1 class="sitename">Netchemy</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu d-flex align-items-center me-auto">
+        <ul>
+          <li><a href="{% url 'market' %}" class="">Explore</a></li>
+          <li><a href="{% url 'index' %}">Sell</a></li>
+          <li><a href="{% url 'About' %}">About</a></li>
+          <li><a href="{% url 'About' %}">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="#">Log in</a>
+
+    </div>
+  </header>
+
+
+  <main class="main">
+
+    <section id="net" class = "section">
+      <div class = "container">
+      <div class="about-section">
+        <h2 class="about-title">About, Netchemy<br> MAKING 1 MILLION TECH CREATORS BY 2030</h2>
+        <p class="about-text">
+          We realized developers and designers are stuck between getting hired or starting a company. 
+          There’s no simple solution to help them to micro-create and monetize. That’s when we decided to launch Netchemy.
+        </p>
+        <p class="about-text">
+          From day one, Netchemy was founded with the mission to provide inclusive space for creators to build, learn and monetize together. 
+          We believe the creator platforms needs to be open, accessible and sustainable.
+        </p>
+        <p class="about-text">
+          When designing the product and the organization, we focused on the longevity of our technology, ensuring we can continue to support creators for years to come. 
+        </p>
+
+
+        <div class="team-section">
+
+          <p class="team-note">
+            Young and fast-moving with a high pace of execution.
+            <button>+ Join our Team</button>
+          </p>
+ 
+
+          <div class="team-members">
+            <div class="member">
+              <img src="{% static 'img/a1.svg' %}" alt="Co-founder">
+              <p>Co-founder</p>
+              <a href="https://www.linkedin.com/in/vimalsreal/">Connect</a>
+            </div>
+            <div class="member">
+              <img src="{% static 'img/a2.svg' %}" alt="Co-founder' %}">
+              <p>Co-founder</p>
+              <a href="https://www.linkedin.com/in/vivekjaglan/">Connect</a>
+            </div>
+            <div class="member">
+              <img src="{% static 'img/a3.svg' %}" alt="Co-founder">
+              <p>Co-founder</p>
+              <a href="https://www.linkedin.com/in/kiran-kumar-643b3625a/">Connect</a>
+            </div>
+          </div>
+        </div>
+        
+
+
+
+        <div id = "net_con"  class="container11">
+          <h1>Contact</h1>
+          <p> Questions, feedbacks or want to join our team? Let us know.</p>
+          <form action="https://formsubmit.co/netchemy.hq@gmail.com" method="post"  class="contact-form11">
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Email">
+            <input type="tel" placeholder="Phone Number">
+            <input type="text" placeholder="Subject">
+            <textarea placeholder="Send us a message"></textarea>
+            <button type="submit">Send</button>
+          </form>
+        </div>
+
+
+      </div>
+
+    </div>
+
+    </section>
+
+  </main>
+
+  
+  <footer id="footer" class="footer position-relative">
+
+    <div class="container footer-top">
+      <div class="row gy-3">
+
+ 
+        <div class="col-lg-4 col-md-6   footer-newsletter">
+            <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
+            <p>Contact: hello@netchemy.com</p>
+            <p>RMZ MILLENIA BUSINESS PARK,<br>
+              Perungudi, Chennai, 600096</p>
+            <form action="https://formsubmit.co/netchemy.hq@gmail.com" method="post" class="php-email-form">
+              <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+            </form>
+          </div>
+
+
+
+        
+
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="{% url 'terms' %}">Terms of service</a></li>
+              <li><a href="{% url 'privacy' %}">Privacy policy</a></li>
+              <li><a href="{% url 'cookie' %}">Cookies</a></li>
+              <li><a href="{% url 'norefund' %}">Refund policy</a></li>
+            </ul>
+          </div>
+  
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Netchemy</h4>
+            <ul>
+              <li><a href="{% url 'About' %}">About</a></li>
+              <li><a href="{% url 'About' %}">Contact</a></li>
+              <li><a href="{% url 'market' %}">Marketplace</a></li>
+            </ul>
+          </div>
+  
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Connect</h4>
+            <ul>
+              <li><a href="https://x.com/NetchemyHq">Twitter</a></li>
+              <li><a href="#">Discord</a></li>
+              <li><a href="https://www.linkedin.com/company/netchemy/">Linkedln</a></li>
+            </ul>
+          </div>
+          
+
+        
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <strong class="px-1 sitename">NETCHEMY 2025</strong><span>All Rights Reserved</span></p>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+  
+ 
+
+</body>
+
+</html>

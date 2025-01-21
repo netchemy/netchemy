@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Policy</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 20px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+
+    .effective-date {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    .policy-section {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .policy-section h2 {
+      font-size: 1.2rem;
+      color: #444;
+      cursor: pointer;
+      padding: 15px;
+      background-color: #f7f7fa;
+      transition: background-color 0.3s ease;
+      margin: 0;
+    }
+
+    .policy-section h2:hover {
+      background-color: #ececff;
+    }
+
+    .policy-content {
+      display: none;
+      padding: 15px;
+      background-color: #ffffff;
+      border-top: 1px solid #ddd;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .policy-content ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+
+    .policy-content ul li {
+      margin: 5px 0;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      padding: 10px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    footer a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cookie Policy</h1>
+    <p class="effective-date">Effective Date: [Insert Date]</p>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">1. What Are Cookies?</h2>
+      <div class="policy-content">
+        <p>Cookies are small text files stored on your device when you visit a website or use an app.</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">2. Types of Cookies We Use</h2>
+      <div class="policy-content">
+        <ul>
+          <li><strong>Essential Cookies:</strong> Required for core functionality, such as login and session management.</li>
+          <li><strong>Performance Cookies:</strong> Collect information about how Users interact with Netchemy to improve usability.</li>
+          <li><strong>Targeting Cookies:</strong> Track browsing habits to deliver personalized recommendations and advertisements.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">3. Managing Cookies</h2>
+      <div class="policy-content">
+        <p>Users can control cookie preferences via their browser settings. Disabling cookies may affect the functionality of Netchemy.</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">4. Third-Party Cookies</h2>
+      <div class="policy-content">
+        <p>We may allow third-party service providers (e.g., Google Analytics) to set cookies for analytics or advertising purposes.</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">5. Consent</h2>
+      <div class="policy-content">
+        <p>By using Netchemy, you consent to the use of cookies as described in this policy.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Need help? <a href="#">Contact us</a>.</p>
+  </footer>
+
+  <script>
+    function toggleContent(element) {
+      const content = element.nextElementSibling;
+      const isVisible = content.style.display === "block";
+      document.querySelectorAll('.policy-content').forEach(el => el.style.display = "none");
+      content.style.display = isVisible ? "none" : "block";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Verification</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/kyc.css' %}">
+</head>
+<body>
+
+    <div class = "contain">
+        <!-- Group 1: KYC Verification -->
+        <div class="kyc-verification-group">
+            <h1>KYC Verification</h1>
+            <p>Turn your face left, center, and right. Photos will be captured automatically.</p>
+            <div class="video-container">
+                <div id="left-indicator" class="indicator left-indicator"></div>
+                <video id="video" autoplay></video>
+                <div id="right-indicator" class="indicator right-indicator"></div>
+            </div>
+
+            <div class="photo-button" id="start">
+                <div class="circle"></div>
+                <div class="ring"></div>
+            </div>
+            
+            <div class="buts">
+                <button id="next-button">Next</button>
+            </div>
+            <div id="status"></div>
+        </div>
+
+
+        <!-- Document camera container -->
+        <div class ="doc-cam" style="display: none;">
+            <h1>Submit Your ID Proof</h1>
+            <h2 id="instructions">Please take a photo of the <span>front</span> of the document in proper lighting.</h2>
+        
+            <div class="document-camera-container" style="display: none;">
+
+                <!-- Video stream for the document camera -->
+                <video id="document-camera" class = "Document" autoplay></video>
+                
+            
+            </div>
+            <!-- Shutter button -->
+            <div class="shutter-button-container">
+                <button id="shutter-button">Capture</button>
+            </div>
+
+            <div class="buts">
+                <button id="Submit-button" style="display: none;">Submit</button>
+            </div>
+        </div>
+ 
+        <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+    </div>
+
+    
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const startButton = document.getElementById('start');
+        const nextButton = document.getElementById('next-button');
+        const statusDiv = document.getElementById('status');
+        const leftIndicator = document.getElementById('left-indicator');
+        const rightIndicator = document.getElementById('right-indicator');
+        const instructionText = document.querySelector("p");
+        let photoCount = 0;
+    
+        const formData = new FormData();
+    
+        // Access the user's webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((error) => {
+                console.error('Error accessing webcam:', error);
+            });
+    
+        // Start photo capture process
+        startButton.addEventListener("click", () => {
+            instructionText.textContent = "Please turn your face to the left.";
+            const interval = setInterval(() => {
+                capturePhoto();
+                photoCount++;
+    
+                if (photoCount === 1) {
+                    leftIndicator.classList.add("green");
+                    instructionText.textContent = "Please turn your face to the center.";
+                } else if (photoCount === 2) {
+                    instructionText.textContent = "Please turn your face to the right.";
+                } else if (photoCount === 3) {
+                    rightIndicator.classList.add("green");
+                    instructionText.textContent = "Photos captured successfully!";
+                    statusDiv.textContent = "All photos captured. Proceed to the next step.";
+                    clearInterval(interval);
+                    showNextButton();
+                }
+            }, 3000);
+        });
+    
+        // Capture photo
+        function capturePhoto() {
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const photoData = canvas.toDataURL('image/png');
+            console.log("Captured photo data:", photoData);
+            formData.append(`photo${photoCount + 1}`, photoData);
+        }
+    
+        // Show the next button
+        function showNextButton() {
+            nextButton.style.display = 'block';
+        }
+    
+        document.getElementById("next-button").addEventListener("click", function() {
+            // Hide the current video container
+            document.querySelector(".kyc-verification-group").style.display = "none";
+    
+            // Show the new camera container for document photo
+            document.querySelector(".doc-cam").style.display = "block";
+            document.querySelector(".document-camera-container").style.display = "block";
+    
+            // Initialize the camera for document capture
+            initializeDocumentCamera();
+        });
+    
+        // Function to initialize the document camera
+        function initializeDocumentCamera() {
+            // Use getUserMedia to access the camera
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+                .then(function(stream) {
+                    const videoElement = document.getElementById('document-camera');
+                    videoElement.srcObject = stream;
+    
+                    // Make sure the video starts playing when metadata is loaded
+                    videoElement.onloadedmetadata = function() {
+                        videoElement.play();
+                    };
+                })
+                .catch(function(error) {
+                    console.error("Error accessing the camera: ", error);
+                });
+        }
+    
+        let currentStep = "front"; // Tracks the current step: 'front' or 'back'
+        let capturedPhotos = {}; // Object to store captured photos
+    
+        document.getElementById("shutter-button").addEventListener("click", function () {
+            // Capture the photo
+            captureDocumentPhoto(currentStep);
+    
+            // Switch instruction based on the current step
+            if (currentStep === "front") {
+                document.getElementById("instructions").innerHTML = 
+                    'Please take a photo of the <span class="highlight">back</span> of the document in proper lighting.';
+                currentStep = "back";
+            } else if (currentStep === "back") {
+                document.getElementById("instructions").textContent =
+                    "Both photos captured successfully. Click Submit to proceed.";
+                currentStep = "completed";
+    
+                // Show the existing Submit button
+                document.getElementById("Submit-button").style.display = "inline-block";
+            }
+        });
+    
+        function captureDocumentPhoto(step) {
+            const video = document.getElementById("document-camera");
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+    
+            // Set canvas dimensions to match the video
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+    
+            // Draw the current video frame onto the canvas
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+            // Convert canvas to image data (Base64 or Blob)
+            const imageData = canvas.toDataURL("image/png");
+    
+            // Save the captured photo
+            capturedPhotos[step] = imageData;
+             // Append the captured photo to the existing FormData object
+             formData.append(`${step}-photo`, imageData);
+    
+            console.log(`Captured ${step} photo:`, imageData);
+        }
+    
+       // Collect captured photos for submission
+        document.getElementById("Submit-button").addEventListener("click", () => {
+            if (!capturedPhotos.front || !capturedPhotos.back || !formData.get("photo1") || !formData.get("photo2") || !formData.get("photo3")) {
+                alert("Please ensure all photos are captured!");
+                return;
+            }
+            const accessToken = localStorage.getItem('access_token');
+            if (!accessToken) {
+                alert("Access token is missing!");
+                return;
+            }
+
+            // Get the CSRF token from the cookie
+            const csrfToken = getCookie('csrftoken');
+            if (!csrfToken) {
+                alert("CSRF token missing!");
+                return;
+            }
+
+            fetch('/kyc/SubmitKYC/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`,
+                    'X-CSRFToken': csrfToken // Add CSRF token in the header
+                },
+                body: JSON.stringify({
+                    photo1: formData.get("photo1"),
+                    photo2: formData.get("photo2"),
+                    photo3: formData.get("photo3"),
+                    front: capturedPhotos.front,
+                    back: capturedPhotos.back
+                })
+            })
+                .then(response => response.ok ? response.json() : Promise.reject(response.status))
+                .then(data => {
+                    alert("Submission successful!");
+                    console.log('Server response:', data);
+                    window.location.href = '/';
+                })
+                .catch(error => {
+                    console.error('Error uploading photos:', error);
+                    alert('Error uploading photos. Please try again.');
+                });
+        });
+    
+    // Helper function to get CSRF token from cookies
+    function getCookie(name) {
+        const cookieValue = document.cookie.split(';').find(cookie => cookie.trim().startsWith(name + "="));
+        return cookieValue ? decodeURIComponent(cookieValue.split('=')[1]) : null;
+    }
+
+    </script>
+    
+   
+
+</body>
+</html>

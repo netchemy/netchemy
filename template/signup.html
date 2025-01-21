@@ -1,0 +1,112 @@
+{% load socialaccount %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+</head>
+<body>
+
+    
+    <!-- Signup Form -->
+    <div class="login-container">
+        <form id="signup-form" action="{% url 'register' %}" method="post" class="form">
+            {% csrf_token %}
+            <h2>Sign Up</h2>
+            <div class="form-group">
+                <label for="full-name">User Name</label>
+                <input type="text" id="full-name" name="full-name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="user-role">Your Role</label>
+                <select id="user-role" name="user-role" required>
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="Developer">Developer</option>
+                    <option value="Designer">Designer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="user-Plan">Choose Plan</label>
+                <select id="user-Plan" name="user-Plan" required>
+                    <option value="" disabled selected>Choose your Plan</option>
+                    <option value="Creater">Life Time </option>
+                    <option value="Pro">Yearly</option>
+                    <option value="Basic">Monthly</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="user-nation">Choose nation</label>
+                <select id="user-nation" name="user-nation" required>
+                    <option value="" disabled selected>Select your nation</option>
+                    <option value="India">India </option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="signup-email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Confirm Password</label>
+                <input type="password" id="Confirm_Password" name="Confirm_Password" placeholder="Re-enter password" required>
+            </div>
+ 
+
+            <button type="submit" class="btn">Sign Up</button>
+            <a href="{% url 'login' %}">Already have an account? Login here</a>
+        </form>
+
+
+        
+        <div>
+            <br>
+            <div id="g_id_onload"
+            data-client_id="263398124569-d32ks8kjbe4edjhpdhgdjt3gstt79nbg.apps.googleusercontent.com"
+            data-context="signin"
+            data-ux_mode="redirect"
+            data-login_uri="http://localhost:8000/auth-receiver"
+            data-itp_support="true">
+       </div>
+       
+       <div class="g_id_signin"
+            data-type="standard"
+            data-shape="rectangular"
+            data-theme="outline"
+            data-text="signin_with"
+            data-size="large"
+            data-logo_alignment="left">
+       </div>
+       
+    
+        <a href="" class="github-button">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo">
+            Sign up with GitHub
+        </a>
+
+
+
+    </div>
+<!--functions-->
+{% if messages %}
+<script>
+    {% for message in messages %}
+        alert("{{ message|escapejs }}");
+    {% endfor %}
+    // Clear the message from session storage
+    window.location.href = window.location.href.split("?")[0];
+</script>
+{% endif %}
+    <script src="https://accounts.google.com/gsi/client" async></script>
+</body>
+</html>

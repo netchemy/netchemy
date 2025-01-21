@@ -1,0 +1,628 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+
+     <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=settings" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+    <!--<script src="/static/js/script.js" defer></script>-->
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="#" data-section="explore" class="nav-item">
+                    <span class="material-symbols-outlined">search</span>
+                    <span class="text">Explore</span></a>
+                </li>
+                <li><a href="#" data-section="earnings" class="nav-item">
+                    <span class="material-icons-outlined">favorite</span>
+                    <span class="text">Earnings</span></a>
+                </li>
+                <li><a href="#" data-section="profile" class="nav-item active">
+                    <span class="material-icons-outlined">person</span>
+                    <span class="text">Profile</span></a>
+                </li>
+                <li><a href="#" data-section="settings" class="nav-item">
+                    <span class="material-icons-outlined">settings</span>
+                    <span class="text">Settings</span></a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-section " id="earnings-content">
+                <h2>Payout Summary</h2>
+                    <!-- Payout Section -->
+                    <div class="payout-section">
+
+                        <h2>Acount KYC</h2>
+
+                        <div class="payout-history">
+                            <h2>{{ account.username }}</h2>
+                            {% if kyc_verified == False or kyc_verified == None %}
+                            <a href="{% url 'kyc' %}" class="verify-link">Verify Account</a>
+                            {% else %}
+                            <span>Verified</span>
+                            {% endif %}
+                        </div>
+                        
+
+
+
+                        <div class="payout-card">
+                            <h2>Successful Payouts</h2>
+                            <p>$0.00</p>
+
+                            <!-- Time Filters -->
+                            <div class="time-filters">
+                                <button>Last 7 days</button>
+                                <button>Last 30 days</button>
+                                <button>Last Year</button>
+                            </div>
+
+                        </div>
+                        <!--<div class="payout-card">
+                            <h2>Pending Payouts</h2>
+                            <p>$1000.00</p>
+                            <button class="withdraw-btn">Initiate Withdraw</button>
+                        </div>-->
+
+
+                        <!-- Linked Account Section -->
+                        <div class="linked-account">
+                            <h3>Your Linked Bank Account</h3>
+                            <p>xxxxxxx{{digits}}</p>
+                            <div class="account-actions">
+                                {% if digits == 'N/A' %}
+                                <button data-section="BankCard" class="Add">Add New</button>
+                                {% else %}
+                                <button data-section="Bankedit" class="Add" style="display: block;">Edit</button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <h2>Payout History</h2>
+
+                    <div class="payout-history">
+                        <h2>Netchemy-Home-Page</h2>
+                        <p>$1000.00</p>
+                    </div>
+
+                </div>
+    
+            <!--<div class="content-section " id="dashboard-content">
+                <h2>Analytics</h2>
+                <div class="tabs">
+                    <button class="tab" data-section="resources">This week</button>
+                    <button class="tab" data-section="courses">This month</button>
+                    <button class="tab" data-section="portfolio">This year</button>
+                </div>
+
+         
+                <div class="payout-section">
+                    <div class="payout-card">
+                        <h2>Total Listings</h2>
+                        <p>10</p>
+                    </div>
+
+                    <div class="payout-card">
+                        <h2>Purchases</h2>
+                        <p>2</p>
+                    </div>
+
+
+  
+                    <div class="linked-account">
+                        <h3>Revenue</h3>
+                        <p>$100.00</p>
+                    </div>
+
+                </div>
+
+
+            </div>-->
+    
+            <div class="content-section active" id="profile-content">
+                <header class="profile-header">
+                    <img src="{% static 'img/pro.png' %}" alt="Profile Picture" class="profile-picture">
+                    <div class="profile-details">
+                        <h1>{{account.username}}</h1>
+                        <p>{{account.role}}</p>
+                    </div>
+         
+                    
+
+                    <div class="revenu-details">
+                        <p>Earned</p>
+                        <p>$100.00</p>
+                    </div>
+
+                    <button class="edit-profile">Edit Profile</button>
+                </header>
+                
+                <div class="tabs">
+                    <button class="tab" data-section="resources">Resources</button>
+                    <button class="tab" data-section="courses">Analytics</button>
+                    <!--<button class="tab" data-section="portfolio">Portfolio</button>-->
+                </div>
+    
+                
+                <div class="content" id="main-content">
+                    
+    
+                    <div class="profile-section active" data-section="resources">
+                        <h2>Resources</h2>
+                        
+                        <!-- Card container with scrollable overflow -->
+                        <div class="cards-container">
+                            <!-- "+" Button styled as a card -->
+                            <div class="card add-card">
+                                <button data-section="Project" class="add-resource">+</button>
+                            </div>
+
+                            {% for item in project %}
+                                <!-- Example of a single card -->
+                                <a href="{% url 'tempView' item.id%}">
+                                <div class="card">
+                                    <img src="{{item.PreviewImage.url}}" alt="Resource Image" class="card-image">
+                                    <div class="card-content">
+                                        <h3 class="card-title">{{ item.Title }}</h3>
+                                        <p class="card-price">${{ item.price }}</p>
+                                    </div>
+                                </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="profile-section" data-section="courses">
+                        <h2>Analytics</h2>
+                        
+                
+                        <div class="payout-section">
+                            <div class="payout-card">
+                                <h2>Total Listings</h2>
+                                <p>10</p>
+                            </div>
+
+                            <div class="payout-card">
+                                <h2>Purchases</h2>
+                                <p>2</p>
+                            </div>
+
+
+        
+                            <div class="linked-account">
+                                <h3>Revenue</h3>
+                                <p>$100.00</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                 
+                    <div class="profile-section" data-section="portfolio">
+                        <h2>Portfolio</h2>
+                      
+                    </div>
+    
+                </div>
+            </div>
+    
+            <div class="content-section" id="settings-content">
+                <h2>Settings</h2>
+                <p>Settings section content...</p>
+            </div>
+
+            <div class="content-section" id="explore-content">
+                <div class="containers text-center">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+            
+                        <a  class="mar-logo d-flex align-items-center">
+                            <img src="{% static 'img/n1.svg' %}" alt="">
+                            <h1 class="marketTitle">Marketplace</h1>
+                          </a>
+                         
+                          <h1 data-aos="fade-up" class="market-sale-title">
+                            Community-made <b class="highlight">codebases</b>, 
+                            <b class="highlight">scripts</b>, 
+                            <b class="highlight">interactions</b> and more
+                          </h1>
+                          
+                     
+                    </div>
+                     
+                </div>  
+            
+            </div>
+            
+
+
+            <div class="content-section" id="Bankedit-content">
+                <div class="upload-container">
+                    <h1 class="upload-title">Account Edit</h1>
+                  
+                    <div class ="BankForm"> 
+                        <form id="Bank-form" method="POST" enctype="multipart/form-data" action="">
+                            {% csrf_token %}
+                            <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
+                        
+                            <div class="form-group1">
+                                <label for="title" class="form-label1">Account Holder Name</label>
+                                <input type="text" name="account-holder" id="account-holder" class="form-input1" value="{{banks.AccountName|default:''}}">
+                            </div>
+                            <div class="form-group1">
+                                <label for="title" class="form-label1">Account Number</label>
+                                <input type="text" name="account-number" id="account-number" class="form-input1" value="{{banks.AccountNo}}">
+                            </div>
+
+                            <div class="form-group1">
+                                <label for="title" class="form-label1">Bank Name</label>
+                                <input type="text" name="bank-name" id="bank-name" class="form-input1" value="{{banks.BankName}}">
+                            </div>
+                            
+
+                            <div class="form-group1">
+                                <label for="title" class="form-label1">IFSC Code</label>
+                                <input type="text" name="ifsc" id="ifsc" class="form-input1" value="{{banks.IFSC}}">
+                            </div>
+                        
+                            <div class="form-submit">
+                                <button type="submit" class="submit-button1">Save Account</button>
+                                </div >
+
+                        </form>
+                        
+                    </div>
+              
+                    
+                </div>
+            </div>
+
+
+            <div class="content-section" id="BankCard-content">
+                <h2>Bank Cards</h2>
+                <div class="upload-container">
+                    <h1 class="upload-title">Account Details</h1>
+                    <div class ="BankForm">
+                    <form id="Bank-form" method="POST" enctype="multipart/form-data" action="{% url 'BankCard' %}">
+                        {% csrf_token %}
+                        <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
+                    
+                        <div class="form-group1">
+                            <label for="title" class="form-label1">Account Holder Name</label>
+                            <input type="text" name="account-holder" id="account-holder" class="form-input1" placeholder="Enter account holder's name">
+                        </div>
+                        <div class="form-group1">
+                            <label for="title" class="form-label1">Account Number</label>
+                            <input type="text" name="account-number" id="account-number" class="form-input1" placeholder="Enter account number">
+                        </div>
+
+                        <div class="form-group1">
+                            <label for="title" class="form-label1">Bank Name</label>
+                            <input type="text" name="bank-name" id="bank-name" class="form-input1" placeholder="Enter bank name">
+                        </div>
+                        
+
+                        <div class="form-group1">
+                            <label for="title" class="form-label1">IFSC Code</label>
+                            <input type="text" name="ifsc" id="ifsc" class="form-input1" placeholder="Enter IFSC code">
+                        </div>
+                    
+                        <div class="form-submit">
+                            <button type="submit" class="submit-button1">Save Account</button>
+                            </div >
+
+                        </form>
+                    </div>
+                
+                    
+                </div>
+            </div>
+
+            <div class="content-section" id="Project-content">
+                <h2>Project-Form</h2>
+                <div class="upload-container">
+                    <h1 class="upload-title">Upload Your Project</h1>
+                    <form id="image-upload-form" method="POST" enctype="multipart/form-data" action="{% url 'Project_Upload'  %}">
+                        {% csrf_token %}
+                        <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
+                    
+                        <div class="form-group1">
+                            <label for="title" class="form-label1">Title</label>
+                            <input type="text" name="title" id="title" class="form-input1" placeholder="Enter Title">
+                        </div>
+                    
+                        <div class="form-group1">
+                            <label for="description" class="form-label1">Description</label>
+                            <textarea name="description" id="description" class="form-textarea1" placeholder="Enter Description"></textarea>
+                        </div>
+                    
+                        <div class="form-group1">
+                            <label for="project-file" class="form-label1">Project File (ZIP)</label>
+                            <input type="file" name="project_file" id="project-file" class="form-file1" accept=".zip">
+                        </div>
+                    
+                        <div class="form-group1">
+                            <label for="drive-link" class="form-label1">Drive Link</label>
+                            <input type="url" name="drive_link" id="drive-link" class="form-input1" placeholder="Enter Drive Link">
+                        </div>
+                    
+                        <div class="form-group1">
+                            <label for="whats-included" class="form-label1">What's Included</label>
+                            <textarea name="whats-included" id="whats-included" class="form-textarea1" placeholder="What's included"></textarea>
+                        </div>
+                    
+                        <div class="currency-select-container">
+                            <select name="currency">
+                                <option value="INR">INR</option>
+                                <option value="USD">USD</option>
+                            </select>
+                        </div>
+                    
+                        <div class="form-group1">
+                            <label for="price" class="form-label1">Set Price</label>
+                            <input type="text" name="price" id="price" class="form-input1" placeholder="Set 0 for free ">
+                        </div>
+                    
+                        <div class="form-group1">
+                            <label for="preview-link" class="form-label1">Preview Link</label>
+                            <input type="url" name="preview" id="preview-link" class="form-input1" placeholder="Preview Link">
+                        </div>
+                    
+                        <!--<div class="form-group1">
+                            <label for="PreviewImage" class="form-label1">Preview Image</label>
+                            <input type="file" name="PreviewImage" id="PreviewImage" class="form-file1" accept="image/*">
+                        </div>-->
+                    
+                        <div class="form-group1">
+                            <label for="images" class="form-label1">Select Images</label>
+                            <input type="file" name="images" id="images" class="form-file1" multiple accept="image/*">
+                        </div>
+
+                        <div class="form-submit">
+                        <button type="submit" class="submit-button1">Upload Project</button>
+                        </div >
+
+                        <h3 class="preview-title1">Image Preview</h3>
+                        <div id="image-preview" class="image-preview-container1"></div>
+                    </form>
+                    
+                
+                    
+                </div>
+            </div>
+            
+
+        </main>
+
+        <!-- Mobile Bottom Navigation -->
+        <nav class="mobile-bottom-nav">
+            <ul>
+                <li><a href="#" data-section="explore" class="nav-item">
+                    <span class="material-symbols-outlined">search</span>
+                </li>
+                <li><a href="#" data-section="earnings" class="nav-item">
+                    <span class="material-icons-outlined">favorite</span>
+                </li>
+                <li><a href="#" data-section="profile" class="nav-item active">
+                    <span class="material-icons-outlined">person</span>
+                </li>
+                <li><a href="#" data-section="settings" class="nav-item">
+                    <span class="material-icons-outlined">settings</span>
+                </li>
+            </ul>
+        </nav>
+    </div>
+<!--functions-->
+{% if messages %}
+<script>
+    {% for message in messages %}
+        alert("{{ message|escapejs }}");
+    {% endfor %}
+    // Clear the message from session storage
+    window.location.href = window.location.href.split("?")[0];
+</script>
+{% endif %}
+<script>
+    // Add interactivity if required, for example, toggling active tabs or other animations
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tabs .tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        });
+    });
+});
+
+</script>
+
+<script>
+    // Get all tab buttonsf
+const tabs = document.querySelectorAll('.tab');
+const sections = document.querySelectorAll('.profile-section');
+
+// Add click event listener to each tab
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Remove 'active' class from all tabs and sections
+        tabs.forEach(t => t.classList.remove('active'));
+        sections.forEach(section => section.classList.remove('active'));
+
+        // Add 'active' class to clicked tab and corresponding section
+        tab.classList.add('active');
+        const sectionId = tab.getAttribute('data-section');
+        const activeSection = document.querySelector(`.profile-section[data-section="${sectionId}"]`);
+        activeSection.classList.add('active');
+    });
+});
+
+</script>
+
+<script>
+    document.querySelector('.acc').addEventListener('click', function() {
+        const newCard = document.createElement('div');
+        newCard.classList.add('card');
+        newCard.innerHTML = `
+            <img src="{% static 'img/temp/1.png' %}" alt="Resource Image" class="card-image">
+            <div class="card-content">
+                <h3 class="card-title">New Resource</h3>
+                <p class="card-price">$39.99</p>
+            </div>
+        `;
+        document.querySelector('.cards-container').appendChild(newCard);
+    });
+    
+</script>
+
+
+
+<script>
+    // JavaScript to switch content when clicking sidebar items
+const navItems = document.querySelectorAll('.sidebar .nav-item');
+const contentSections = document.querySelectorAll('.main-content .content-section');
+
+navItems.forEach(item => {
+    item.addEventListener('click', function(event) {
+        // Deactivate all items and hide all sections
+        navItems.forEach(nav => nav.classList.remove('active'));
+        contentSections.forEach(section => section.classList.remove('active'));
+
+        // Activate the clicked item and corresponding section
+        item.classList.add('active');
+        const sectionId = item.getAttribute('data-section');
+        const activeSection = document.getElementById(`${sectionId}-content`);
+        activeSection.classList.add('active');
+    });
+});
+
+</script>
+
+<script>
+    // JavaScript to switch content when clicking sidebar items
+const MobileItems = document.querySelectorAll('.mobile-bottom-nav .nav-item');
+const MobileSections = document.querySelectorAll('.main-content .content-section');
+
+MobileItems.forEach(item => {
+    item.addEventListener('click', function(event) {
+        // Deactivate all items and hide all sections
+        MobileItems.forEach(nav => nav.classList.remove('active'));
+        MobileSections.forEach(section => section.classList.remove('active'));
+
+        // Activate the clicked item and corresponding section
+        item.classList.add('active');
+        const sectionId = item.getAttribute('data-section');
+        const activeSection = document.getElementById(`${sectionId}-content`);
+        activeSection.classList.add('active');
+    });
+});
+
+</script>
+
+<script>
+    // JavaScript to switch content when clicking sidebar items
+const Project = document.querySelectorAll('.card .add-resource');
+const ProjectForm = document.querySelectorAll('.main-content .content-section');
+
+Project.forEach(item => {
+    item.addEventListener('click', function(event) {
+        // Deactivate all items and hide all sections
+        Project.forEach(nav => nav.classList.remove('active'));
+        ProjectForm.forEach(section => section.classList.remove('active'));
+
+        // Activate the clicked item and corresponding section
+        item.classList.add('active');
+        const sectionId = item.getAttribute('data-section');
+        const activeSection = document.getElementById(`${sectionId}-content`);
+        activeSection.classList.add('active');
+    });
+});
+
+</script>
+
+
+<script>
+    // JavaScript to switch content when clicking sidebar items
+const Bank = document.querySelectorAll('.account-actions .Add');
+const BankCards = document.querySelectorAll('.main-content .content-section');
+
+Bank.forEach(item => {
+    item.addEventListener('click', function(event) {
+        // Deactivate all items and hide all sections
+        Bank.forEach(nav => nav.classList.remove('active'));
+        BankCards.forEach(section => section.classList.remove('active'));
+
+        // Activate the clicked item and corresponding section
+        item.classList.add('active');
+        const sectionId = item.getAttribute('data-section');
+        const activeSection = document.getElementById(`${sectionId}-content`);
+        activeSection.classList.add('active');
+    });
+});
+
+</script>
+
+
+
+<script>
+     // JavaScript for previewing multiple selected images
+     document.getElementById("images").addEventListener("change", function(event) {
+        const previewContainer = document.getElementById("image-preview");
+        previewContainer.innerHTML = ""; // Clear previous previews
+        const files = event.target.files;
+
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.classList.add("preview-image");
+                previewContainer.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+       
+</script>
+
+<script>
+    
+        // Get the token from Django context
+        const accessToken = '{{ access_token }}';
+        const refreshToken = '{{ refresh_token }}';
+
+        // Store tokens in localStorage or sessionStorage
+        localStorage.setItem('access_token', accessToken);
+        localStorage.setItem('refresh_token', refreshToken);
+
+
+
+         // Get the token from localStorage and insert it into the hidden input field
+        const accessTokens = localStorage.getItem('access_token');
+        if (accessTokens) {
+            document.getElementById('access_token').value = accessTokens;
+        }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Refund Policy</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .effective-date {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 30px;
+    }
+
+    .policy-section {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .policy-section h2 {
+      font-size: 1.2rem;
+      color: #444;
+      cursor: pointer;
+      padding: 15px;
+      background-color: #f7f7fa;
+      transition: background-color 0.3s ease;
+      margin: 0;
+    }
+
+    .policy-section h2:hover {
+      background-color: #ececff;
+    }
+
+    .policy-content {
+      display: none;
+      padding: 15px;
+      background-color: #ffffff;
+      border-top: 1px solid #ddd;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .policy-content ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+
+    .policy-content ul li {
+      margin: 8px 0;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      padding: 10px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    footer a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>No Refund Policy</h1>
+    <p class="effective-date">Effective Date: [Insert Date]</p>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">1. Scope</h2>
+      <div class="policy-content">
+        <p>This policy applies to all Users who purchase products or services through Netchemy.</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">2. Non-Refundable Items</h2>
+      <div class="policy-content">
+        <ul>
+          <li><strong>Payments made for:</strong></li>
+          <li>Resources (e.g., templates, components).</li>
+          <li>Subscription fees.</li>
+          <li>Job posting fees or supplementary services.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">3. Exceptions</h2>
+      <div class="policy-content">
+        <ul>
+          <li><strong>Refunds will only be considered in the following cases:</strong></li>
+          <li>Duplicate payments made in error.</li>
+          <li>Technical issues where the purchased service or resource was not delivered, and the issue cannot be resolved.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">4. Requesting Exceptions</h2>
+      <div class="policy-content">
+        <p>Users must submit a written request for an exception within 7 days of the transaction date, along with proof of payment and details of the issue, by contacting us at [Insert Contact Email].</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2 onclick="toggleContent(this)">5. Final Decision</h2>
+      <div class="policy-content">
+        <p>Trekato reserves the right to approve or deny refund requests at its sole discretion.</p>
+      </div>
+    </div>
+
+    <p>By making a purchase on Netchemy, Users acknowledge and agree to this No Refund Policy.</p>
+  </div>
+
+  <footer>
+    <p>Need help? <a href="#">Contact us</a>.</p>
+  </footer>
+
+  <script>
+    function toggleContent(element) {
+      const content = element.nextElementSibling;
+      const isVisible = content.style.display === "block";
+      document.querySelectorAll('.policy-content').forEach(el => el.style.display = "none");
+      content.style.display = isVisible ? "none" : "block";
+    }
+  </script>
+</body>
+</html>
