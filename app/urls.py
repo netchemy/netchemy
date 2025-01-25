@@ -15,6 +15,8 @@ urlpatterns = [
     path("register/",views.register,name = "register"),
     path("payment_success/<str:plan>",views.payment_success,name = "payment_success"),
     path("Entry/",views.Entry,name = "Entry"),
+    path("UploadProfilePic/",views.UploadProfilePic,name = "UploadProfilePic"),
+    path("ChangePassword/",views.ChangePassword,name = "ChangePassword"),
 
     path('upload-project/', views.upload_project, name='upload_project'),
 

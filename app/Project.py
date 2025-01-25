@@ -20,7 +20,9 @@ from datetime import datetime, timedelta
 from django.http import JsonResponse
 import os
 import json
+import time
 
+future_timestamp = int(time.time()) + (24 * 60 * 60) 
 client = razorpay.Client(auth=(RAZOR_KEY_ID,RAZOR_SECRET_ID))
 
 def Project_Upload(request):
@@ -87,31 +89,35 @@ def Project_Upload(request):
 
 
 def Project_checkout(request,id):
-    product = Project.objects.get(id= id) 
-    payment_capture = 1  
-    order_data = {
-        'amount': float(product.price) * 100, 
-        'currency': 'INR',
-        'payment_capture': payment_capture,
-    }
+    try:
+        product = Project.objects.get(id= id) 
+        payment_capture = 1  
+        order_data = {
+            'amount': float(product.price) * 100, 
+            'currency': 'INR',
+            'payment_capture': payment_capture,
+        }
 
 
-    order = client.order.create(data=order_data)
-    print(f"Order created: {order}")
+        order = client.order.create(data=order_data)
+        print(f"Order created: {order}")
 
-    request.session['product'] = product.id
-   
-    ord = {
-        'id': order.get('id'),
-        'amount': order.get('amount'),
-        'currency': order.get('currency'),
-        'key_id': RAZOR_KEY_ID,
-        
-    }
+        request.session['product'] = product.id
+    
+        ord = {
+            'id': order.get('id'),
+            'amount': order.get('amount'),
+            'currency': order.get('currency'),
+            'key_id': RAZOR_KEY_ID,
+            
+        }
 
-    return render(request,"Project_checkout.html",{'product': product,'order':ord})
+        return render(request,"Project_checkout.html",{'product': product,'order':ord})
 
-
+    except Exception as e:
+        # Log the exception and return an error response
+        print(f"Error: {e}")
+        return JsonResponse({"error": "An error occurred while processing your request."}, status=500)
 
 @csrf_exempt
 def market_pay(request):
@@ -136,7 +142,16 @@ def market_pay(request):
             sale = sales(SaleId=product, PaymentId=razorpay_payment_id)
             sale.save()
 
-            return JsonResponse({'success': True, 'message': 'Payment successful'})
+          
+
+            
+            transfer_response =  client.transfer.create({
+                                "amount":1000,
+                                "currency":"INR",
+                                "account": "acc_Pf4xvSsq86LBIs"
+                                })
+
+            return JsonResponse({'success': True, 'message': 'Payment and transfer successful', 'transfer_response': transfer_response})
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})

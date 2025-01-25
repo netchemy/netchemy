@@ -100,7 +100,7 @@
                     <h2>Payout History</h2>
 
                     <div class="payout-history">
-                        <h2>Netchemy-Home-Page</h2>
+                        <h2>Snippat-Home-Page</h2>
                         <p>$1000.00</p>
                     </div>
 
@@ -140,7 +140,11 @@
     
             <div class="content-section active" id="profile-content">
                 <header class="profile-header">
-                    <img src="{% static 'img/pro.png' %}" alt="Profile Picture" class="profile-picture">
+                    {% if account.ProfileImg %}
+                        <img src="{{ account.ProfileImg.url }}" alt="Profile Picture" class="profile-picture">
+                    {% else %}
+                        <img src="{% static 'img/pro.png' %}" alt="Default Profile Picture" class="profile-picture">
+                    {% endif %}
                     <div class="profile-details">
                         <h1>{{account.username}}</h1>
                         <p>{{account.role}}</p>
@@ -230,30 +234,60 @@
     
             <div class="content-section" id="settings-content">
                 <h2>Settings</h2>
-                <p>Settings section content...</p>
+                <div class="settings-options">
+                    <div class="setting-item">
+                        <form id="Profile-form" method="POST" enctype="multipart/form-data" action="{% url 'UploadProfilePic' %}">
+                            {% csrf_token %}
+                            <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
+                            <label for="ProfilePic">Profile Photo:</label>
+                            <input type="file" id="ProfilePic" name="ProfilePic" accept="image/*">
+                            <button id="change-password-btn">Save</button>
+                        </form>
+                    </div>
+                    <form id="ChangePassword-form" method="POST" enctype="multipart/form-data" action="{% url 'ChangePassword' %}">
+                        {% csrf_token %}
+                        <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
+                        <div class="setting-item">
+                            <label for="current-password">Current Password:</label>
+                            <input type="password" id="current-password" name = "current-password" placeholder="Enter current password">
+                        </div>
+                        <div class="setting-item">
+                            <label for="new-password">New Password:</label>
+                            <input type="password" id="new-password" name = "new-password" placeholder="Enter new password">
+                        </div>
+                        <div class="setting-item">
+                            <label for="new-password">Confirm New Password:</label>
+                            <input type="password" id="confirm-new-password" name = "confirm-new-password" placeholder="Confirm new password">
+                        </div>
+                        <div class = "blll">
+                            <button id="change-password-btn" type="submit">Change Password</button>
+                        </div>
+                    </form>
+                    <div class = "blll">
+                        <button id="logout-btn">Logout</button>
+                    </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="content-section" id="explore-content">
+            <!--<div class="content-section" id="explore-content">
                 <div class="containers text-center">
                     <div class="d-flex flex-column justify-content-center align-items-center">
             
                         <a  class="mar-logo d-flex align-items-center">
-                            <img src="{% static 'img/n1.svg' %}" alt="">
+                            <img src="{% static 'img/n2.svg' %}" alt="">
                             <h1 class="marketTitle">Marketplace</h1>
-                          </a>
+                        </a>
                          
-                          <h1 data-aos="fade-up" class="market-sale-title">
-                            Community-made <b class="highlight">codebases</b>, 
-                            <b class="highlight">scripts</b>, 
-                            <b class="highlight">interactions</b> and more
-                          </h1>
-                          
-                     
-                    </div>
-                     
+                        <h1 data-aos="fade-up" class="market-sale-title">
+                        Community-made <b class="highlight">codebases</b>, 
+                        <b class="highlight">scripts</b>, 
+                        <b class="highlight">interactions</b> and more
+                        </h1>
+
+                    </div>   
                 </div>  
-            
-            </div>
+            </div>-->
             
 
 
@@ -495,6 +529,33 @@ tabs.forEach(tab => {
     
 </script>
 
+<script>
+    document.getElementById("Profile-form").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        const form = document.getElementById("Profile-form");
+        const formData = new FormData(form);
+    
+        fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+            },
+        })
+        .then((response) => response.json()) // Parse JSON response
+        .then((data) => {
+            // Check if the response contains an error
+            if (data.error) {
+                alert(data.error); // Show error message in an alert
+            } else if (data.success) {
+                alert(data.success); // Show success message in an alert
+            }
+        })
+        .catch((error) => {
+            alert("An error occurred: " + error); // Catch any fetch-related errors and show them in alert
+        });
+    });
+</script>
 
 
 <script>

@@ -955,6 +955,30 @@ section,
   box-shadow: 0 8px 28px #3f3f3f;
 }
 
+
+
+.hero .btn-get-started2 {
+  color: #000;
+  background: #e6e1e1;
+  font-family: var(--heading-font);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 1px;
+  margin-left: 10px;
+  display: inline-block;
+  padding: 10px 28px;
+  border-radius: 50px;
+  transition: 0.5s;
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--accent-color), transparent 80%);
+}
+
+.hero .btn-get-started2:hover {
+  color:#ffffff;
+  background: #000000;
+  box-shadow: 0 8px 28px #3f3f3f;
+}
+
+
 .hero .btn-watch-video {
   font-size: 16px;
   transition: 0.5s;
@@ -2897,4 +2921,80 @@ display: flex;
 }
 .contact-form11 button:hover {
   background: #14a707;
+}
+
+#Work .section-title span {
+  color: blue;
+}
+.steps-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+}
+.step {
+  flex: 1;
+  margin: 0 10px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border-left: 5px solid;
+}
+.step:nth-child(1) {
+  border-left-color: #3E59E8;
+}
+.step:nth-child(2) {
+  border-left-color: #3E59E8;
+}
+.step:nth-child(3) {
+  border-left-color: #3E59E8;
+}
+.step h3 {
+  font-size: 1.5em;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+.step h3 span {
+  color: #3E59E8;
+}
+.step p {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.5;
+}
+@media (max-width: 768px) {
+  .steps-container {
+      flex-direction: column;
+  }
+  .step {
+      margin-bottom: 20px;
+  }
+}
+
+
+
+.Work .button-container {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.Work .join-button {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.Work .join-button:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
 }

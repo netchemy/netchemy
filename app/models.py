@@ -11,6 +11,7 @@ class account(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=100,unique=True,null=True)
 
+    ProfileImg = models.ImageField(upload_to='ProfileImg',null=True)
     role = models.CharField(max_length=100,null=True)
 
     email = models.EmailField(unique=True,null=True)

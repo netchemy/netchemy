@@ -14,6 +14,11 @@ from django.utils.timezone import now
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.tokens import UntypedToken
+from rest_framework_simplejwt.exceptions import TokenError
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.models import User
+from jwt import decode, ExpiredSignatureError, InvalidTokenError
 
 from django.utils import timezone
 from datetime import datetime, timedelta
@@ -157,10 +162,12 @@ def payment_success(request,plan):
 
         # Retrieve the email and password from the session
         email = request.session.get('email')
-        password = request.session.get('password')
+        passwor = request.session.get('password')
         Username = request.session.get('UserName')
         Role = request.session.get('role')
         
+        password = make_password(passwor)
+
         if plan == "Pro":
             startDate = timezone.now()
             endDate = startDate + timedelta(days=365)  # 1 year
@@ -192,69 +199,74 @@ def payment_success(request,plan):
 
 def Entry(request):
     email = str(request.POST.get("email"))
-    password = str(request.POST.get("password"))
+    passw = str(request.POST.get("password"))
     
-    entry = account.objects.filter(email=email, password=password)
-    
-    if entry.exists():
-        accounts = entry.first()  
-        
-        if accounts.Subscription:
-            if accounts.endDate <=now():
-                accounts.Subscription = False
-                accounts.save()
-                return redirect('login') 
-            else:
-                if accounts.SubPlan == "Creater":
-                    token_response = generate_jwt(accounts)
-                    kyc = KYCCapturedPhoto.objects.filter(kyc_id=accounts.id)
-
-                    project = Project.objects.filter(Project_id = accounts.id)
-
-                    response = render(request,"Admin.html", {
-                        'username': accounts.username,
-                        'access_token': token_response.data['access'],
-                        'refresh_token': token_response.data['refresh'],
-                        'account':accounts,
-                        'KYC':kyc,
-                        'project':project,
-                    })
-                    return response
-                elif accounts.SubPlan == "Pro":
-                    token_response = generate_jwt(accounts)
-                    kyc = KYCCapturedPhoto.objects.filter(kyc_id=accounts.id)
-                    project = Project.objects.filter(Project_id = accounts.id)
-                    bank = BankDetails.objects.filter(bankid=accounts.id).first() 
-                    digits = str(bank.AccountNo)[-4:] if bank and bank.AccountNo else "N/A"
-
-                    response = render(request,"Admin.html", {
-                        'username': accounts.username,
-                        'access_token': token_response.data['access'],
-                        'refresh_token': token_response.data['refresh'],
-                        'account':accounts,
-                        'KYC':kyc,
-                        'project':project,
-                        'digits':digits,
-                        'banks':bank,
-                    })
-                    return response
-                else:
-                    token_response = generate_jwt(accounts)
-                    
-                    response = render(request,"Admin.html", {
-                        'username': accounts.username,
-                        'access_token': token_response.data['access'],
-                        'refresh_token': token_response.data['refresh'],
-                        'account':accounts,
-                       
-                    })
-                    return response
-        else:
-            messages.error(request, 'Subscription Expired')
-            return redirect('login')
-    else:
-        messages.error(request, 'No Account Found')
+    try:
+        accounts = account.objects.get(email=email)
+    except account.DoesNotExist:
+        messages.error(request, 'No account found with this email.')
         return redirect('login')
+    
+    if not check_password(passw, accounts.password):
+        
+        messages.error(request, 'Incorrect password.')
+        return redirect('login')
+        
+
+    if accounts.Subscription:
+        if accounts.endDate <=now():
+            accounts.Subscription = False
+            accounts.save()
+            return redirect('login') 
+        else:
+            if accounts.SubPlan == "Creater":
+                token_response = generate_jwt(accounts)
+                kyc = KYCCapturedPhoto.objects.filter(kyc_id=accounts.id)
+
+                project = Project.objects.filter(Project_id = accounts.id)
+
+                response = render(request,"Admin.html", {
+                    'username': accounts.username,
+                    'access_token': token_response.data['access'],
+                    'refresh_token': token_response.data['refresh'],
+                    'account':accounts,
+                    'KYC':kyc,
+                    'project':project,
+                })
+                return response
+            elif accounts.SubPlan == "Pro":
+                token_response = generate_jwt(accounts)
+                kyc = KYCCapturedPhoto.objects.filter(kyc_id=accounts.id)
+                project = Project.objects.filter(Project_id = accounts.id)
+                bank = BankDetails.objects.filter(bankid=accounts.id).first() 
+                digits = str(bank.AccountNo)[-4:] if bank and bank.AccountNo else "N/A"
+
+                response = render(request,"Admin.html", {
+                    'username': accounts.username,
+                    'access_token': token_response.data['access'],
+                    'refresh_token': token_response.data['refresh'],
+                    'account':accounts,
+                    'KYC':kyc,
+                    'project':project,
+                    'digits':digits,
+                    'banks':bank,
+                })
+                return response
+            else:
+                token_response = generate_jwt(accounts)
+                
+                response = render(request,"Admin.html", {
+                    'username': accounts.username,
+                    'access_token': token_response.data['access'],
+                    'refresh_token': token_response.data['refresh'],
+                    'account':accounts,
+                    
+                })
+                return response
+    else:
+        messages.error(request, 'Subscription Expired')
+        return redirect('login')
+
     
 #token generation -JWT    
 def generate_jwt(user):
@@ -301,14 +313,14 @@ def auth_receiver(request):
                         return redirect('login') 
                     else:
                         # Subscription is active, allow login
-                        return render(request, "Chat.html")
+                        return render(request, "Admin.html")
             else:
                return redirect('login')
         else:  
             return redirect('chat')
     else:
        
-        return render(request, "Chooseplan.html",{'email':email})
+        return render(request, "plan.html",{'email':email})
 
 
 
@@ -370,3 +382,81 @@ def BankCard(request):
             messages.error(request, "Access token is missing.")
 
     return redirect('index')
+
+
+
+
+@csrf_exempt
+def UploadProfilePic(request):
+    if request.method == 'POST':
+        images = request.FILES.get('ProfilePic')
+        access_token = request.POST.get('access_token')
+
+        if not access_token:
+            return JsonResponse({'error': 'Access token is missing.'}, status=400)
+
+        
+        try:
+            # Decode access token
+            decoded_token = UntypedToken(access_token)
+            user_id = decoded_token.get('user_id')
+            if not user_id:
+                return JsonResponse({'error': 'Invalid access token.'}, status=401)
+
+            # Get the user
+            user = account.objects.get(id=user_id)  # Replace `account` with your user model
+            user.ProfileImg = images
+            user.save()
+
+            return JsonResponse({'success': 'Profile image uploaded successfully.'}, status=200)
+        except TokenError:
+            return JsonResponse({'error': 'Invalid or expired access token.'}, status=401)
+        except account.DoesNotExist:
+            return JsonResponse({'error': 'User not found.'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=405)
+    
+
+def ChangePassword(request):
+    if request.method == 'POST':
+        CurrentPassword = request.POST.get('current-password')
+        NewPassword = request.POST.get('new-password')
+        NewConfirmPassword = request.POST.get('confirm-new-password')
+        access_token = request.POST.get('access_token')
+
+        if not access_token:
+            return JsonResponse({'error': 'Access token is missing.'}, status=400)
+
+        if NewPassword != NewConfirmPassword:
+            return JsonResponse({'error': "New passwords do not match."}, status=400)
+
+        try:
+ 
+            decoded_token = decode(access_token, options={"verify_exp": False})  
+            user_id = decoded_token.get('user_id')
+
+            if not user_id:
+                return JsonResponse({'error': 'Invalid access token.'}, status=401)
+
+            user = account.objects.get(id=user_id)
+
+  
+            if not check_password(CurrentPassword, user.password):
+                return JsonResponse({'error': "Invalid current password."}, status=401)
+
+
+            user.password = make_password(NewPassword)
+            user.save()
+
+            return JsonResponse({'success': 'Password changed successfully.'}, status=200)
+
+        except ExpiredSignatureError:
+            return JsonResponse({'error': 'Access token has expired.'}, status=401)
+        except InvalidTokenError:
+            return JsonResponse({'error': 'Invalid access token.'}, status=401)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'User not found.'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
