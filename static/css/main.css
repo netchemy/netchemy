@@ -12,9 +12,9 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Poppins", serif;
-  --heading-font: "Poppins", serif;
-  --nav-font: "Poppins", serif;
+  --default-font: "Parkinsans", serif;;
+  --heading-font: "Parkinsans", serif;;
+  --nav-font: "Parkinsans", serif;;
 }
 
 /* Global Colors */
@@ -149,7 +149,7 @@ h6 {
 
   .header .btn-getstarted {
     order: 2;
-    margin: 0 15px 0 0;
+    margin: 0 15px 0 55%;
     padding: 6px 15px;
   }
 
@@ -565,7 +565,7 @@ h6 {
 }
 
 .footer .footer-newsletter .newsletter-form {
-  margin-top: 30px;
+  margin-bottom: 30px;
   padding: 6px 8px;
   position: relative;
   border-radius: 50px;
@@ -665,6 +665,7 @@ h6 {
 }
 
 .footer .copyright p {
+  color: #8E8E93;
   margin-bottom: 0;
 }
 
@@ -848,7 +849,9 @@ section,
 }
 
 .section-title p {
-  margin-bottom: 0;
+  font-weight: 400;
+  font-size: 20px;
+  margin-bottom: 9px;
 }
 
 /*--------------------------------------------------------------
@@ -2225,15 +2228,16 @@ section,
 
 .market-ben-item {
   padding: 10px 20px;
-  background-color: #e3f1ff; /* Slightly darker blue background for the items */
-  color: #000000; /* Black text */
-  font-weight: bold;
-  border-radius: 25px; /* Rounded pill-shaped edges for items */
+  background-color: #E8F4FE; 
+  color: #0099FF;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 25px; 
   text-align: center;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Light shadow for depth */
-  cursor: pointer; /* Cursor changes to pointer */
-  transition: transform 0.2s ease-in-out; /* Smooth hover animation */
+  font-family: "Parkinsans", serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  cursor: pointer; 
+  transition: transform 0.2s ease-in-out; 
 }
 
 /* Hover effect */
@@ -2266,7 +2270,7 @@ section,
 
 
 .about-section {
-  font-family: "Poppins", serif;
+  font-family:"Parkinsans", serif;
   font-weight: 400;
   max-width: 100%;
   background-color: #ffffff;
@@ -2277,14 +2281,37 @@ section,
 }
 
 .about-title {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 600;
   color: #000000;
   margin-top: 50px;
   text-align: left;
   margin-bottom: 10px;
 }
 
+.about-title span{
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+}
+
+.pointer{
+  display: flex;
+  font-size: 18px;
+  flex-direction: column;
+  align-content: flex-start;
+  align-items: flex-start;
+  line-height: 30px;
+  flex-wrap: nowrap;
+}
+
+.pointer li{
+  pointer-events: auto;
+  display: list-item;
+  align-items: flex-end;
+  text-align: left;
+  margin-top: 16px;
+}
 .main-title {
   font-size: 48px;
   color: #ffffff;
@@ -2301,6 +2328,13 @@ section,
 }
 
 
+.TeamTi{
+  font-family:"Parkinsans", serif;
+  font-size: 28px;
+  font-weight: 600;
+  margin-top :50px
+}
+
 .hit{
   display: flex;
   position: relative;
@@ -2310,7 +2344,7 @@ section,
 }
 
 .team-section {
-  text-align: center;
+  text-align: left;
   padding: 0;
 }
 
@@ -2322,7 +2356,7 @@ display: flex;
 .team-note {
   font-size: 18px;
   color: #333;
-  margin: 20px 0;
+
   display: flex;
   text-align: center;
   position: relative;
@@ -2333,14 +2367,12 @@ display: flex;
   background-color: #000000; /* Blue background */
   color: #fff; /* White text */
   border: none;
-  position: absolute;
   top: 0;
   right: 0;
-  border-radius: 5px;
+  border-radius: 30px;
   padding: 8px 16px;
   font-size: 14px;
   cursor: pointer;
-  margin-left: 10px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -2388,8 +2420,10 @@ display: flex;
 
 .team-members {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  position: relative;
+  left: -10px;
+  flex-wrap: wrap; 
+  margin-top: 50px;
   gap: 20px;
 }
 
@@ -2410,14 +2444,14 @@ display: flex;
 
 .member p {
   font-size: 14px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
 .member a {
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 30px;
   padding: 5px 10px;
   cursor: pointer;
   font-size: 14px;
@@ -2427,6 +2461,12 @@ display: flex;
 .member a:hover {
   background-color: #0056b3;
 }
+
+.name{
+  font-family:  "Parkinsans", serif;
+  font-weight: 600;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -2997,4 +3037,18 @@ display: flex;
 .Work .join-button:hover {
   background-color: #f0f0f0;
   border-color: #999;
+}
+
+
+.Privacy{
+  margin-top: 100px;
+}
+
+#Privacy h2, h3{
+  font-size: medium;
+  font-family:"Parkinsans", serif; 
+}
+
+.hero .market-sale-title{
+  margin-bottom: 30px;
 }

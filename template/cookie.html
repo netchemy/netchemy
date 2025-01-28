@@ -1,165 +1,220 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cookie Policy</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f9;
-      color: #333;
-      line-height: 1.6;
-    }
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>snippat</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      background: #ffffff;
-      padding: 20px 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
+  <!-- Favicons -->
+  <link href="{% static 'img/n2.svg' %}" rel="icon">
+  <link href="{% static 'img/n2.svg' %}" rel="apple-touch-icon">
 
-    h1 {
-      text-align: center;
-      color: #444;
-      font-size: 2rem;
-      margin-bottom: 30px;
-    }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-    .effective-date {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #777;
-      margin-bottom: 20px;
-    }
 
-    .policy-section {
-      margin-bottom: 20px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
-    }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
-    .policy-section h2 {
-      font-size: 1.2rem;
-      color: #444;
-      cursor: pointer;
-      padding: 15px;
-      background-color: #f7f7fa;
-      transition: background-color 0.3s ease;
-      margin: 0;
-    }
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
-    .policy-section h2:hover {
-      background-color: #ececff;
-    }
-
-    .policy-content {
-      display: none;
-      padding: 15px;
-      background-color: #ffffff;
-      border-top: 1px solid #ddd;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .policy-content ul {
-      padding-left: 20px;
-      margin: 10px 0;
-    }
-
-    .policy-content ul li {
-      margin: 5px 0;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 30px;
-      padding: 10px;
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    footer a {
-      color: #007BFF;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+  <!-- =======================================================
+  * Template Name: QuickStart
+  * Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
+  * Updated: May 18 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
-<body>
-  <div class="container">
-    <h1>Cookie Policy</h1>
-    <p class="effective-date">Effective Date: [Insert Date]</p>
 
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">1. What Are Cookies?</h2>
-      <div class="policy-content">
-        <p>Cookies are small text files stored on your device when you visit a website or use an app.</p>
-      </div>
-    </div>
+<body class="index-page">
 
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">2. Types of Cookies We Use</h2>
-      <div class="policy-content">
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto">
+        <img src="{% static 'img/n2.svg' %}" alt="">
+        <h1 class="sitename"></h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu d-flex align-items-center me-auto">
         <ul>
-          <li><strong>Essential Cookies:</strong> Required for core functionality, such as login and session management.</li>
-          <li><strong>Performance Cookies:</strong> Collect information about how Users interact with Snippat to improve usability.</li>
-          <li><strong>Targeting Cookies:</strong> Track browsing habits to deliver personalized recommendations and advertisements.</li>
+          
+          <li><a href="{% url 'market' %}" class="">Explore</a></li>
+          <li><a href="{% url 'index' %}">Sell</a></li>
+          <li><a href="{% url 'About' %}">About</a></li>
+          <li><a href="{% url 'About' %}">Contact</a></li>
         </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="{% url 'login' %}">Log in</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section id="Privacy" class="Privacy section">
+    <div class = "container">
+      <h1 class = "section-title">Cookies Policy for snippat.com</h1>
+
+      <h2>1. Overview</h2>
+      <p>Cookies enhance functionality, analyze traffic, and personalize ads. This policy explains their use and your control options.</p>
+
+      <h2>2. Types of Cookies</h2>
+      <h3>2.1 Strictly Necessary</h3>
+      <ul>
+          <li>Session cookies for login authentication.</li>
+          <li>Shopping cart cookies to track purchases.</li>
+      </ul>
+      <h3>2.2 Performance/Analytics</h3>
+      <ul>
+          <li>Google Analytics: Tracks page views, bounce rates, and traffic sources.</li>
+          <li>Hotjar: Monitors user behavior via heatmaps and session recordings.</li>
+      </ul>
+      <h3>2.3 Targeting/Advertising</h3>
+      <ul>
+          <li>Facebook Pixel: Retargets ads based on viewed products.</li>
+          <li>Google Ads: Tracks conversions and audience demographics.</li>
+      </ul>
+
+      <h2>3. Consent Management</h2>
+      <p>
+          First Visit: Cookie banner allows opt-in/opt-out for non-essential cookies.<br>
+          Preferences: Adjust settings via our <a href="{% url 'cookie' %}">Cookie Dashboard</a> or browser tools.
+      </p>
+
+      <h2>4. Third-Party Cookies</h2>
+      <ul>
+          <li>Embedded Content: YouTube videos or social media widgets may set cookies.</li>
+          <li>Analytics Partners: Data shared with Google is anonymized and aggregated.</li>
+      </ul>
+
+      <h2>5. Retention Periods</h2>
+      <ul>
+          <li>Session cookies expire when the browser closes.</li>
+          <li>Persistent cookies last up to 24 months (e.g., language preferences).</li>
+      </ul>
+
+      <h2>6. Managing Cookies</h2>
+      <p>
+          Browser Settings: Block/delete cookies via Chrome (Settings > Privacy), Safari (Preferences > Privacy), etc.<br>
+          Opt-Out Tools: Use the Digital Advertising Alliance (DAA) or Network Advertising Initiative (NAI) for ad cookies.
+      </p>
+
+      <h2>7. Other Tracking Technologies</h2>
+      <ul>
+          <li>Web Beacons: Track email open rates.</li>
+          <li>Local Storage: Stores user preferences beyond cookie limitations.</li>
+      </ul>
+
+      <h2>8. Updates</h2>
+      <p>We will notify users of material changes via email or site banners.</p>
+
+      <h2>9. Contact</h2>
+      <p>
+          Questions? Email <a href="mailto:support@snippat.com">support@snippat.com</a>.
+      </p>
+    </div>
+
+    
+  </section>
+  </main>
+
+  <footer id="footer" class="footer position-relative">
+
+    <div class="container footer-top">
+      <div class="row gy-3">
+
+ 
+        <div class="col-lg-4 col-md-6   footer-newsletter">
+          <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
+          <form action="https://formsubmit.co/support@snippat.com" method="post" class="php-email-form">
+            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+          </form>
+          <p>support@snippat.com</p>
+          <p>RMZ MILLENIA BUSINESS PARK,<br>
+            Perungudi, Chennai, 600096</p>
+         
+      </div>
+
+
+
+        
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="{% url 'terms' %}">Terms of service</a></li>
+            <li><a href="{% url 'privacy' %}">Privacy policy</a></li>
+            <li><a href="{% url 'cookie' %}">Cookies</a></li>
+            <li><a href="{% url 'norefund' %}">Refund policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>snippat</h4>
+          <ul>
+            <li><a href="{% url 'About' %}">About</a></li>
+            <li><a href="{% url 'About' %}">Contact</a></li>
+            <li><a href="{% url 'market' %}">Marketplace</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://x.com/snippatHq">Twitter</a></li>
+            <li><a href="#">Discord</a></li>
+            <li><a href="https://www.linkedin.com/company/snippat/">Linkedln</a></li>
+          </ul>
+        </div>
+        
+
       </div>
     </div>
 
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">3. Managing Cookies</h2>
-      <div class="policy-content">
-        <p>Users can control cookie preferences via their browser settings. Disabling cookies may affect the functionality of Snippat.</p>
-      </div>
+    <div class="container copyright text-center mt-4">
+      <p class="px-1 sitename">© snippat 2025<span>All Rights Reserved</p>
     </div>
 
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">4. Third-Party Cookies</h2>
-      <div class="policy-content">
-        <p>We may allow third-party service providers (e.g., Google Analytics) to set cookies for analytics or advertising purposes.</p>
-      </div>
-    </div>
-
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">5. Consent</h2>
-      <div class="policy-content">
-        <p>By using Snippat, you consent to the use of cookies as described in this policy.</p>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <p>Need help? <a href="#">Contact us</a>.</p>
   </footer>
 
-  <script>
-    function toggleContent(element) {
-      const content = element.nextElementSibling;
-      const isVisible = content.style.display === "block";
-      document.querySelectorAll('.policy-content').forEach(el => el.style.display = "none");
-      content.style.display = isVisible ? "none" : "block";
-    }
-  </script>
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+
 </body>
+
 </html>

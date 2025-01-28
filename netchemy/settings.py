@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -155,7 +155,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')]
 
-STATIC_ROOT = os.path.join(BASE_DIR,'ASSETS')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfile')
 
 
 # Ensure static files are compressed and cached
@@ -175,11 +175,8 @@ RAZOR_KEY_ID=os.environ['RAZOR_KEY_ID']
 RAZOR_SECRET_ID=os.environ['RAZOR_SECRET_ID']
 
 
-RAZORX_KEY_ID = "rzp_test_BX4r7ZoTWCn3bU"
 
-RAZORX_SECRET_ID = "4Njh42gia8UOZ0pxM3i6FG3k"
-
-BROKER_URL = 'redis://192.168.29.88:6379/'
+BROKER_URL = 'redis://localhost:6379/'
 
 
 REST_FRAMEWORK = {

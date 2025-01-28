@@ -1,187 +1,281 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #ffffff;
-      color: #333;
-      line-height: 1.6;
-    }
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>snippat</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      background: #ffffff;
-      padding: 20px 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
+  <!-- Favicons -->
+  <link href="{% static 'img/n2.svg' %}" rel="icon">
+  <link href="{% static 'img/n2.svg' %}" rel="apple-touch-icon">
 
-    h1 {
-      text-align: center;
-      color: #444;
-      font-size: 2rem;
-      margin-bottom: 30px;
-    }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-    .policy-section {
-      margin-bottom: 20px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
-    }
 
-    .policy-section h2 {
-      font-size: 1.2rem;
-      color: #444;
-      cursor: pointer;
-      padding: 15px;
-      background-color: #f7f7fa;
-      transition: background-color 0.3s ease;
-      margin: 0;
-    }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
-    .policy-section h2:hover {
-      background-color: #ececff;
-    }
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
-    .policy-content {
-      display: none;
-      padding: 15px;
-      background-color: #ffffff;
-      border-top: 1px solid #ddd;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .policy-content ul {
-      padding-left: 20px;
-      margin: 10px 0;
-    }
-
-    .policy-content ul li {
-      margin: 5px 0;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 30px;
-      padding: 10px;
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    footer a {
-      color: #007BFF;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+  <!-- =======================================================
+  * Template Name: QuickStart
+  * Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
+  * Updated: May 18 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
-<body>
-  <div class="container">
-    <h1>Privacy Policy</h1>
-    <p>
-        Effective Date: [Insert Date]
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto">
+        <img src="{% static 'img/n2.svg' %}" alt="">
+        <h1 class="sitename"></h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu d-flex align-items-center me-auto">
+        <ul>
+          
+          <li><a href="{% url 'market' %}" class="">Explore</a></li>
+          <li><a href="{% url 'index' %}">Sell</a></li>
+          <li><a href="{% url 'About' %}">About</a></li>
+          <li><a href="{% url 'About' %}">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="{% url 'login' %}">Log in</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section id="Privacy" class="Privacy section">
+    <div class = "container">
+      <h1 class = "section-title">Privacy Policy</h1>
+
+    <h2>1. Introduction</h2>
+    <p>snippat.com ("Website," "Platform," "Service"), owned and operated by Trekato Private Limited ("Company," "we," "us," or "our"), a private limited company registered under the laws of India, is dedicated to maintaining the privacy and security of all users. This Privacy Policy governs the collection, processing, storage, and disclosure of personal and non-personal information when you access or use snippat.com, including its subdomains, mobile applications (if applicable), and affiliated services. By using the Platform, you expressly consent to the practices described in this document.</p>
+
+    <h2>2. Scope and Applicability</h2>
+    <p>This policy applies to:</p>
+    <ul>
+        <li>Visitors, registered users, and purchasers of digital templates/products.</li>
+        <li>All interactions on snippat.com, including transactions, account management, and communications.</li>
+        <li>Users globally, though the Company is physically based in India and complies with Indian laws, including the Information Technology Act, 2000, and the proposed Personal Data Protection Bill (PDPB).</li>
+    </ul>
+
+    <h2>3. Information We Collect</h2>
+    <h3>3.1 Personal Data</h3>
+    <ul>
+        <li>Account Registration: Full name, email address, username, password, phone number, and billing address.</li>
+        <li>Transaction Details: Payment card information (processed via secure gateways), purchase history, invoice records, and subscription preferences.</li>
+        <li>Voluntary Submissions: Feedback, survey responses, contest entries, or communications with customer support.</li>
+    </ul>
+
+    <h3>3.2 Technical and Usage Data</h3>
+    <ul>
+        <li>Device Information: IP address, browser type (e.g., Chrome, Safari), operating system (e.g., Windows, iOS), device identifiers (e.g., IMEI), and mobile network data.</li>
+        <li>Analytics: Pages visited, time spent, clickstream patterns, referral URLs, and interactions with ads or embedded content.</li>
+        <li>Cookies and Tracking Technologies: See our <a href="{% url 'cookie' %}">Cookies Policy</a> for granular details.</li>
+    </ul>
+
+    <h3>3.3 Third-Party Data</h3>
+    <ul>
+        <li>Social Media: Information from platforms like Facebook or Google if you link accounts or use social login features.</li>
+        <li>Partners/Affiliates: Data from payment processors (e.g., Razorpay, Stripe), marketing agencies, or analytics providers (e.g., Google Analytics).</li>
+    </ul>
+
+    <h2>4. Purpose of Data Processing</h2>
+    <p>We process data to:</p>
+    <ul>
+        <li>Facilitate Services: Create accounts, process payments, deliver purchased templates, and provide customer support.</li>
+        <li>Enhance User Experience: Personalize content, recommend products, and optimize site navigation.</li>
+        <li>Marketing: Send promotional emails, newsletters, or targeted ads (users may opt out via unsubscribe links).</li>
+        <li>Legal Compliance: Meet tax obligations, respond to court orders, and prevent fraud or money laundering.</li>
+        <li>Security: Monitor for unauthorized access, breaches, or malicious activities.</li>
+    </ul>
+
+    <h2>5. Data Sharing and Disclosure</h2>
+    <h3>5.1 Service Providers</h3>
+    <p>We may share data with:</p>
+    <ul>
+        <li>Payment Processors: Third-party gateways (e.g., Razorpay, PayPal) handle transactions; we do not store full card details.</li>
+        <li>Hosting Providers: Cloud services (e.g., AWS, DigitalOcean) store data securely in compliance with industry standards.</li>
+        <li>Marketing Tools: Email services (e.g., Mailchimp) manage campaigns and user engagement.</li>
+    </ul>
+
+    <h3>5.2 Legal Obligations</h3>
+    <p>We may disclose data to:</p>
+    <ul>
+        <li>Government Authorities: To comply with Indian laws, court orders, or regulatory requirements.</li>
+        <li>Law Enforcement: In cases of suspected fraud, terrorism, or threats to public safety.</li>
+    </ul>
+
+    <h3>5.3 Business Transfers</h3>
+    <p>In mergers, acquisitions, or asset sales, user data may transfer to the new entity, subject to confidentiality agreements.</p>
+
+    <h2>6. International Data Transfers</h2>
+    <p>While snippat.com operates from India, data may be processed globally via third-party services (e.g., AWS servers in the EU/U.S.). We ensure safeguards under:</p>
+    <ul>
+        <li>GDPR: For EU users, transfers adhere to Standard Contractual Clauses (SCCs).</li>
+        <li>Data Localization: Indian user data is stored locally where legally mandated.</li>
+    </ul>
+
+    <h2>7. Data Retention</h2>
+    <ul>
+        <li>Active Accounts: Retained until deletion is requested.</li>
+        <li>Transaction Records: Stored for 7 years to comply with Indian tax laws.</li>
+        <li>Inactive Accounts: Deleted after 24 months of inactivity.</li>
+    </ul>
+
+    <h2>8. User Rights and Choices</h2>
+    <h3>8.1 Access and Correction</h3>
+    <p>Request a copy of your data or update inaccuracies via <a href="mailto:support@snippat.com">support email</a>.</p>
+
+    <h3>8.2 Data Deletion</h3>
+    <p>Close your account and erase personal data, excluding records required by law.</p>
+
+    <h3>8.3 Opt-Out</h3>
+    <ul>
+        <li>Marketing Communications: Unsubscribe via email footer links.</li>
+        <li>Cookies: Adjust preferences via browser settings or our cookie banner.</li>
+    </ul>
+
+    <h3>8.4 Data Portability</h3>
+    <p>Receive your data in a machine-readable format (e.g., CSV) upon request.</p>
+
+    <h2>9. Security Measures</h2>
+    <ul>
+        <li>Encryption: SSL/TLS for data in transit; AES-256 for data at rest.</li>
+        <li>Access Controls: Role-based permissions for employees; multi-factor authentication (MFA).</li>
+        <li>Audits: Regular penetration testing and vulnerability assessments.</li>
+    </ul>
+
+    <h2>10. Children’s Privacy</h2>
+    <p>snippat.com does not target or knowingly collect data from minors under 18. Parents/guardians may request deletion of inadvertently collected data.</p>
+
+    <h2>11. Updates to This Policy</h2>
+    <p>Revisions will be posted on this page with a revised "Last Updated" date. Material changes (e.g., new data uses) will trigger email notifications to registered users.</p>
+
+  
+
+    <h2>12. Contact Us</h2>
+    <p>For questions, data requests, or complaints:</p>
+    <ul>  
+        <li>Company: Trekato Private Limited</li>
+        <li>Address: RMZ MILLENIA BUSINESS PARK,
+          Perungudi, Chennai, 600096</li>
+        <li>Email: <a href="mailto:support@snippat.com">support@snippat.com</a></li>
+    </ul>
+
+    </div>
+
+    
+  </section>
+  </main>
+
+  <footer id="footer" class="footer position-relative">
+
+    <div class="container footer-top">
+      <div class="row gy-3">
+
+ 
+        <div class="col-lg-4 col-md-6   footer-newsletter">
+          <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
+          <form action="https://formsubmit.co/support@snippat.com" method="post" class="php-email-form">
+            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+          </form>
+          <p>support@snippat.com</p>
+          <p>RMZ MILLENIA BUSINESS PARK,<br>
+            Perungudi, Chennai, 600096</p>
+         
+      </div>
+
+
+
         
-        Trekato Private Limited (“Trekato”) is committed to safeguarding the privacy of users (“Users”) who access and use Snippat. This Privacy Policy explains how we collect, use, and protect your personal data in compliance with applicable laws.
-        </p>
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">1. Data Collection</h2>
-      <div class="policy-content">
-        <ul>
-          <li><strong>Personal Information:</strong> Name, email address, phone number, payment information, and billing address during registration or transactions.</li>
-          <li><strong>Usage Information:</strong> Device details, IP address, browser type, operating system, and app usage behavior.</li>
-          <li><strong>Content Information:</strong> Resources, comments, or messages uploaded or shared on Snippat.</li>
-        </ul>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="{% url 'terms' %}">Terms of service</a></li>
+            <li><a href="{% url 'privacy' %}">Privacy policy</a></li>
+            <li><a href="{% url 'cookie' %}">Cookies</a></li>
+            <li><a href="{% url 'norefund' %}">Refund policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>snippat</h4>
+          <ul>
+            <li><a href="{% url 'About' %}">About</a></li>
+            <li><a href="{% url 'About' %}">Contact</a></li>
+            <li><a href="{% url 'market' %}">Marketplace</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://x.com/snippatHq">Twitter</a></li>
+            <li><a href="#">Discord</a></li>
+            <li><a href="https://www.linkedin.com/company/snippat/">Linkedln</a></li>
+          </ul>
+        </div>
+        
+
       </div>
     </div>
 
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">2. Data Usage</h2>
-      <div class="policy-content">
-        <ul>
-          <li>Provide, operate, and improve Snippat services.</li>
-          <li>Personalize the user experience.</li>
-          <li>Process payments, transactions, and invoices.</li>
-          <li>Respond to customer inquiries and support requests.</li>
-          <li>Ensure security and monitor for fraud or misuse.</li>
-        </ul>
-      </div>
+    <div class="container copyright text-center mt-4">
+      <p class="px-1 sitename">© snippat 2025<span>All Rights Reserved</span></p>
     </div>
 
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">3. Third-party Sharing</h2>
-      <div class="policy-content">
-        <ul>
-          <li>With service providers (e.g., payment gateways, analytics providers) to facilitate Snippat’s operation.</li>
-          <li>To comply with legal obligations or enforce our Terms of Use.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">4. Data Retention</h2>
-      <div class="policy-content">
-        <p>We retain your data for as long as necessary to fulfill the purposes outlined in this Privacy Policy unless otherwise required by law.</p>
-      </div>
-    </div>
-
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">5. Data Security</h2>
-      <div class="policy-content">
-        <p>We employ appropriate technical and organizational measures to protect your data. However, we cannot guarantee absolute security due to the inherent risks of online services.</p>
-      </div>
-    </div>
-
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">6. Your Rights</h2>
-      <div class="policy-content">
-        <ul>
-          <li>Access, update, or delete your personal data.</li>
-          <li>Withdraw consent for data collection or request restrictions on data processing by contacting us at [Insert Contact Email].</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="policy-section">
-      <h2 onclick="toggleContent(this)">7. Changes to Privacy Policy</h2>
-      <div class="policy-content">
-        <p>We reserve the right to update this policy. Changes will be notified via email or the Snippat platform. Continued use of our services indicates acceptance of the revised policy.</p>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <p>Need help? <a href="#">Contact us</a>.</p>
   </footer>
 
-  <script>
-    function toggleContent(element) {
-      const content = element.nextElementSibling;
-      const isVisible = content.style.display === "block";
-      document.querySelectorAll('.policy-content').forEach(el => el.style.display = "none");
-      content.style.display = isVisible ? "none" : "block";
-    }
-  </script>
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+
+
+
+
 </body>
+
 </html>

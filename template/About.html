@@ -20,6 +20,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+
+
+
   <!-- Vendor CSS Files -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
@@ -49,11 +56,12 @@
 
       <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto">
         <img src="{% static 'img/n.svg' %}" alt="">
-        <h1 class="sitename">Snippat</h1>
+        <h1 class="sitename"></h1>
       </a>
 
       <nav id="navmenu" class="navmenu d-flex align-items-center me-auto">
         <ul>
+          
           <li><a href="{% url 'market' %}" class="">Explore</a></li>
           <li><a href="{% url 'index' %}">Sell</a></li>
           <li><a href="{% url 'About' %}">About</a></li>
@@ -62,7 +70,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="#">Log in</a>
+      <a class="btn-getstarted" href="{% url 'login' %}">Log in</a>
 
     </div>
   </header>
@@ -73,42 +81,50 @@
     <section id="net" class = "section">
       <div class = "container">
       <div class="about-section">
-        <h2 class="about-title">About, Snippat<br> MAKING 1 MILLION TECH CREATORS BY 2030</h2>
+        <h2 class="about-title">About, snippat.com<br> <span>CONNECTING 1 MILLION DEVELOPERS BY 2030</span> </h2>
         <p class="about-text">
-          We realized developers and designers are stuck between getting hired or starting a company. 
-          There’s no simple solution to help them to micro-create and monetize. That’s when we decided to launch Snippat.
+          As a developers, After scrapping a dozens of side project,
+          we asked: “What if someone else could use this?” But when we searched for a place to share or sell small, reusable work - like a Stripe payment snippet or a React dashboard template - there was nothing simple, fair, or open. 
+          So we built snippat.com a marketplace where creators monetize exactly what they already make and buyers save weeks of redundant work.
         </p>
         <p class="about-text">
-          From day one, Snippat was founded with the mission to provide inclusive space for creators to build, learn and monetize together. 
-          We believe the creator platforms needs to be open, accessible and sustainable.
+          Here’s how snippat.com helps:
         </p>
+        <ul class = "pointer">
+          <li>Creators turn forgotten code into cash. Sell a 50-line authentication script, a Figma UI kit or an AI chatbot blueprint. </li>
+          <li>Buyers skip reinventing the wheel. Buy a vetted template for 1/10th the cost of hiring a freelancer. Customize it freely - no lock-in.</li>
+        </ul>
         <p class="about-text">
-          When designing the product and the organization, we focused on the longevity of our technology, ensuring we can continue to support creators for years to come. 
+          Just code solving real problems. Built by developers, for developers. Always will be.
         </p>
 
 
         <div class="team-section">
-
+          <h2 class = "TeamTi">Team</h2>
           <p class="team-note">
-            Young and fast-moving with a high pace of execution.
-            <button>+ Join our Team</button>
+            Young and fast moving with a high pace of execution. Join us in making micro-work the future of innovation.
           </p>
- 
+          <div class = "team-note">
+            <button>+ Join our Team</button>
+          </div>
 
           <div class="team-members">
             <div class="member">
               <img src="{% static 'img/a1.svg' %}" alt="Co-founder">
-              <p>Co-founder</p>
+              <p class = "name">Vimal</p>
+              <p class = "rolis">Co-founder</p>
               <a href="https://www.linkedin.com/in/vimalsreal/">Connect</a>
             </div>
             <div class="member">
               <img src="{% static 'img/a2.svg' %}" alt="Co-founder' %}">
-              <p>Co-founder</p>
+              <p class = "name">Kiran</p>
+              <p class = "rolis">Co-founder</p>
               <a href="https://www.linkedin.com/in/vivekjaglan/">Connect</a>
             </div>
             <div class="member">
               <img src="{% static 'img/a3.svg' %}" alt="Co-founder">
-              <p>Co-founder</p>
+              <p class = "name">Vivek</p>
+              <p class = "rolis">Co-founder</p>
               <a href="https://www.linkedin.com/in/kiran-kumar-643b3625a/">Connect</a>
             </div>
           </div>
@@ -147,58 +163,57 @@
 
  
         <div class="col-lg-4 col-md-6   footer-newsletter">
-            <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
-            <p>Contact: hello@Snippat.com</p>
-            <p>RMZ MILLENIA BUSINESS PARK,<br>
-              Perungudi, Chennai, 600096</p>
-            <form action="https://formsubmit.co/Snippat.hq@gmail.com" method="post" class="php-email-form">
-              <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-            </form>
-          </div>
+          <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
+          <form action="https://formsubmit.co/Snippat.hq@gmail.com" method="post" class="php-email-form">
+            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+          </form>
+          <p>support@snippat.com</p>
+          <p>RMZ MILLENIA BUSINESS PARK,<br>
+            Perungudi, Chennai, 600096</p>
+         
+      </div>
 
 
 
         
 
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="{% url 'terms' %}">Terms of service</a></li>
-              <li><a href="{% url 'privacy' %}">Privacy policy</a></li>
-              <li><a href="{% url 'cookie' %}">Cookies</a></li>
-              <li><a href="{% url 'norefund' %}">Refund policy</a></li>
-            </ul>
-          </div>
-  
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Snippat</h4>
-            <ul>
-              <li><a href="{% url 'About' %}">About</a></li>
-              <li><a href="{% url 'About' %}">Contact</a></li>
-              <li><a href="{% url 'market' %}">Marketplace</a></li>
-            </ul>
-          </div>
-  
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Connect</h4>
-            <ul>
-              <li><a href="https://x.com/SnippatHq">Twitter</a></li>
-              <li><a href="#">Discord</a></li>
-              <li><a href="https://www.linkedin.com/company/Snippat/">Linkedln</a></li>
-            </ul>
-          </div>
-          
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="{% url 'terms' %}">Terms of service</a></li>
+            <li><a href="{% url 'privacy' %}">Privacy policy</a></li>
+            <li><a href="{% url 'cookie' %}">Cookies</a></li>
+            <li><a href="{% url 'norefund' %}">Refund policy</a></li>
+          </ul>
+        </div>
 
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Snippat</h4>
+          <ul>
+            <li><a href="{% url 'About' %}">About</a></li>
+            <li><a href="{% url 'About' %}">Contact</a></li>
+            <li><a href="{% url 'market' %}">Marketplace</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://x.com/SnippatHq">Twitter</a></li>
+            <li><a href="#">Discord</a></li>
+            <li><a href="https://www.linkedin.com/company/Snippat/">Linkedln</a></li>
+          </ul>
+        </div>
         
 
       </div>
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p>© <strong class="px-1 sitename">Snippat 2025</strong><span>All Rights Reserved</span></p>
+      <p class="px-1 sitename">© Snippat 2025<span>All Rights Reserved</span></p>
     </div>
 
   </footer>
