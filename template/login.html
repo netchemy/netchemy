@@ -32,7 +32,7 @@
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
             <button type="submit" class="btn">Login</button>
-            <a href = "{% url 'signup' %}">Don't have an account? Sign up here</a>
+            <a class = "bitss"  href = "{% url 'signup' %}">Don't have an account? Sign up here</a>
         </form>
 
 
@@ -41,9 +41,9 @@
             <br>
             <div id="g_id_onload"
             data-client_id="263398124569-d32ks8kjbe4edjhpdhgdjt3gstt79nbg.apps.googleusercontent.com"
-            data-context="signin"
+            data-context="Continue"
             data-ux_mode="redirect"
-            data-login_uri="http://127.0.0.1:8000/auth_receiver"
+            data-login_uri="https://snippat.com/auth-receiver"
             data-itp_support="true">
        </div>
        
@@ -51,15 +51,15 @@
             data-type="standard"
             data-shape="rectangular"
             data-theme="outline"
-            data-text="signin_with"
+            data-text="Continue with"
             data-size="large"
             data-logo_alignment="left">
        </div>
        
     
         <a href="{% provider_login_url 'github' %}" class="github-button">
-            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo">
-            Sign up with GitHub
+            <img src="{% static 'img/git.svg' %}" alt="GitHub Logo">
+            Continue with GitHub
         </a>
 
 

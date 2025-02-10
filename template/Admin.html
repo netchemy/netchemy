@@ -36,7 +36,7 @@
                 </li>
                 <li><a href="#" data-section="earnings" class="nav-item">
                     <span class="material-icons-outlined">favorite</span>
-                    <span class="text">Earnings</span></a>
+                    <span class="text">Payouts</span></a>
                 </li>
                 <li><a href="#" data-section="profile" class="nav-item active">
                     <span class="material-icons-outlined">person</span>
@@ -52,14 +52,15 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="content-section " id="earnings-content">
-                <h2>Payout Summary</h2>
+               
                     <!-- Payout Section -->
                     <div class="payout-section">
 
-                        <h2>Acount KYC</h2>
-
                         <div class="payout-history">
-                            <h2>{{ account.username }}</h2>
+                            <h2>Acount KYC
+                                <span class="info-icon">i
+                                <span class="tooltip">Verifiy required to upload project</span>
+                            </span></h2>
                             {% if kyc_verified == False or kyc_verified == None %}
                             <a href="{% url 'kyc' %}" class="verify-link">Verify Account</a>
                             {% else %}
@@ -71,8 +72,11 @@
 
 
                         <div class="payout-card">
-                            <h2>Successful Payouts</h2>
-                            <p>$0.00</p>
+                            <p id="noDataMessage" style="display: none; text-align: center; font-size: 16px; color: gray;">
+                                No payout data available.
+                            </p>
+                            
+                            <canvas id="payoutChart"></canvas>
 
                             <!-- Time Filters -->
                             <div class="time-filters">
@@ -91,20 +95,48 @@
 
                         <!-- Linked Account Section -->
                         <div class="linked-account">
-                            <h3>Your Linked Bank Account</h3>
-                            <p>xxxxxxx{{digits}}</p>
-                            <div class="account-actions">
-                                {% if digits == 'N/A' %}
-                                <button data-section="BankCard" class="Add">Add New</button>
-                                {% else %}
-                                <button data-section="Bankedit" class="Add" style="display: block;">Edit</button>
-                                {% endif %}
-                            </div>
+                            <h2>Bank Details</h2>
+                            <form id="Bank-form" method="POST" enctype="multipart/form-data" action="{% url 'BankCard' %}">
+                                {% csrf_token %}
+                                <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
+                            
+                                <div class="form-group1">
+                                    <label for="title" class="form-label1">Account Holder Name</label>
+                                    <input type="text" name="account-holder" id="account-holder" class="form-input1" placeholder="Enter account holder's name">
+                                </div>
+                                <div class="form-group1">
+                                    <label for="title" class="form-label1">Account Number</label>
+                                    <input type="text" name="account-number" id="account-number" class="form-input1" placeholder="Enter account number">
+                                </div>
+        
+                                <div class="form-group1">
+                                    <label for="title" class="form-label1">Bank Name</label>
+                                    <input type="text" name="bank-name" id="bank-name" class="form-input1" placeholder="Enter bank name">
+                                </div>
+                                
+        
+                                <div class="form-group1">
+                                    <label for="title" class="form-label1">IFSC Code</label>
+                                    <input type="text" name="ifsc" id="ifsc" class="form-input1" placeholder="Enter IFSC code">
+                                </div>
+                            
+                                <div class="form-submit">
+                                    <div class="account-actions">
+                                        {% if digits == 'N/A' %}
+                                        <button type="submit" class="Add">Add New</button>
+                                        {% else %}
+                                        <button type="submit" class="Add" style="display: block;">Edit</button>
+                                        {% endif %}
+                                    </div>
+                                </div >
+        
+                                </form>
+                            
                         </div>
 
                     </div>
 
-                    <h2>Payout History</h2>
+                    <h2 class = "trans">Transactions</h2>
 
                     <div class="payout-history">
                         <h2>Snippat-Home-Page</h2>
@@ -157,14 +189,14 @@
                         <p>{{account.role}}</p>
                     </div>
          
-                    
 
                     <div class="revenu-details">
                         <p>Earned</p>
-                        <p>$100.00</p>
+                        <span id="amount">$100.00</span>
+                        <span class="eye-icon" onclick="toggleAmount()">👁️</span>
                     </div>
 
-                    <button class="edit-profile">Edit Profile</button>
+                    <button data-section="settings"  class="edit-profile">Edit Profile</button>
                 </header>
                 
                 <div class="tabs">
@@ -248,7 +280,7 @@
                             <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
                             <label for="ProfilePic">Profile Photo:</label>
                             <input type="file" id="ProfilePic" name="ProfilePic" accept="image/*">
-                            <button id="change-password-btn">Save</button>
+                            <button id="change-Profile-btn">Save</button>
                         </form>
                     </div>
                     <form id="ChangePassword-form" method="POST" enctype="multipart/form-data" action="{% url 'ChangePassword' %}">
@@ -273,10 +305,9 @@
                     <div class = "blll">
                         <button id="logout-btn">Logout</button>
                     </div>
-                    </div>
                 </div>
             </div>
-
+         
             <!--<div class="content-section" id="explore-content">
                 <div class="containers text-center">
                     <div class="d-flex flex-column justify-content-center align-items-center">
@@ -298,90 +329,12 @@
             
 
 
-            <div class="content-section" id="Bankedit-content">
-                <div class="upload-container">
-                    <h1 class="upload-title">Account Edit</h1>
-                  
-                    <div class ="BankForm"> 
-                        <form id="Bank-form" method="POST" enctype="multipart/form-data" action="">
-                            {% csrf_token %}
-                            <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
-                        
-                            <div class="form-group1">
-                                <label for="title" class="form-label1">Account Holder Name</label>
-                                <input type="text" name="account-holder" id="account-holder" class="form-input1" value="{{banks.AccountName|default:''}}">
-                            </div>
-                            <div class="form-group1">
-                                <label for="title" class="form-label1">Account Number</label>
-                                <input type="text" name="account-number" id="account-number" class="form-input1" value="{{banks.AccountNo}}">
-                            </div>
-
-                            <div class="form-group1">
-                                <label for="title" class="form-label1">Bank Name</label>
-                                <input type="text" name="bank-name" id="bank-name" class="form-input1" value="{{banks.BankName}}">
-                            </div>
-                            
-
-                            <div class="form-group1">
-                                <label for="title" class="form-label1">IFSC Code</label>
-                                <input type="text" name="ifsc" id="ifsc" class="form-input1" value="{{banks.IFSC}}">
-                            </div>
-                        
-                            <div class="form-submit">
-                                <button type="submit" class="submit-button1">Save Account</button>
-                                </div >
-
-                        </form>
-                        
-                    </div>
-              
-                    
-                </div>
-            </div>
+           
 
 
-            <div class="content-section" id="BankCard-content">
-                <h2>Bank Cards</h2>
-                <div class="upload-container">
-                    <h1 class="upload-title">Account Details</h1>
-                    <div class ="BankForm">
-                    <form id="Bank-form" method="POST" enctype="multipart/form-data" action="{% url 'BankCard' %}">
-                        {% csrf_token %}
-                        <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
-                    
-                        <div class="form-group1">
-                            <label for="title" class="form-label1">Account Holder Name</label>
-                            <input type="text" name="account-holder" id="account-holder" class="form-input1" placeholder="Enter account holder's name">
-                        </div>
-                        <div class="form-group1">
-                            <label for="title" class="form-label1">Account Number</label>
-                            <input type="text" name="account-number" id="account-number" class="form-input1" placeholder="Enter account number">
-                        </div>
-
-                        <div class="form-group1">
-                            <label for="title" class="form-label1">Bank Name</label>
-                            <input type="text" name="bank-name" id="bank-name" class="form-input1" placeholder="Enter bank name">
-                        </div>
-                        
-
-                        <div class="form-group1">
-                            <label for="title" class="form-label1">IFSC Code</label>
-                            <input type="text" name="ifsc" id="ifsc" class="form-input1" placeholder="Enter IFSC code">
-                        </div>
-                    
-                        <div class="form-submit">
-                            <button type="submit" class="submit-button1">Save Account</button>
-                            </div >
-
-                        </form>
-                    </div>
-                
-                    
-                </div>
-            </div>
+           
 
             <div class="content-section" id="Project-content">
-                <h2>Project-Form</h2>
                 <div class="upload-container">
                     <h1 class="upload-title">Upload Your Project</h1>
                     <form id="image-upload-form" method="POST" enctype="multipart/form-data" action="{% url 'Project_Upload'  %}">
@@ -407,6 +360,11 @@
                             <label for="drive-link" class="form-label1">Drive Link</label>
                             <input type="url" name="drive_link" id="drive-link" class="form-input1" placeholder="Enter Drive Link">
                         </div>
+
+                        <!--<div class="form-group1">
+                            <label for="project-file" class="form-label1">Demo Video</label>
+                            <input type="file" name="Demo_video" id="Demo_video" class="form-file1" accept=".mp4">
+                        </div>-->
                     
                         <div class="form-group1">
                             <label for="whats-included" class="form-label1">What's Included</label>
@@ -628,17 +586,16 @@ Project.forEach(item => {
 
 </script>
 
-
 <script>
     // JavaScript to switch content when clicking sidebar items
-const Bank = document.querySelectorAll('.account-actions .Add');
-const BankCards = document.querySelectorAll('.main-content .content-section');
+const edit = document.querySelectorAll('.edit-profile');
+const editForm = document.querySelectorAll('.main-content .content-section');
 
-Bank.forEach(item => {
+edit.forEach(item => {
     item.addEventListener('click', function(event) {
         // Deactivate all items and hide all sections
-        Bank.forEach(nav => nav.classList.remove('active'));
-        BankCards.forEach(section => section.classList.remove('active'));
+        edit.forEach(nav => nav.classList.remove('active'));
+        editForm.forEach(section => section.classList.remove('active'));
 
         // Activate the clicked item and corresponding section
         item.classList.add('active');
@@ -690,6 +647,93 @@ Bank.forEach(item => {
         if (accessTokens) {
             document.getElementById('access_token').value = accessTokens;
         }
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let ctx = document.getElementById("payoutChart").getContext("2d");
+        let noDataMessage = document.getElementById("noDataMessage");
+        let payoutChart;
+    
+        // Function to fetch and update chart data
+        function updateChart(filter = "7days") {
+            fetch(`/get_payout_data/?filter=${filter}`)  // API URL
+                .then(response => response.json())
+                .then(data => {
+                    let labels = data.map(item => item.date);
+                    let values = data.map(item => item.amount);
+    
+                    if (payoutChart) {
+                        payoutChart.destroy(); // Destroy old chart before creating a new one
+                    }
+    
+                    if (data.length === 0) {
+                        noDataMessage.style.display = "block"; // Show message
+                        document.getElementById("payoutChart").style.display = "none"; // Hide chart
+                        return;
+                    } else {
+                        noDataMessage.style.display = "none"; // Hide message
+                        document.getElementById("payoutChart").style.display = "block"; // Show chart
+                    }
+    
+                    payoutChart = new Chart(ctx, {
+                        type: "line",
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: "Successful Payouts (₹)",
+                                data: values,
+                                backgroundColor: "#0075FF",
+                                borderColor: "#0075FF",
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: { beginAtZero: true }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error("Error fetching data:", error));
+        }
+    
+        // Load initial data
+        updateChart();
+    
+        // Event listeners for time filters
+        document.querySelectorAll(".time-filters button").forEach(button => {
+            button.addEventListener("click", function () {
+                let filter = this.textContent.replace(" ", "").toLowerCase();
+                updateChart(filter);
+            });
+        });
+    });
+    </script>
+    
+
+<script>
+    let isHidden = false;
+    let originalAmount = "{{ account.amount }}"; 
+
+    function toggleAmount() {
+        const amount = document.getElementById("amount");
+        const icon = document.querySelector(".eye-icon");
+
+        if (isHidden) {
+            amount.textContent = "₹"+originalAmount;  // Show the value
+            icon.textContent = "👁️"; // Eye open icon
+        } else {
+            amount.textContent = "****";  // Hide the value
+            icon.textContent = "👁‍🗨"; // Eye closed icon
+        }
+
+        isHidden = !isHidden;
+    }
 </script>
 
 </body>

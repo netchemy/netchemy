@@ -199,7 +199,7 @@
           <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="pricing-item featured">
                 <h3>Founding Creator</h3>
-                <h4><sup>$</sup>$99<span> /lifetime</span></h4>
+                <h4><sup>₹</sup>8,499<span> /lifetime</span></h4>
                 <ul>
                     <li> <span>+ 0% Commission</span></li>
                     <li> <span>+ Set your own price </span></li>
@@ -210,7 +210,7 @@
                     <li> <span>+ Instant Payouts</span></li>
                     <li> <span>+ 24/7 support</span></li>
                     <li> <span>+ Access to all upcoming features</span></li>
-                    <li></li>
+                
                 </ul>
                 <a href="{% url 'signup' %}" class="cta-btn">Choose lifetime plan</a>
             </div>
@@ -219,7 +219,7 @@
           <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
             <div class="pricing-item ">
               <h3>Pro</h3>
-              <h4><sup>$</sup>29<span> / year</span></h4>
+              <h4><sup>₹</sup>2,499<span> / year</span></h4>
          
               <ul>
                 <li> <span>+ 0% Commission</span></li>
@@ -232,7 +232,7 @@
                 <li></i> <span>+ 24/7 support</span></li>
                 <li></i> <span>+ Access to all upcoming features</span></li>
               </ul>
-              <a href="{% url 'signup' %}" class="cta-btn">Choose monthly plan</a>
+              <a href="{% url 'signup' %}" class="cta-btn">Choose yearly plan</a>
             </div>
           </div><!-- End Pricing Item -->
 
@@ -240,7 +240,7 @@
             <div class="pricing-item ">
               <h3>Basic</h3>
             
-              <h4><sup>$</sup>3<span> / month</span></h4>
+              <h4><sup>₹</sup>299<span> / month</span></h4>
              
               <ul>
                 <li><span>+ 0% Commission</span></li>
@@ -380,12 +380,16 @@
  
         <div class="col-lg-4 col-md-6   footer-newsletter">
           <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
-          <form action="https://formsubmit.co/Snippat.hq@gmail.com" method="post" class="php-email-form">
-            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+          <form action="https://formsubmit.co/support@snippat.com" method="post" class="php-email-form">
+            <div class="newsletter-form">
+                <input type="email" name="email" required>
+                <input type="submit" value="Subscribe">
+            </div>
             <div class="loading">Loading</div>
             <div class="error-message"></div>
             <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-          </form>
+        </form>
+        
           <p>support@snippat.com</p>
           <p>RMZ MILLENIA BUSINESS PARK,<br>
             Perungudi, Chennai, 600096</p>

@@ -104,7 +104,7 @@ h6 {
 }
 
 .header .logo img {
-  max-height: 36px;
+  max-height: 40px;
   margin-right: 8px;
 }
 
@@ -117,7 +117,7 @@ h6 {
 
 @media (max-width: 480px) {
   .header .logo img {
-    max-height: 24px;
+    max-height: 40px;
   }
 
   .header .logo h1 {
@@ -1009,7 +1009,7 @@ section,
 
 @media (max-width: 992px) {
   .hero .market-slogan{
-    font-size: 44px;
+    font-size: 42px;
     font-weight: 700;
     line-height: 72px;
   
@@ -1018,19 +1018,21 @@ section,
 
 @media (max-width: 640px) {
   .hero h1 {
-    font-size: 28px;
+    font-size: 24px;
     line-height: 36px;
   }
 
   .hero p {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 20px;
     margin-bottom: 30px;
   }
 
   .hero .btn-get-started,
+  .hero .btn-get-started2,
   .hero .btn-watch-video {
-    font-size: 13px;
+    font-size: 14px;
+    padding: 10px 20px;
   }
 }
 
@@ -2252,9 +2254,11 @@ section,
   }
 
   .market-ben-item {
-    font-size: 16px; /* Adjust font size for smaller screens */
+    font-size: 10px; /* Adjust font size for smaller screens */
     padding: 8px 15px;
   }
+
+  
 }
 
 @media (max-width: 480px) {
@@ -2263,9 +2267,13 @@ section,
   }
 
   .market-ben-item {
-    font-size: 14px; /* Adjust font size for very small screens */
+    font-size: 10px; /* Adjust font size for very small screens */
     padding: 6px 10px; /* Adjust padding */
   }
+
+  
+
+
 }
 
 
@@ -2392,6 +2400,11 @@ display: flex;
     padding: 10px 5px;
   }
 
+  .pointer{
+    font-size: 14px;
+    line-height: 20px;
+
+  }
   .team-note button {
     font-size: 12px;
     padding: 6px 12px;
@@ -2403,6 +2416,11 @@ display: flex;
     font-size: 14px;
   }
 
+  .pointer{
+    font-size: 14px;
+    line-height: 20px;
+
+  }
   .team-note button {
     font-size: 10px;
     padding: 4px 10px;
@@ -2471,7 +2489,9 @@ display: flex;
 /* Responsive Design */
 @media (max-width: 768px) {
   .team-note {
-    font-size: 16px;
+    font-size: 14px;
+    text-align: left;
+
   }
 
   .join-team {
@@ -2481,7 +2501,7 @@ display: flex;
   }
 
   .team-members {
-    gap: 15px;
+    gap: 0px;
   }
 
   .member img {
@@ -2502,7 +2522,9 @@ display: flex;
 @media (max-width: 480px) {
   .team-note {
     font-size: 14px;
-    padding: 0 5px;
+    padding: 0px;
+    text-align: left;
+
   }
 
   .join-team {
@@ -2512,7 +2534,7 @@ display: flex;
   }
 
   .team-members {
-    flex-direction: column; /* Stack items vertically on smaller screens */
+    flex-direction: row; /* Stack items vertically on smaller screens */
   }
 
   .member img {
@@ -2539,8 +2561,8 @@ display: flex;
     }
     
     .about-title {
-      font-size: 12px;
-      font-weight: 350;
+      font-size: 14px;
+      font-weight: 600;
       text-align: left;
       margin-bottom: 10px;
     }
@@ -2555,10 +2577,10 @@ display: flex;
     
     .about-text {
       font-size: 14px;
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.4;
       text-align: left;
-      margin: 20px 0;
+      margin: 10px 0;
     }
     
    
@@ -2632,11 +2654,13 @@ display: flex;
 }
 
 .product-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #000000;
+  margin-bottom: 25px;
 }
+
+
 .product-description {
   font-size: 16px;
   color: #555;
@@ -2706,42 +2730,53 @@ display: flex;
     box-shadow: 6px 8px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Billing Screen Styles */
-.billing-screen .container {
-  max-width: 600px;
-  margin: 0 auto;
+
+.billing-container {
+  background: #ffffff;
+  padding: 20px;
+  width: 100%;
 }
 
-.billing-screen .header {
+.billing-header {
+  font-size: 20px;
+  font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #007bff;
 }
 
-.billing-screen .billing-details {
-  margin-top: 20px;
-}
-
-.billing-screen .billing-item {
-  margin-bottom: 10px;
+.billing-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
   font-size: 16px;
 }
 
-.billing-screen .billing-item strong {
-  font-weight: bold;
-}
-
-.billing-screen .billing-item.total {
+.total {
   font-size: 18px;
   font-weight: bold;
-  color: #007bff;
+  color: #28a745;
+  border-top: 2px solid #ddd;
+  padding-top: 10px;
 }
 
-.billing-screen .purchase-button {
+
+ .billing-details {
+  margin-top: 20px;
+}
+
+
+ .billing-item strong {
+  font-weight: 400;
+}
+
+
+ .purchase-button {
   margin-top: 30px;
   text-align: center;
 }
 
-.billing-screen .btn-buy {
+ .btn-buy {
   padding: 10px 20px;
   font-size: 16px;
   background-color: #28a745;
@@ -2751,7 +2786,7 @@ display: flex;
   cursor: pointer;
 }
 
-.billing-screen .btn-buy:hover {
+ .btn-buy:hover {
   background-color: #218838;
 }
 
@@ -2790,14 +2825,15 @@ display: flex;
 .btn {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #3e59e8;
   color: white;
   text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: 30px;
+  font-weight: 400;
   cursor: pointer;
 }
 .btn:hover {
+  color: #ffffff;
   background-color: #0056b3;
 }
 .download-section {
@@ -2809,13 +2845,19 @@ display: flex;
 .btn-btn {
   display: block;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #3e59e8;
   color: white;
   text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border: none;
+  border-radius: 30px;
   cursor: pointer;
 }
+.text-container {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+}
+
 .btn-btn:hover {
   background-color: #0056b3;
 }
@@ -2824,9 +2866,8 @@ display: flex;
 .market-sale .card {
   width: 100%; /* Fixed width for each card */
   min-height: 250px; /* Ensure consistent card height */
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border:none;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -2845,23 +2886,27 @@ display: flex;
 
 .market-sale .card-image {
   width: 100%;
-  height: 150px;
   object-fit: cover; /* Ensures the image covers the card without distortion */
 }
 
 .market-sale .card-content {
+  display: flex;
   padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
 }
 
 .market-sale .card-title {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 200;
   margin: 5px 0;
 }
 
 .market-sale .card-price {
   font-size: 14px;
   color: #333;
+  margin: 0;
 }
 
 /* Ensure smooth scrolling on small screens */
@@ -3011,6 +3056,10 @@ display: flex;
   .step {
       margin-bottom: 20px;
   }
+
+  .Work .join-button {
+    font-size: 12px;
+  }
 }
 
 
@@ -3051,4 +3100,79 @@ display: flex;
 
 .hero .market-sale-title{
   margin-bottom: 30px;
+}
+
+
+.colls{
+  display: flex;
+  flex-direction: row;
+}
+
+.PPef{
+  max-width: 550px;
+}
+
+
+@media (max-width: 768px){
+  
+.colls{
+  display: flex;
+  flex-direction: column;
+}
+
+}
+
+
+
+#billing-form {
+  align-items: flex-end;
+  text-align: left;
+  max-width: 100%;
+  
+}
+
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+
+.form-group label {
+  display: block;
+  font-weight: 400;
+  margin-bottom: 5px;
+  color: #000000;
+}
+
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3e59e8;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+.billing-container .row {
+  display: flex;
+  gap: 15px; /* Adds spacing between fields */
+}
+
+.billing-container .row .form-group {
+  flex: 1; /* Makes both fields equal in width */
 }

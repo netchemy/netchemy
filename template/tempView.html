@@ -80,18 +80,55 @@
                 <h1 class="marketTitle">Marketplace</h1>
               </a>
 
-              <h1 data-aos="fade-up" class="market-sale-title">
-                Community-made <b class="highlight">algorithms</b>, 
-                <b class="highlight">interfaces</b>, 
-                <b class="highlight">interactions</b> and more
-              </h1>
-              
-              <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                <a href="{% url 'index' %}" class="btn-get-started">Sell now</a>
-                <a href="{% url 'signup' %}" class="btn-get-started2">Log in </a>
-              </div>
+            
           </div>
-         
+          <div class="big-header">
+            <div>
+                <div class="product-title">{{ product.Title }}</div>
+                <div class="product-description">{{ product.ProjectDis }}</div> <!-- Corrected typo -->
+                <!-- Conditional Button -->
+                {% if product.price == 0 %}
+                    <a href="{{ product.project_file.url }}" class="btn btn-purchase" download>Download Now</a>
+                {% else %}
+                    <a href="{% url 'Project_checkout' product.id %}" class="btn btn-purchase">Purchase for {{ product.price }} {{ product.currency }}</a>
+                {% endif %}
+                <a href="{{ product.PriviewLink }}" class="btn btn-preview">Preview</a>
+            </div>
+        </div>
+        
+        <div class="creator-info">
+            <img src="{% static 'img/pro.png' %}" alt="Creator Avatar">
+            <div>
+                <div><strong>{{ product.Project_id.username }}</strong></div> <!-- Accessing the related account -->
+                <div>Developer</div>
+            </div>
+            <div class="update-info">
+              Uploaded on <br> {{ product.uploaded_at|date:"M d, Y" }}
+          </div>
+          
+        </div>
+         <!-- What's Included Section -->
+         <div class="section-title">What's Included?</div>
+         <div class="content-section">{{ product.includes }}</div>
+      
+        <!-- Product Image Slider (Carousel) -->
+        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">
+          <div class="carousel-inner">
+              {% for image in image %}
+                  <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                      <img src="{{ image.file.url }}" class="d-block w-100" alt="Product Image">
+                  </div>
+              {% endfor %}
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+          </button>
+        </div>
         </div>  
 
       </div>
@@ -103,53 +140,7 @@
     <section id="market-sale" class="market-sale section">
       <div class="container">
           <!-- Header -->
-          <div class="big-header">
-              <div>
-                  <div class="product-title">{{ product.Title }}</div>
-                  <div class="product-description">{{ product.ProjectDis }}</div> <!-- Corrected typo -->
-                  <!-- Conditional Button -->
-                  {% if product.price == 0 %}
-                      <a href="{{ product.project_file.url }}" class="btn btn-purchase" download>Download Now</a>
-                  {% else %}
-                      <a href="{% url 'Project_checkout' product.id %}" class="btn btn-purchase">Purchase for {{ product.price }} {{ product.currency }}</a>
-                  {% endif %}
-                  <a href="{{ product.PriviewLink }}" class="btn btn-preview">Preview</a>
-              </div>
-          </div>
-          
-          <div class="creator-info">
-              <img src="{% static 'img/pro.png' %}" alt="Creator Avatar">
-              <div>
-                  <div><strong>{{ product.Project_id.username }}</strong></div> <!-- Accessing the related account -->
-                  <div>Developer</div>
-              </div>
-              <div class="update-info">
-                Uploaded on <br> {{ product.uploaded_at|date:"M d, Y" }}
-            </div>
-            
-          </div>
-           <!-- What's Included Section -->
-           <div class="section-title">What's Included?</div>
-           <div class="content-section">{{ product.includes }}</div>
         
-          <!-- Product Image Slider (Carousel) -->
-          <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">
-            <div class="carousel-inner">
-                {% for image in image %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <img src="{{ image.file.url }}" class="d-block w-100" alt="Product Image">
-                    </div>
-                {% endfor %}
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-          </div>
 
          
       </div>
@@ -169,7 +160,7 @@
  
         <div class="col-lg-4 col-md-6   footer-newsletter">
           <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
-          <form action="https://formsubmit.co/Snippat.hq@gmail.com" method="post" class="php-email-form">
+          <form action="https://formsubmit.co/support@snippat.com" method="post" class="php-email-form">
             <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
             <div class="loading">Loading</div>
             <div class="error-message"></div>

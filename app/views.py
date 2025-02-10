@@ -25,11 +25,12 @@ from datetime import datetime, timedelta
 from django.http import JsonResponse
 import os
 
-
+from django.core.mail import send_mail
 
 client = razorpay.Client(auth=(RAZOR_KEY_ID,RAZOR_SECRET_ID))
 # Create your views here.
 def index(request):
+   
     return render(request,'index.html')
 
 def About(request):
@@ -107,11 +108,11 @@ def register(request):
 
     price = 0
     if plan == "Pro":
-        price = 251041
+        price = 249900
     if plan == "Basic":
-        price = 25970 
+        price = 29900
     if plan == "Creater":
-        price = 857009 
+        price = 849900
     
     # Razorpay order creation
     currency = 'INR'
@@ -174,16 +175,14 @@ def payment_success(request,plan):
         elif plan == "Basic":
             startDate = timezone.now()
             endDate = startDate + timedelta(days=30)  # 1 month
-        elif plan == "Creator":
+        elif plan == "Creater":
             startDate = timezone.now()
-            endDate = datetime.max  # Infinite end date
+            endDate = timezone.datetime(2100, 1, 1, 0, 0, 0, tzinfo=timezone.utc) 
 
-        if email and not password:
-            user = account.objects.create(email = email,Subscription = True,endDate = endDate,payment_id = params_dict['razorpay_payment_id']) 
-    
+
         if email and password:
             # Save the user to the database
-            user = account.objects.create(username = Username,role = Role,email=email,endDate = endDate, password=password, Subscription=True,SubPlan = plan ,payment_id = params_dict['razorpay_payment_id'])
+            user = account.objects.create(username = Username,role = Role,email=email,startDate = startDate,endDate = endDate, password=password, Subscription=True,SubPlan = plan ,payment_id = params_dict['razorpay_payment_id'])
 
         # Optionally clear session data
         del request.session['email']
@@ -279,49 +278,55 @@ def generate_jwt(user):
 
 @csrf_exempt
 def auth_receiver(request):
+    token = request.POST.get('credential')
 
-    token = request.POST['credential']
+    if not token:
+        messages.error(request, "Invalid request")
+        return redirect('login')
 
     try:
         user_data = id_token.verify_oauth2_token(
             token, requests.Request(), os.environ['GOOGLE_OAUTH_CLIENT_ID']
         )
     except ValueError:
-        messages.error(request,status=403)
+        messages.error(request, "Invalid token")
         return redirect('login')
-    print("this is the data",user_data)
 
     email = user_data.get('email')
     if not email:
         messages.error(request, 'Email not found in token')
         return redirect('login')
 
-    # Check if the account exists
     accounts = account.objects.filter(email=email).first()
 
+    if not accounts:
+        return render(request, "plan.html", {'email': email})
 
-    if accounts:
-        if accounts.password:  
+    if accounts.Subscription and accounts.endDate <= now():
+        accounts.Subscription = False
+        accounts.save()
+        messages.error(request, 'Subscription Expired')
+        return render(request, "plan.html", {'email': email})
 
-            user = authenticate(email=email, password=account.password)
-            if user:
-                if accounts.Subscription:
-                    if accounts.endDate <=now():
-                        
-                        accounts.Subscription = False
-                        accounts.save()
-                        return redirect('login') 
-                    else:
-                        # Subscription is active, allow login
-                        return render(request, "Admin.html")
-            else:
-               return redirect('login')
-        else:  
-            return redirect('chat')
-    else:
-       
-        return render(request, "plan.html",{'email':email})
+    return render_admin_page(request, accounts)
 
+def render_admin_page(request, accounts):
+    token_response = generate_jwt(accounts)
+    kyc = KYCCapturedPhoto.objects.filter(kyc_id=accounts.id)
+    project = Project.objects.filter(Project_id=accounts.id)
+    bank = BankDetails.objects.filter(bankid=accounts.id).first()
+    digits = str(bank.AccountNo)[-4:] if bank and bank.AccountNo else "N/A"
+
+    return render(request, "Admin.html", {
+        'username': accounts.username,
+        'access_token': token_response.data['access'],
+        'refresh_token': token_response.data['refresh'],
+        'account': accounts,
+        'KYC': kyc,
+        'project': project,
+        'digits': digits,
+        'banks': bank,
+    })
 
 
 @csrf_exempt
@@ -460,3 +465,125 @@ def ChangePassword(request):
             return JsonResponse({'error': 'User not found.'}, status=404)
         except Exception as e:
             return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
+
+
+def Submail(request):
+    try:
+        subject = "Subcription"
+       
+        email = str(request.POST['email'])
+
+        msgs = f"Email: {email}\n"
+
+        recipient_list = ['kirankumarr1901@gmail.com'] 
+      
+        send_mail(subject, msgs, 'kirankumarr1901@gmail.com',recipient_list, fail_silently=False)
+        
+
+        return JsonResponse({'success': 'Thanks for reaching out. Well respond within the day.'})
+    except Exception as e:
+            return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
+
+
+def ContactMail(request):
+    try:
+        subject = str(request.POST['subject'])
+        name = str(request.POST['name'])
+        email = str(request.POST['email'])
+        msg = str(request.POST['message'])
+        msgs = f"Name: {name}\nEmail: {email}\n\nMessage: {msg}"
+
+        recipient_list = ['kirankumarr1901@gmail.com'] # List of recipient email addresses
+        send_mail(subject, msgs, 'kirankumarr1901@gmail.com',recipient_list, fail_silently=False)
+        
+
+        return JsonResponse({'success': 'Thanks for reaching out. Well respond within the day.'})
+    except Exception as e:
+            return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
+    
+
+
+def GooglePlan(request):
+    plan = request.GET.get('plan')
+    user_email = request.GET.get('email')
+
+    
+    price = 0
+    if plan == "Pro":
+        price = 249900
+    if plan == "Basic":
+        price = 29900
+    if plan == "Creater":
+        price = 849900
+    
+    # Razorpay order creation
+    currency = 'INR'
+    payment_capture = 1  
+        
+    order_data = {
+        'amount': price,  # amount in paise
+        'currency': currency,
+        'payment_capture': payment_capture,
+        
+    }
+    
+    order = client.order.create(data=order_data)
+    print(f"Order created: {order}")
+    
+    # Save email and hashed password temporarily
+    request.session['email'] = user_email
+ 
+    
+    ord = {
+        'id': order.get('id'),
+        'amount': order.get('amount'),
+        'currency': order.get('currency'),
+        'key_id': RAZOR_KEY_ID,
+        
+    }
+
+    return render(request, 'GCheckout.html', {'order':ord,'plan':plan,})
+
+
+
+@csrf_exempt
+def Gpayment_success(request,plan):
+    payment_id = request.POST['razorpay_payment_id']
+    order_id = request.POST['razorpay_order_id']
+    signature = request.POST['razorpay_signature']
+
+
+    params_dict = {
+    'razorpay_order_id': order_id,
+    'razorpay_payment_id': payment_id,
+    'razorpay_signature': signature
+    }
+    
+    try:
+        client.utility.verify_payment_signature(params_dict)
+
+        # Retrieve the email and password from the session
+        email = request.session.get('email')
+     
+        
+        if plan == "Pro":
+            startDate = timezone.now()
+            endDate = startDate + timedelta(days=365)  # 1 year
+        elif plan == "Basic":
+            startDate = timezone.now()
+            endDate = startDate + timedelta(days=30)  # 1 month
+        elif plan == "Creater":
+            startDate = timezone.now()
+            endDate = datetime.max
+
+        if email:
+            user = account.objects.create(email=email,startDate = startDate,endDate = endDate,Subscription=True,SubPlan = plan ,payment_id = params_dict['razorpay_payment_id'])
+
+        # Optionally clear session data
+        del request.session['email']
+  
+        
+        return redirect('login')
+       
+    except razorpay.errors.SignatureVerificationError:
+        return render(request, 'SignUp.html')

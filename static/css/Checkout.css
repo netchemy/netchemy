@@ -47,8 +47,8 @@ body {
     background-color: #0056b3;
 }
 .subscription-card {
-    background-color: #111;
-    color: #fff;
+    background-color: #ffffff;
+    color: #000000;
     border-radius: 12px;
     padding: 30px;
     width: 400px;
@@ -69,24 +69,21 @@ body {
     margin-bottom: 10px;
     font-size: 1rem;
 }
-.subscription-card ul li:before {
-    content: '\2713';
-    color: #4caf50;
-    margin-right: 10px;
-}
+
 .subscription-card .cta-button {
     display: inline-block;
-    background-color: #fff;
-    color: #000;
+    background-color: #3E59E8;
+    color: #ffffff;
     text-decoration: none;
     padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: bold;
+    border-radius: 30px;
+    border:none;
+    font-weight: 400;
     margin-top: 10px;
     transition: background-color 0.3s;
 }
 .subscription-card .cta-button:hover {
-    background-color: #ffc728;
+    background-color: #6c7bc4;
 }
 .github-button {
     display: flex;
@@ -142,4 +139,144 @@ select:focus {
 /* Placeholder styling (disabled first option) */
 select option[value=""] {
     color: #aaa;
+}
+
+
+
+/*--------------------------------------------------------------
+# Pricing Section
+--------------------------------------------------------------*/
+.pricing-item {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 96%);
+  padding: 40px 40px;
+  height: 100%;
+  border-radius: 15px;
+}
+
+h3 {
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+h4 {
+  color: #0075FF;
+  font-size: 48px;
+  font-weight: 700;
+  font-family: var(--heading-font);
+  margin-bottom: 0;
+}
+
+h4 sup {
+  font-size: 28px;
+}
+
+h4 span {
+  color: #0075FF;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.description {
+  font-size: 14px;
+}
+
+.cta-btn {
+  background-color: #ffffff;
+  color: #000000;
+  display: block;
+  text-align: center;
+  padding: 10px 35px;
+  border-radius: 25px;
+  border: 1px solid;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--heading-font);
+  transition: 0.3s;
+  margin-top: 20px;
+  margin-bottom: 6px;
+}
+
+.cta-btn:hover {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  text-align: left;
+  line-height: 20px;
+}
+
+ul li {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+ul li:last-child {
+  padding-bottom: 0;
+}
+
+ul i {
+  color: #059652;
+  font-size: 24px;
+  padding-right: 3px;
+}
+
+ul .na {
+  color: color-mix(in srgb, var(--default-color), transparent 60%);
+}
+
+ul .na i {
+  color: color-mix(in srgb, var(--default-color), transparent 60%);
+}
+
+ul .na span {
+  text-decoration: line-through;
+}
+
+.featured {
+  position: relative;
+}
+
+.featured .popular  {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #E8F4FE;
+  color: #0075FF;
+  padding: 5px 15px;
+  margin: 0;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.featured .cta-btn {
+  background: #000000;
+  color: var(--contrast-color);
+}
+
+@media (max-width: 992px) {
+  .box {
+    max-width: 60%;
+    margin: 0 auto 30px auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .box {
+    max-width: 80%;
+    margin: 0 auto 30px auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .box {
+    max-width: 100%;
+    margin: 0 auto 30px auto;
+  }
 }

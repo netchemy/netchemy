@@ -3,7 +3,7 @@ from django.contrib import messages
 import re
 import razorpay
 from django.views.decorators.csrf import csrf_exempt
-from .models import account,Project,KYCCapturedPhoto,BankDetails,ProjectFile,sales
+from .models import account,Project,KYCCapturedPhoto,BankDetails,ProjectFile,sales,Payouts
 from netchemy.settings import RAZOR_KEY_ID,RAZOR_SECRET_ID
 
 from google.oauth2 import id_token
@@ -21,6 +21,8 @@ from django.http import JsonResponse
 import os
 import json
 import time
+
+from django.core.mail import send_mail
 
 future_timestamp = int(time.time()) + (24 * 60 * 60) 
 client = razorpay.Client(auth=(RAZOR_KEY_ID,RAZOR_SECRET_ID))
@@ -121,11 +123,24 @@ def Project_checkout(request,id):
 
 @csrf_exempt
 def market_pay(request):
+   
     if request.method == 'POST':
         data = json.loads(request.body)
         razorpay_payment_id = data.get('razorpay_payment_id')
         razorpay_order_id = data.get('razorpay_order_id')
         razorpay_signature = data.get('razorpay_signature')
+
+
+        email = data.get("email")
+        address_line1 = data.get("address_line1")
+        country = data.get("country")
+        state = data.get("state")
+        city = data.get("city")
+        pincode = data.get("pincode")
+
+        full_address = f"{address_line1}, {country},{state} ,{city} - {pincode}".strip(", ")
+
+      
 
         id = request.session.get("product")
         try:
@@ -139,19 +154,39 @@ def market_pay(request):
 
             # Save payment data
             product = Project.objects.get(id=id)
-            sale = sales(SaleId=product, PaymentId=razorpay_payment_id)
+            sale = sales(SaleId=product, PaymentId=razorpay_payment_id, BuyerAddress = full_address, BuyerMail = email)
             sale.save()
 
-          
+            subject = "Snippat-Purchace"
+            name = product.Title
+            msg = f"Thank you for using snippat plateform here is the project link {product.project_file.url}"
+            msgs = f"Name: {name}\n purchase_id: {sale.SaleId}\n purchase_date :{sale.SaleDate} \n Message: {msg}"
 
+            recipient_list = [email] # List of recipient email addresses
+            send_mail(subject, msgs, 'netchemy.hq@gmail.com',recipient_list, fail_silently=False)
             
-            transfer_response =  client.transfer.create({
-                                "amount":1000,
+            return JsonResponse({'success': True, 'message': 'Payment successful If the download button didnt appear check your mail for the download link'})
+            
+            
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
+
+def Transfer(request):
+    
+    transfer_response =  client.transfer.create({
+                                "amount":'10000',
                                 "currency":"INR",
                                 "account": "acc_Pf4xvSsq86LBIs"
                                 })
 
-            return JsonResponse({'success': True, 'message': 'Payment and transfer successful', 'transfer_response': transfer_response})
-        except Exception as e:
-            return JsonResponse({'success': False, 'error': str(e)})
-    return JsonResponse({'success': False, 'error': 'Invalid request method'})
+    return JsonResponse({'success': True, 'message': 'Payment and transfer successful', 'transfer_response': transfer_response})
+
+
+
+def get_payout_data(request):
+    payments = Payouts.objects.values("Date", "PaidAmount").order_by("Date")  
+    if not payments:  
+        return JsonResponse([{"Date": "No Data", "PaidAmount": 0}], safe=False)
+    return JsonResponse(list(payments), safe=False)

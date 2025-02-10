@@ -70,5 +70,14 @@ class BankDetails(models.Model):
 class sales(models.Model):
     SaleId = models.ForeignKey(Project,on_delete= models.CASCADE)
     PaymentId = models.CharField(max_length=100,null = True)
+    BuyerAddress = models.CharField(max_length=250,null=True)
+    BuyerMail = models.EmailField(null=True)
     SaleDate = models.DateTimeField(auto_now_add=True,null=True)
-    
+
+
+class Payouts(models.Model):
+    PayoutBankID = models.ForeignKey(BankDetails,on_delete=models.CASCADE)
+    PaidAmount = models.IntegerField(null=True)
+    TransferId = models.CharField(max_length=100,null=True)
+    ProductId = models.ForeignKey(sales,on_delete=models.CASCADE)
+    Date = models.DateTimeField(auto_now_add=True,null=True)

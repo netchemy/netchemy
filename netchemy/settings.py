@@ -27,7 +27,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','snippat.com','www.snippat.com','13.203.82.160']
 
 
 # Application definition
@@ -40,14 +40,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-  
     "rest_framework_simplejwt",
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
+] 
+
+CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = [
+    'https://snippat.com',
+    'https://www.snippat.com',
+    'http://13.203.82.160',
+    
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -111,10 +118,25 @@ WSGI_APPLICATION = 'netchemy.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+       'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+"""DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Netchemy',
+        'USER': 'Netchemy19',
+        'PASSWORD': os.environ['DBPASS'],
+        'HOST': 'netchemy.c7ki0ggmq4hk.ap-south-1.rds.amazonaws.com',
+        'PORT': '3306',  # Default MySQL port,
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    }
+}"""
 
 
 # Password validation
@@ -196,20 +218,23 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=365),
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'netchemy.hq@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_HOST_USER = 'kirankumarr1901@gmail.com'
+EMAIL_HOST_PASSWORD = 'nbrmvjodykwmmhbl'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # settings.py
 
 ADMINS = [
-    ('netchemy', 'netchemy.hq@gmail.com'),
+    ('kiran', 'kirankumarr1901@gmail.com'),
 ]
 
 MANAGERS = ADMINS
 
-EMAIL_SUBJECT_PREFIX = '[netchemy Mail] '
+EMAIL_SUBJECT_PREFIX = '[Django Mail] ' 
