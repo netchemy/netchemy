@@ -18,6 +18,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,8 +59,8 @@
         <ul>
           <li><a href="{% url 'market' %}" class="">Explore</a></li>
           <li><a href="{% url 'index' %}">Sell</a></li>
-          <li><a href="{% url 'About' %}">About</a></li>
-          <li><a href="{% url 'About' %}">Contact</a></li>
+
+          <li><a href="{% url 'index' %}">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -74,10 +78,10 @@
       <div class="container text-center">
         <div class="d-flex flex-column justify-content-center align-items-center">
 
-            <a  class="mar-logo d-flex align-items-center">
+            <!--<a  class="mar-logo d-flex align-items-center">
                 <img src="{% static 'img/n3.svg' %}" alt="">
                 <h1 class="marketTitle">Marketplace</h1>
-              </a>
+              </a>-->
              
               <h1 data-aos="fade-up" class="market-sale-title">
                 Community-made <b class="highlight">codebases</b>, 
@@ -90,19 +94,23 @@
                 <a href="{% url 'signup' %}" class="btn-get-started2">Log in </a>
               </div>
           </div>
-         
-        </div>  
-
+          <form class="search-form" method="GET" action="{% url 'market_sale' %}">
+            <input type="text" name="q" class="search-input" placeholder="Search..." value="{{ query }}">
+            <button type="submit" class="search-button">Search</button>
+        </form>
+        </div>    
+        
       </div>
 
     </section><!-- /Hero Section -->
 
    
+  
     <!-- Features Details Section -->
     <section id="market-sale" class="market-sale section">
 
       <div class="container">
-
+        
         
         <div class="cards-container">
           {% for item in project %}
@@ -122,11 +130,18 @@
 
     </section><!-- /Features Details Section -->
 
-    
+    {% if messages %}
+    <script>
+        {% for message in messages %}
+            alert("{{ message|escapejs }}");
+        {% endfor %}
+        // Clear the message from session storage
+        window.location.href = window.location.href.split("?")[0];
+    </script>
+  {% endif %}
     
 
   </main>
-
   <footer id="footer" class="footer position-relative">
 
     <div class="container footer-top">
@@ -135,15 +150,19 @@
  
         <div class="col-lg-4 col-md-6   footer-newsletter">
           <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
-          <form action="https://formsubmit.co/Snippat.hq@gmail.com" method="post" class="php-email-form">
-            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+          <form action="{% url 'Submail' %}" method="POST" >
+            {% csrf_token %}
+            <div class="newsletter-form">
+                <input type="email" name="email" required>
+                <input type="submit" value="Subscribe">
+            </div>
             <div class="loading">Loading</div>
             <div class="error-message"></div>
             <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-          </form>
+        </form>
+        
           <p>support@snippat.com</p>
-          <p>RMZ MILLENIA BUSINESS PARK,<br>
-            Perungudi, Chennai, 600096</p>
+
          
       </div>
 
@@ -151,44 +170,43 @@
 
         
 
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="{% url 'terms' %}">Terms of service</a></li>
-              <li><a href="{% url 'privacy' %}">Privacy policy</a></li>
-              <li><a href="{% url 'cookie' %}">Cookies</a></li>
-              <li><a href="{% url 'norefund' %}">Refund policy</a></li>
-            </ul>
-          </div>
-  
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Snippat</h4>
-            <ul>
-              <li><a href="{% url 'About' %}">About</a></li>
-              <li><a href="{% url 'About' %}">Contact</a></li>
-              <li><a href="{% url 'market' %}">Marketplace</a></li>
-            </ul>
-          </div>
-  
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Connect</h4>
-            <ul>
-              <li><a href="https://x.com/SnippatHq">Twitter</a></li>
-              <li><a href="#">Discord</a></li>
-              <li><a href="https://www.linkedin.com/company/Snippat/">Linkedln</a></li>
-            </ul>
-          </div>
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="{% url 'terms' %}">Terms of service</a></li>
+            <li><a href="{% url 'privacy' %}">Privacy policy</a></li>
+            <li><a href="{% url 'cookie' %}">Cookies</a></li>
+            <li><a href="{% url 'norefund' %}">Refund policy</a></li>
+          </ul>
+        </div>
 
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Snippat</h4>
+          <ul>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="{% url 'market' %}">Marketplace</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://x.com/SnippatHq">Twitter</a></li>
+            <li><a href="#">Discord</a></li>
+            <li><a href="https://www.linkedin.com/company/Snippat/">Linkedln</a></li>
+          </ul>
+        </div>
         
 
       </div>
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p>© <strong class="px-1 sitename">Snippat 2025</strong><span>All Rights Reserved</span></p>
+      <p class="px-1 sitename">© Snippat 2025<span>All Rights Reserved</span></p>
     </div>
 
   </footer>
+
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

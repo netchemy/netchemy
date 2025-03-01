@@ -27,7 +27,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*','snippat.com','www.snippat.com','13.203.82.160']
+ALLOWED_HOSTS = ['*','snippat.com','www.snippat.com','13.203.82.160',"smtp.gmail.com"]
 
 
 # Application definition
@@ -52,6 +52,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://snippat.com',
     'https://www.snippat.com',
     'http://13.203.82.160',
+    
     
 ]
 
@@ -112,32 +113,40 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'netchemy.wsgi.application'
 
+# settings.py
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB (Adjust as needed)
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
+"""DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
+}"""
 
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Netchemy',
-        'USER': 'Netchemy19',
+        'USER': 'admin',
         'PASSWORD': os.environ['DBPASS'],
-        'HOST': 'netchemy.c7ki0ggmq4hk.ap-south-1.rds.amazonaws.com',
-        'PORT': '3306',  # Default MySQL port,
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        'HOST': 'admin.c7ki0ggmq4hk.ap-south-1.rds.amazonaws.com',
+        'PORT': '3306',
+        
     }
-}"""
+}
 
+"""DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'NAME':'netchemy-postgres',
+         'USER':'Netchemy19',
+         'PASSWORD':'NeTcHeMy2024',
+         'HOST':'netchemy-postgres.c7ki0ggmq4hk.ap-south-1.rds.amazonaws.com',
+         'PORT':'5432'
+     }
+}"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -196,7 +205,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 RAZOR_KEY_ID=os.environ['RAZOR_KEY_ID']
 RAZOR_SECRET_ID=os.environ['RAZOR_SECRET_ID']
 
-
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_REGION = os.getenv("AWS_REGION")
 
 BROKER_URL = 'redis://localhost:6379/'
 
@@ -225,14 +236,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'kirankumarr1901@gmail.com'
-EMAIL_HOST_PASSWORD = 'nbrmvjodykwmmhbl'
+EMAIL_HOST_USER = 'snippat.service@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST']
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # settings.py
 
 ADMINS = [
-    ('kiran', 'kirankumarr1901@gmail.com'),
+    ('snippat', 'snippat.service@gmail.com'),
 ]
 
 MANAGERS = ADMINS

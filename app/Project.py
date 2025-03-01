@@ -3,7 +3,7 @@ from django.contrib import messages
 import re
 import razorpay
 from django.views.decorators.csrf import csrf_exempt
-from .models import account,Project,KYCCapturedPhoto,BankDetails,ProjectFile,sales,Payouts
+from .models import account,Project,KYCCapturedPhoto,BankDetails,ProjectFile,sales,Payouts,WithdrawRequest
 from netchemy.settings import RAZOR_KEY_ID,RAZOR_SECRET_ID
 
 from google.oauth2 import id_token
@@ -20,11 +20,10 @@ from datetime import datetime, timedelta
 from django.http import JsonResponse
 import os
 import json
-import time
 
 from django.core.mail import send_mail
 
-future_timestamp = int(time.time()) + (24 * 60 * 60) 
+
 client = razorpay.Client(auth=(RAZOR_KEY_ID,RAZOR_SECRET_ID))
 
 def Project_Upload(request):
@@ -60,7 +59,25 @@ def Project_Upload(request):
                 if not bank_details_exist:
                     messages.error(request, f"Bank details missing. Add bank details to upload a sell entry.")
                     return redirect('index')
+                # Enforce Upload Limits
+                plan = user.SubPlan
+                current_month_start = now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+                project_count = Project.objects.filter(Project_id=user, uploaded_at=current_month_start).count()
 
+                # Define upload limits
+                limits = {
+                    "Basic": 2,
+                    "Pro": 5,
+                    "Creater": float('inf')  
+                }
+
+                max_uploads = limits.get(plan, 0)  
+
+                if project_count >= max_uploads:
+                    messages.error(request, f"Upload limit reached for {plan} plan. Upgrade your plan for more uploads.")
+                    return redirect('index')
+                
+                
                 # Save the main Sell object
                 sell = Project.objects.create(
                     Project_id=user,
@@ -82,7 +99,7 @@ def Project_Upload(request):
                 sell.save()
 
                 messages.success(request, "Project Listed successfully.")
-                return redirect('index')
+                return redirect('market')
             except account.DoesNotExist:
                 messages.error(request, f"User not found")
             except Exception as e:
@@ -117,7 +134,7 @@ def Project_checkout(request,id):
         return render(request,"Project_checkout.html",{'product': product,'order':ord})
 
     except Exception as e:
-        # Log the exception and return an error response
+     
         print(f"Error: {e}")
         return JsonResponse({"error": "An error occurred while processing your request."}, status=500)
 
@@ -154,39 +171,114 @@ def market_pay(request):
 
             # Save payment data
             product = Project.objects.get(id=id)
+            seller_account = product.Project_id  
+            seller_email = seller_account.email
             sale = sales(SaleId=product, PaymentId=razorpay_payment_id, BuyerAddress = full_address, BuyerMail = email)
             sale.save()
 
-            subject = "Snippat-Purchace"
+            subject = "Snippat Purchase Confirmation"
             name = product.Title
-            msg = f"Thank you for using snippat plateform here is the project link {product.project_file.url}"
-            msgs = f"Name: {name}\n purchase_id: {sale.SaleId}\n purchase_date :{sale.SaleDate} \n Message: {msg}"
+            msg = f"""
+            Dear Customer,
 
-            recipient_list = [email] # List of recipient email addresses
-            send_mail(subject, msgs, 'netchemy.hq@gmail.com',recipient_list, fail_silently=False)
-            
-            return JsonResponse({'success': True, 'message': 'Payment successful If the download button didnt appear check your mail for the download link'})
-            
+            Thank you for your purchase on Snippat! We are pleased to inform you that your transaction was successful. Below are the details of your purchase:
+
+            Product Name: {name}
+            Purchase ID: {sale.id}
+            Purchase Date: {sale.SaleDate.strftime('%Y-%m-%d %H:%M:%S')}
+            Download Link: {product.project_file.url}
+
+            If you have any questions or need further assistance, please feel free to contact our support team.
+
+            Best regards,
+            The Snippat Team
+            """
+            recipient_list = [email]  # List of recipient email addresses
+            send_mail(subject, msg, 'snippat.service@gmail.com', recipient_list, fail_silently=False)
+
+            return JsonResponse({'success': True, 'message': 'Payment successful. If the download button didn\'t appear, check your email for the download link.'})
             
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
-
-def Transfer(request):
+"""def transfer_funds(amount, account_id):
+    try:
+        bank_details = BankDetails.objects.get(bankid=account_id)
+        transfer_response = client.transfer.create({
+            "amount": int(amount * 100),
+            "currency": "INR",
+            "account": bank_details.LinkId
+        })
+        
+        # Save transfer details
+        Payouts.objects.create(
+            PayoutBankID=bank_details,
+            PaidAmount=amount,
+            TransferId=transfer_response["id"],
+            ProductId=sales.objects.latest('id')
+        )
+        
+        print("Transfer Successful:")
+        print(json.dumps(transfer_response, indent=4))  # Pretty print response
+        
+        return {"success": True, "response": transfer_response}
     
-    transfer_response =  client.transfer.create({
-                                "amount":'10000',
-                                "currency":"INR",
-                                "account": "acc_Pf4xvSsq86LBIs"
-                                })
-
-    return JsonResponse({'success': True, 'message': 'Payment and transfer successful', 'transfer_response': transfer_response})
-
-
+    except BankDetails.DoesNotExist:
+        error_message = "Error: Bank details not found for account ID {}".format(account_id)
+        print(error_message)
+        return {"success": False, "error": error_message}
+    
+    except Exception as e:
+        error_message = "Unexpected error occurred: {}".format(str(e))
+        print(error_message)
+        return {"success": False, "error": error_message}"""
 
 def get_payout_data(request):
-    payments = Payouts.objects.values("Date", "PaidAmount").order_by("Date")  
-    if not payments:  
-        return JsonResponse([{"Date": "No Data", "PaidAmount": 0}], safe=False)
-    return JsonResponse(list(payments), safe=False)
+    try:
+        # Extract token and get user ID
+        access_token = request.headers.get("Authorization", "").split(" ")[-1]
+        decoded_token = UntypedToken(access_token)
+        user_id = decoded_token["user_id"]
+
+        # Get user
+        user = account.objects.get(id=user_id)
+
+        # Get filter type and calculate start date
+        filter_type = request.GET.get("filter", "7days")
+        num_days = {"7days": 7, "30days": 30, "lastyear": 365}.get(filter_type, 7)
+        start_date = timezone.now() - timedelta(days=num_days)
+
+        # Fetch withdrawal requests for the user with status "done"
+        withdrawals = (
+            WithdrawRequest.objects.filter(WithdrawID=user, Date__gte=start_date, Status="done")
+            .values("Date", "Amount")
+            .order_by("Date")
+        )
+
+        if not withdrawals:
+            return JsonResponse({"message": "No withdrawals found"}, safe=False)
+
+        # Format data for Chart.js
+        formatted_data = [
+            {"date": withdraw["Date"].strftime("%Y-%m-%d"), "amount": withdraw["Amount"] or 0}
+            for withdraw in withdrawals
+        ]
+
+        return JsonResponse(formatted_data, safe=False)
+
+    except account.DoesNotExist:
+        return JsonResponse({"error": "User not found"}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+
+def market_sale(request):
+    query = request.GET.get('q', '')
+    projects = Project.objects.filter(Title__icontains=query) if query else Project.objects.all()
+    
+    if query and not projects.exists():
+        messages.error(request, "No projects found.")
+
+    return render(request, 'market.html', {'project': projects, 'query': query})

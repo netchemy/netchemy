@@ -11,6 +11,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -32,6 +36,7 @@
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
             <button type="submit" class="btn">Login</button>
+            <!--<a class = "bitss"  href = "{% url 'forget' %}">Forget Password</a>-->
             <a class = "bitss"  href = "{% url 'signup' %}">Don't have an account? Sign up here</a>
         </form>
 
@@ -76,9 +81,12 @@
       window.location.href = window.location.href.split("?")[0];
   </script>
 {% endif %}
+
+<script src="https://accounts.google.com/gsi/client" async></script>
+
 </body>
 
 
 
-<script src="https://accounts.google.com/gsi/client" async></script>
+
 </html>

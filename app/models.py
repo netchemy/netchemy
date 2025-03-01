@@ -2,7 +2,9 @@ from django.db import models
 import uuid
 from django.utils import timezone
 from datetime import timedelta
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from decimal import Decimal
 
 
 
@@ -43,11 +45,33 @@ class Project(models.Model):
     PreviewImage = models.ImageField(upload_to='preview_images/', null=True, blank=True)
     project_file = models.FileField(upload_to='project_files/', null=True, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add= True,null = True)
+
 class ProjectFile(models.Model):
     project = models.ForeignKey(Project, related_name='files', on_delete=models.CASCADE)
     file = models.FileField(upload_to='projects/',null=True)
 
 
+class sales(models.Model):
+    SaleId = models.ForeignKey(Project, on_delete=models.CASCADE)  # Link to the project
+    PaymentId = models.CharField(max_length=100, null=True)
+    BuyerAddress = models.CharField(max_length=250, null=True)
+    BuyerMail = models.EmailField(null=True)
+    SaleDate = models.DateTimeField(auto_now_add=True, null=True)
+class ProjectRevenue(models.Model):
+    project = models.OneToOneField(Project, on_delete=models.CASCADE, related_name="revenue")
+    total_revenue = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+
+
+@receiver(post_save, sender=sales)
+def update_project_revenue(sender, instance, created, **kwargs):
+    """ Update the sold project's total revenue when a sale is made """
+    if created:
+        project = instance.SaleId
+        revenue, _ = ProjectRevenue.objects.get_or_create(project=project)
+
+        # Ensure price is a Decimal before addition
+        revenue.total_revenue += Decimal(str(project.price))
+        revenue.save()
 
 class KYCCapturedPhoto(models.Model):
     kyc_id = models.ForeignKey(account, on_delete=models.CASCADE)
@@ -62,22 +86,33 @@ class KYCCapturedPhoto(models.Model):
 class BankDetails(models.Model):
     bankid = models.ForeignKey(account,on_delete=models.CASCADE)
     LinkId = models.CharField(max_length=100,null=True)
+    MobileNumber = models.BigIntegerField(null=True)
     AccountName = models.CharField(max_length=100,null=True)
     AccountNo = models.IntegerField(null=True)
     IFSC = models.CharField(max_length=100,null=True)
     BankName = models.CharField(max_length=100,null=True)
 
-class sales(models.Model):
-    SaleId = models.ForeignKey(Project,on_delete= models.CASCADE)
-    PaymentId = models.CharField(max_length=100,null = True)
-    BuyerAddress = models.CharField(max_length=250,null=True)
-    BuyerMail = models.EmailField(null=True)
-    SaleDate = models.DateTimeField(auto_now_add=True,null=True)
-
-
 class Payouts(models.Model):
     PayoutBankID = models.ForeignKey(BankDetails,on_delete=models.CASCADE)
-    PaidAmount = models.IntegerField(null=True)
+    PaidAmount = models.BigIntegerField(null=True)
     TransferId = models.CharField(max_length=100,null=True)
     ProductId = models.ForeignKey(sales,on_delete=models.CASCADE)
-    Date = models.DateTimeField(auto_now_add=True,null=True)
+    Date = models.DateTimeField(default=timezone.now,null=True)
+
+
+class WithdrawRequest(models.Model):
+    STATUS_CHOICES = [
+        ('on_process', 'On Process'),
+        ('done', 'Done'),
+    ]
+    
+    WithdrawID = models.ForeignKey(account, on_delete=models.CASCADE)
+    Amount = models.BigIntegerField(null=True)
+    Date = models.DateTimeField(auto_now_add=True, null=True)
+    Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='on_process')
+
+class PasswordResetOTP(models.Model):
+    user = models.ForeignKey(account, on_delete=models.CASCADE)
+    otp = models.CharField(max_length=6)
+    created_at = models.DateTimeField(default=timezone.now)
+

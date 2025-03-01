@@ -12,9 +12,9 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Parkinsans", serif;;
-  --heading-font: "Parkinsans", serif;;
-  --nav-font: "Parkinsans", serif;;
+  font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 /* Global Colors */
@@ -906,6 +906,7 @@ section,
   margin: 20px 0 30px 0;
   font-size: 20px;
   font-weight: 400;
+  
 }
 
 .hero .mar-logo{
@@ -962,7 +963,7 @@ section,
 
 .hero .btn-get-started2 {
   color: #000;
-  background: #e6e1e1;
+  background: #F5F5F5;
   font-family: var(--heading-font);
   font-weight: 500;
   font-size: 15px;
@@ -972,7 +973,7 @@ section,
   padding: 10px 28px;
   border-radius: 50px;
   transition: 0.5s;
-  box-shadow: 0 8px 28px color-mix(in srgb, var(--accent-color), transparent 80%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .hero .btn-get-started2:hover {
@@ -2230,13 +2231,13 @@ section,
 
 .market-ben-item {
   padding: 10px 20px;
-  background-color: #E8F4FE; 
-  color: #0099FF;
+  background-color: #F5F5F5;
+  color: #000000;
   font-weight: 600;
   font-size: 14px;
   border-radius: 25px; 
   text-align: center;
-  font-family: "Parkinsans", serif;
+  font-family: "Inter", sans-serif;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
   cursor: pointer; 
   transition: transform 0.2s ease-in-out; 
@@ -2278,7 +2279,7 @@ section,
 
 
 .about-section {
-  font-family:"Parkinsans", serif;
+    font-family: "Inter", sans-serif;
   font-weight: 400;
   max-width: 100%;
   background-color: #ffffff;
@@ -2337,7 +2338,7 @@ section,
 
 
 .TeamTi{
-  font-family:"Parkinsans", serif;
+    font-family: "Inter", sans-serif;
   font-size: 28px;
   font-weight: 600;
   margin-top :50px
@@ -2719,7 +2720,7 @@ display: flex;
   font-weight: 600;
   color: #333;
   margin-top: 40px;
-  margin-bottom: 15px;
+  margin-bottom: -75px;
 }
 .content-section  {
     margin-top: 30px;
@@ -2987,7 +2988,7 @@ display: flex;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 15px;
-  color: #fff;
+  color: #000000;
   font-size: 1rem;
 }
 .contact-form11 textarea {
@@ -3095,7 +3096,7 @@ display: flex;
 
 #Privacy h2, h3{
   font-size: medium;
-  font-family:"Parkinsans", serif; 
+    font-family: "Inter", sans-serif; 
 }
 
 .hero .market-sale-title{
@@ -3176,3 +3177,61 @@ display: flex;
 .billing-container .row .form-group {
   flex: 1; /* Makes both fields equal in width */
 }
+
+
+
+.search-form {
+  display: flex;
+  align-items: center;
+  margin-top:50px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 50%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  outline: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #3e59e8; /* Highlight color */
+  box-shadow: 0 0 5px rgba(44, 44, 44, 0.5);
+}
+
+.search-button {
+  padding: 10px 15px;
+  margin-left: 10px;
+  background-color: #000000; 
+  border: none;
+  color: #fff;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #424242; 
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+ 
+.search-input {
+  width: 100%;
+}
+}
+
+@media (max-width: 480px) {
+  
+.search-input {
+  width: 100%;
+}
+
+  }

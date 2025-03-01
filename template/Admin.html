@@ -18,6 +18,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
@@ -36,7 +39,7 @@
                 </li>
                 <li><a href="#" data-section="earnings" class="nav-item">
                     <span class="material-icons-outlined">favorite</span>
-                    <span class="text">Payouts</span></a>
+                    <span class="text">Account</span></a>
                 </li>
                 <li><a href="#" data-section="profile" class="nav-item active">
                     <span class="material-icons-outlined">person</span>
@@ -46,6 +49,8 @@
                     <span class="material-icons-outlined">settings</span>
                     <span class="text">Settings</span></a>
                 </li>
+                
+                
             </ul>
         </nav>
 
@@ -96,41 +101,56 @@
                         <!-- Linked Account Section -->
                         <div class="linked-account">
                             <h2>Bank Details</h2>
-                            <form id="Bank-form" method="POST" enctype="multipart/form-data" action="{% url 'BankCard' %}">
+                            <form id="Bank-form" method="POST" enctype="multipart/form-data" 
+                                action="{% if digits == 'N/A' %}{% url 'BankCard' %}{% else %}{% url 'EditBankCard' %}{% endif %}">
                                 {% csrf_token %}
                                 <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
-                            
+
                                 <div class="form-group1">
                                     <label for="title" class="form-label1">Account Holder Name</label>
-                                    <input type="text" name="account-holder" id="account-holder" class="form-input1" placeholder="Enter account holder's name">
+                                    <input type="text" name="account-holder" id="account-holder" class="form-input1" 
+                                        placeholder="Enter account holder's name" 
+                                        value="{{ banks.AccountName|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group1">
+                                    <label for="title" class="form-label1">Mobile number</label>
+                                    <input type="text" name="mobile-number" id="mobile-number" class="form-input1" 
+                                        placeholder="Enter account holder's mobile number" 
+                                        value="{{ banks.MobileNumber|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group1">
                                     <label for="title" class="form-label1">Account Number</label>
-                                    <input type="text" name="account-number" id="account-number" class="form-input1" placeholder="Enter account number">
+                                    <input type="text" name="account-number" id="account-number" class="form-input1" 
+                                        placeholder="Enter account number" 
+                                        value="{{ banks.AccountNo|default_if_none:'' }}">
                                 </div>
-        
+
                                 <div class="form-group1">
                                     <label for="title" class="form-label1">Bank Name</label>
-                                    <input type="text" name="bank-name" id="bank-name" class="form-input1" placeholder="Enter bank name">
+                                    <input type="text" name="bank-name" id="bank-name" class="form-input1" 
+                                        placeholder="Enter bank name" 
+                                        value="{{ banks.BankName|default_if_none:'' }}">
                                 </div>
-                                
-        
+
                                 <div class="form-group1">
                                     <label for="title" class="form-label1">IFSC Code</label>
-                                    <input type="text" name="ifsc" id="ifsc" class="form-input1" placeholder="Enter IFSC code">
+                                    <input type="text" name="ifsc" id="ifsc" class="form-input1" 
+                                        placeholder="Enter IFSC code" 
+                                        value="{{ banks.IFSC|default_if_none:'' }}">
                                 </div>
-                            
+
                                 <div class="form-submit">
                                     <div class="account-actions">
                                         {% if digits == 'N/A' %}
-                                        <button type="submit" class="Add">Add New</button>
+                                            <button type="submit" class="Add">Add New</button>
                                         {% else %}
-                                        <button type="submit" class="Add" style="display: block;">Edit</button>
+                                            <button type="submit" class="Add" style="display: block;">Edit</button>
                                         {% endif %}
                                     </div>
-                                </div >
-        
-                                </form>
+                                </div>
+                            </form>
+
+                            
                             
                         </div>
 
@@ -138,10 +158,26 @@
 
                     <h2 class = "trans">Transactions</h2>
 
-                    <div class="payout-history">
-                        <h2>Snippat-Home-Page</h2>
-                        <p>$1000.00</p>
+
+                    <div id="transactions">
+                        {% for transaction in transactions %}
+                            <div class="transaction-item">
+                                <p><strong>Withdraw Request ID:</strong> {{ transaction.id }}</p>
+                                <p><strong>Amount:</strong> {{ transaction.Amount }}</p>
+                                <p><strong>Status:</strong> {{ transaction.get_Status_display }}</p>
+                            </div>
+                        {% endfor %}
                     </div>
+                    
+                        <div id="pagination">
+                            <button id="prevPage" {% if not transaction.has_previous %}disabled{% endif %}>Previous</button>
+                            <span id="page-info">Page {{ transaction.number }} of {{ transaction.paginator.num_pages }}</span>
+                            <button id="nextPage" {% if not transaction.has_next %}disabled{% endif %}>Next</button>
+                        </div>
+
+                    
+                    
+                    
 
                 </div>
     
@@ -192,15 +228,27 @@
 
                     <div class="revenu-details">
                         <p>Earned</p>
-                        <span id="amount">$100.00</span>
+                        <span id="amount"> ₹ {{total_revenue}}</span>
                         <span class="eye-icon" onclick="toggleAmount()">👁️</span>
                     </div>
 
-                    <button data-section="settings"  class="edit-profile">Edit Profile</button>
+                    <div class="withdraw-container">
+                        <button id="withdraw-btn" class="edit-profile">
+                            <span class="material-icons-outlined">account_balance_wallet</span> 
+                        </button>
+                        <div class="card19" id="withdraw-card">
+                            <span class="close-btn" onclick="toggleCard()">✖</span>
+                            <h3>Withdraw Amount</h3>
+                            <input type="number" placeholder="Enter amount" />
+                            <button onclick="withdrawAmount()">Withdraw</button>
+                        </div>
+                    </div>
+
+                  
                 </header>
                 
                 <div class="tabs">
-                    <button class="tab" data-section="resources">Resources</button>
+                    <button class="tab" data-section="resources">Add Project</button>
                     <button class="tab" data-section="courses">Analytics</button>
                     <!--<button class="tab" data-section="portfolio">Portfolio</button>-->
                 </div>
@@ -210,7 +258,6 @@
                     
     
                     <div class="profile-section active" data-section="resources">
-                        <h2>Resources</h2>
                         
                         <!-- Card container with scrollable overflow -->
                         <div class="cards-container">
@@ -237,27 +284,9 @@
                     
                     
                     <div class="profile-section" data-section="courses">
-                        <h2>Analytics</h2>
                         
-                
-                        <div class="payout-section">
-                            <div class="payout-card">
-                                <h2>Total Listings</h2>
-                                <p>10</p>
-                            </div>
-
-                            <div class="payout-card">
-                                <h2>Purchases</h2>
-                                <p>2</p>
-                            </div>
-
-
-        
-                            <div class="linked-account">
-                                <h3>Revenue</h3>
-                                <p>$100.00</p>
-                            </div>
-
+                        <div class = "payout-card">
+                            <canvas id="payoutChartCanvas"></canvas>
                         </div>
                     </div>
 
@@ -270,7 +299,35 @@
     
                 </div>
             </div>
-    
+            
+
+            
+            <div class="content-section" id="explore-content">
+                <div class="containers text-center">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+            
+                        <a  class="mar-logo d-flex align-items-center">
+                            <img src="{% static 'img/n3.svg' %}" alt="">
+                            <h1 class="marketTitle">Marketplace</h1>
+                        </a>
+                         
+                        <h1 data-aos="fade-up" class="market-sale-title">
+                        Community-made <b class="highlight">codebases</b>, 
+                        <b class="highlight">scripts</b>, 
+                        <b class="highlight">interactions</b> and more
+                        </h1>
+
+                    </div>   
+                    
+                </div>  
+                <form class="search-form" method="GET" action="{% url 'market_sale' %}">
+                    <input type="text" name="q" class="search-input" placeholder="Search..." value="{{ query }}">
+                    <button type="submit" class="search-button">Search</button>
+                </form>
+            </div>
+
+
+
             <div class="content-section" id="settings-content">
                 <h2>Settings</h2>
                 <div class="settings-options">
@@ -288,15 +345,15 @@
                         <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
                         <div class="setting-item">
                             <label for="current-password">Current Password:</label>
-                            <input type="password" id="current-password" name = "current-password" placeholder="Enter current password">
+                            <input type="password" id="current-password" name = "current-password" placeholder="Enter current password" required>
                         </div>
                         <div class="setting-item">
                             <label for="new-password">New Password:</label>
-                            <input type="password" id="new-password" name = "new-password" placeholder="Enter new password">
+                            <input type="password" id="new-password" name = "new-password" placeholder="Enter new password" required>
                         </div>
                         <div class="setting-item">
                             <label for="new-password">Confirm New Password:</label>
-                            <input type="password" id="confirm-new-password" name = "confirm-new-password" placeholder="Confirm new password">
+                            <input type="password" id="confirm-new-password" name = "confirm-new-password" placeholder="Confirm new password" required>
                         </div>
                         <div class = "blll">
                             <button id="change-password-btn" type="submit">Change Password</button>
@@ -307,25 +364,46 @@
                     </div>
                 </div>
             </div>
-         
-            <!--<div class="content-section" id="explore-content">
-                <div class="containers text-center">
-                    <div class="d-flex flex-column justify-content-center align-items-center">
             
-                        <a  class="mar-logo d-flex align-items-center">
-                            <img src="{% static 'img/n2.svg' %}" alt="">
-                            <h1 class="marketTitle">Marketplace</h1>
-                        </a>
-                         
-                        <h1 data-aos="fade-up" class="market-sale-title">
-                        Community-made <b class="highlight">codebases</b>, 
-                        <b class="highlight">scripts</b>, 
-                        <b class="highlight">interactions</b> and more
-                        </h1>
+            <div class="content-section" id="settings-content">
+                <h2>Settings</h2>
+                <div class="settings-options">
+                    <div class="setting-item">
+                        <form id="Profile-form" method="POST" enctype="multipart/form-data" action="{% url 'UploadProfilePic' %}">
+                            {% csrf_token %}
+                            <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
+                            <label for="ProfilePic">Profile Photo:</label>
+                            <input type="file" id="ProfilePic" name="ProfilePic" accept="image/*">
+                            <button id="change-Profile-btn">Save</button>
+                        </form>
+                    </div>
+                    <form id="ChangePassword-form" method="POST" enctype="multipart/form-data" action="{% url 'ChangePassword' %}">
+                        {% csrf_token %}
+                        <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
+                        <div class="setting-item">
+                            <label for="current-password">Current Password:</label>
+                            <input type="password" id="current-password" name = "current-password" placeholder="Enter current password" required>
+                        </div>
+                        <div class="setting-item">
+                            <label for="new-password">New Password:</label>
+                            <input type="password" id="new-password" name = "new-password" placeholder="Enter new password" required>
+                        </div>
+                        <div class="setting-item">
+                            <label for="new-password">Confirm New Password:</label>
+                            <input type="password" id="confirm-new-password" name = "confirm-new-password" placeholder="Confirm new password" required>
+                        </div>
+                        <div class = "blll">
+                            <button id="change-password-btn" type="submit">Change Password</button>
+                        </div>
+                    </form>
+                    <div class = "blll">
+                        <button id="logout-btn">Logout</button>
+                    </div>
+                </div>
+            </div>
 
-                    </div>   
-                </div>  
-            </div>-->
+            
+            
             
 
 
@@ -340,15 +418,17 @@
                     <form id="image-upload-form" method="POST" enctype="multipart/form-data" action="{% url 'Project_Upload'  %}">
                         {% csrf_token %}
                         <input type="hidden" id="access_token" name="access_token" value="{{ access_token }}">
-                    
+
+                        <p id="error-message" style="color: red; display: none;"></p>
+
                         <div class="form-group1">
                             <label for="title" class="form-label1">Title</label>
-                            <input type="text" name="title" id="title" class="form-input1" placeholder="Enter Title">
+                            <input type="text" name="title" id="title" class="form-input1" placeholder="Enter Title" required>
                         </div>
                     
                         <div class="form-group1">
                             <label for="description" class="form-label1">Description</label>
-                            <textarea name="description" id="description" class="form-textarea1" placeholder="Enter Description"></textarea>
+                            <textarea name="description" id="description" class="form-textarea1" placeholder="Enter Description" required></textarea>
                         </div>
                     
                         <div class="form-group1">
@@ -359,7 +439,7 @@
                         <div class="form-group1">
                             <label for="drive-link" class="form-label1">Drive Link</label>
                             <input type="url" name="drive_link" id="drive-link" class="form-input1" placeholder="Enter Drive Link">
-                        </div>
+                        </div>                    
 
                         <!--<div class="form-group1">
                             <label for="project-file" class="form-label1">Demo Video</label>
@@ -368,11 +448,11 @@
                     
                         <div class="form-group1">
                             <label for="whats-included" class="form-label1">What's Included</label>
-                            <textarea name="whats-included" id="whats-included" class="form-textarea1" placeholder="What's included"></textarea>
+                            <textarea name="whats-included" id="whats-included" class="form-textarea1" placeholder="What's included" required></textarea>
                         </div>
                     
                         <div class="currency-select-container">
-                            <select name="currency">
+                            <select name="currency" required>
                                 <option value="INR">INR</option>
                                 <option value="USD">USD</option>
                             </select>
@@ -380,12 +460,12 @@
                     
                         <div class="form-group1">
                             <label for="price" class="form-label1">Set Price</label>
-                            <input type="text" name="price" id="price" class="form-input1" placeholder="Set 0 for free ">
+                            <input type="text" name="price" id="price" class="form-input1" placeholder="Set 0 for free " required>
                         </div>
                     
                         <div class="form-group1">
                             <label for="preview-link" class="form-label1">Preview Link</label>
-                            <input type="url" name="preview" id="preview-link" class="form-input1" placeholder="Preview Link">
+                            <input type="url" name="preview" id="preview-link" class="form-input1" placeholder="Preview Link" required>
                         </div>
                     
                         <!--<div class="form-group1">
@@ -395,7 +475,7 @@
                     
                         <div class="form-group1">
                             <label for="images" class="form-label1">Select Images</label>
-                            <input type="file" name="images" id="images" class="form-file1" multiple accept="image/*">
+                            <input type="file" name="images" id="images" class="form-file1" multiple accept="image/*" required>
                         </div>
 
                         <div class="form-submit">
@@ -429,6 +509,7 @@
                 <li><a href="#" data-section="settings" class="nav-item">
                     <span class="material-icons-outlined">settings</span>
                 </li>
+                
             </ul>
         </nav>
     </div>
@@ -478,21 +559,7 @@ tabs.forEach(tab => {
 
 </script>
 
-<script>
-    document.querySelector('.acc').addEventListener('click', function() {
-        const newCard = document.createElement('div');
-        newCard.classList.add('card');
-        newCard.innerHTML = `
-            <img src="{% static 'img/temp/1.png' %}" alt="Resource Image" class="card-image">
-            <div class="card-content">
-                <h3 class="card-title">New Resource</h3>
-                <p class="card-price">$39.99</p>
-            </div>
-        `;
-        document.querySelector('.cards-container').appendChild(newCard);
-    });
-    
-</script>
+
 
 <script>
     document.getElementById("Profile-form").addEventListener("submit", function (event) {
@@ -586,26 +653,6 @@ Project.forEach(item => {
 
 </script>
 
-<script>
-    // JavaScript to switch content when clicking sidebar items
-const edit = document.querySelectorAll('.edit-profile');
-const editForm = document.querySelectorAll('.main-content .content-section');
-
-edit.forEach(item => {
-    item.addEventListener('click', function(event) {
-        // Deactivate all items and hide all sections
-        edit.forEach(nav => nav.classList.remove('active'));
-        editForm.forEach(section => section.classList.remove('active'));
-
-        // Activate the clicked item and corresponding section
-        item.classList.add('active');
-        const sectionId = item.getAttribute('data-section');
-        const activeSection = document.getElementById(`${sectionId}-content`);
-        activeSection.classList.add('active');
-    });
-});
-
-</script>
 
 
 
@@ -632,17 +679,17 @@ edit.forEach(item => {
 
 <script>
     
-        // Get the token from Django context
+        // Get the JWT token
         const accessToken = '{{ access_token }}';
         const refreshToken = '{{ refresh_token }}';
 
-        // Store tokens in localStorage or sessionStorage
+        // Store tokens 
         localStorage.setItem('access_token', accessToken);
         localStorage.setItem('refresh_token', refreshToken);
 
 
 
-         // Get the token from localStorage and insert it into the hidden input field
+         // Get the token 
         const accessTokens = localStorage.getItem('access_token');
         if (accessTokens) {
             document.getElementById('access_token').value = accessTokens;
@@ -660,25 +707,36 @@ edit.forEach(item => {
     
         // Function to fetch and update chart data
         function updateChart(filter = "7days") {
-            fetch(`/get_payout_data/?filter=${filter}`)  // API URL
+            fetch(`/get_payout_data/?filter=${filter}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("access_token")}`
+                }
+            })
                 .then(response => response.json())
                 .then(data => {
+                    let noDataMessage = document.getElementById("noDataMessage");
+                    let chartCanvas = document.getElementById("payoutChart");
+        
+                    // Check if API returned a message
+                    if (data.message) {
+                        noDataMessage.textContent = data.message;
+                        noDataMessage.style.display = "block";
+                        chartCanvas.style.display = "none";
+                        return;
+                    }
+        
+                    // Hide message & show chart if data exists
+                    noDataMessage.style.display = "none";
+                    chartCanvas.style.display = "block";
+        
                     let labels = data.map(item => item.date);
                     let values = data.map(item => item.amount);
-    
+        
                     if (payoutChart) {
-                        payoutChart.destroy(); // Destroy old chart before creating a new one
+                        payoutChart.destroy();
                     }
-    
-                    if (data.length === 0) {
-                        noDataMessage.style.display = "block"; // Show message
-                        document.getElementById("payoutChart").style.display = "none"; // Hide chart
-                        return;
-                    } else {
-                        noDataMessage.style.display = "none"; // Hide message
-                        document.getElementById("payoutChart").style.display = "block"; // Show chart
-                    }
-    
+        
                     payoutChart = new Chart(ctx, {
                         type: "line",
                         data: {
@@ -701,6 +759,7 @@ edit.forEach(item => {
                 })
                 .catch(error => console.error("Error fetching data:", error));
         }
+        
     
         // Load initial data
         updateChart();
@@ -718,7 +777,7 @@ edit.forEach(item => {
 
 <script>
     let isHidden = false;
-    let originalAmount = "{{ account.amount }}"; 
+    let originalAmount = "{{ total_revenue }}"; 
 
     function toggleAmount() {
         const amount = document.getElementById("amount");
@@ -735,6 +794,146 @@ edit.forEach(item => {
         isHidden = !isHidden;
     }
 </script>
+<script>
+    // Get the data from the Django template
+    var payoutData = {
+        total_listings: parseInt("{{ total_listings|default:0 }}"),
+        total_purchases: parseInt("{{ total_purchases|default:0 }}"),
+        total_revenue: parseFloat("{{ total_revenue|default:0 }}")
+    };
+    function renderChart(data) {
+        var ctx = document.getElementById('payoutChartCanvas').getContext('2d');
 
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Total Listings', 'Purchases', 'Revenue'],
+                datasets: [{
+                    label: 'Sales Overview',
+                    data: [data.total_listings, data.total_purchases, data.total_revenue],
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+
+    renderChart(payoutData);
+</script>
+
+<script>
+    document.getElementById("image-upload-form").addEventListener("submit", function(event) {
+        var fileInput = document.getElementById("project-file");
+        var linkInput = document.getElementById("drive-link");
+        var errorMessage = document.getElementById("error-message");
+    
+        if (!fileInput.files.length && !linkInput.value.trim()) {
+            errorMessage.textContent = "Please provide either a ZIP file or a Drive link.";
+            errorMessage.style.display = "block";
+            event.preventDefault(); 
+        } else if (fileInput.files.length && linkInput.value.trim()) {
+            errorMessage.textContent = "Please provide only one option: either a ZIP file or a Drive link.";
+            errorMessage.style.display = "block";
+            event.preventDefault();
+        } else {
+            errorMessage.style.display = "none";
+        }
+    });
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logout-btn');
+        
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async function() {
+                    if (confirm("Are you sure you want to log out?")) {
+                        try {
+                            let response = await fetch('/logout/', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+        
+                            if (!response.ok) {
+                                throw new Error(`Server error: ${response.status}`);
+                            }
+        
+                            let data = await response.json();
+                            console.error("Logedout:", data.message);
+                            // Remove tokens & redirect
+                            localStorage.removeItem('access_token');
+                            localStorage.removeItem('refresh_token');
+                            window.location.href = '/';
+                        } catch (error) {
+                            alert("Error logging out. Please try again.");
+                            console.error("Logout Error:", error);
+                        }
+                    }
+                });
+            } else {
+                console.error("Logout button not found.");
+            }
+        });
+        </script>
+        
+    <script>
+        function toggleCard() {
+            const card = document.getElementById('withdraw-card');
+            card.classList.toggle('active');
+        }
+
+        document.getElementById('withdraw-btn').addEventListener('click', toggleCard);
+    </script>
+
+    <script>
+    function withdrawAmount() {
+        const amount = parseFloat(document.querySelector('#withdraw-card input[type="number"]').value);
+        const totalRevenue = parseFloat("{{ total_revenue }}");
+        const accessToken = localStorage.getItem('access_token');
+
+        if (amount > totalRevenue) {
+            alert('Insufficient balance in the wallet.');
+            return;
+        }
+
+        fetch('/withdraw/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({ amount: amount })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert(data.message);
+            } else {
+                alert('Withdraw request submitted successfully.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred.');
+        });
+    }
+    </script>
+  
 </body>
 </html>

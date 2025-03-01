@@ -29,6 +29,10 @@
   <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
   <!-- Main CSS File -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
@@ -56,8 +60,8 @@
           
           <li><a href="{% url 'market' %}" class="">Explore</a></li>
           <li><a href="{% url 'index' %}">Sell</a></li>
-          <li><a href="{% url 'About' %}">About</a></li>
-          <li><a href="{% url 'About' %}">Contact</a></li>
+          <li><a href="{% url 'about-us' %}">About</a></li>
+          <li><a href="{% url 'about-us' %}">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -90,17 +94,12 @@
         <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
           <div class="pricing-item featured">
               <h3>Founding Creator</h3>
-              <h4><sup>₹</sup>8,499<span> /lifetime</span></h4>
+              <h4><sup>₹</sup>4,999<span> /lifetime</span></h4>
               <ul>
-                  <li> <span>+ 0% Commission</span></li>
-                  <li> <span>+ Set your own price </span></li>
-                  <li> <span>+ Unlimited listings</span></li>
-                  <li> <span>+ Community forums</span></li>
-                  <li> <span>+ Advanced analytics</span></li>
-                  <li> <span>+ Secure payment processing</span></li>
-                  <li> <span>+ Instant Payouts</span></li>
-                  <li> <span>+ 24/7 support</span></li>
-                  <li> <span>+ Access to all upcoming features</span></li>
+                <li> <span>+ Unlimited Listings</span></li>
+                <li> <span>+ 0% Platform fee </span></li>
+                <li> <span>+ Instant Payouts</span></li>
+                <li> <span>+ API Marketplace(Upcoming Feature)</span></li>
               
               </ul>
               <a href="{% url 'GooglePlan' %}?plan=Creater&email={{ email|urlencode }}" class="cta-btn">Choose lifetime plan</a>
@@ -113,15 +112,10 @@
             <h4><sup>₹</sup>2,499<span> / year</span></h4>
        
             <ul>
-              <li> <span>+ 0% Commission</span></li>
-              <li><span>+ Set your own price</span></li>
-              <li><span>+ 4 listings per month</span></li>
-              <li><span>+ Community forums</span></li>
-              <li><span>+ Advanced analytics</span></li>
-              <li><span>+ Secure payment processing</span></li>
-              <li></i> <span>+ Instant payouts</span></li>
-              <li></i> <span>+ 24/7 support</span></li>
-              <li></i> <span>+ Access to all upcoming features</span></li>
+              <li><span>+ 5 Listings Per Month</span></li>
+              <li> <span>+ 0% Platform fee</span></li>
+              <li><span>+ Instant Payouts</span></li>
+              <li> <span>+ API Marketplace(Upcoming Feature)</span></li>
             </ul>
             <a href="{% url 'GooglePlan' %}?plan=Pro&email={{ email|urlencode }}" class="cta-btn">Choose yearly plan</a>
           </div>
@@ -134,15 +128,10 @@
             <h4><sup>₹</sup>299<span> / month</span></h4>
            
             <ul>
-              <li><span>+ 0% Commission</span></li>
-              <li><span>+ Set your own price</span></li>
-              <li><span>+ 2 listing per month</span></li>
-              <li><span>+ Community forums</span></li>
-              <li><span>+ Basic analytics</span></li>
-              <li><span>+ Secure payment processing</span></li>
-              <li><span>+ Instant payouts</span></li>
-              <li><span>+ 24/7 support</span></li>
-              <li><span>+ Limited-Access to upcoming features</span></li>
+              <li><span>+ 2 Listing Per Month</span></li>
+              <li><span>+ 0% Platform fee</span></li>
+              <li> <span>+ Instant Payouts</span></li>
+              <li><span>+ Analytics</span></li>
             </ul>
             <a href="{% url 'GooglePlan' %}?plan=Basic&email={{ email|urlencode }}" class="cta-btn">Choose monthly plan</a>
           </div>
@@ -158,7 +147,6 @@
     
 
   </main>
-
   <footer id="footer" class="footer position-relative">
 
     <div class="container footer-top">
@@ -167,15 +155,19 @@
  
         <div class="col-lg-4 col-md-6   footer-newsletter">
           <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
-          <form action="https://formsubmit.co/Snippat.hq@gmail.com" method="post" class="php-email-form">
-            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+          <form action="{% url 'Submail' %}" method="POST" >
+            {% csrf_token %}
+            <div class="newsletter-form">
+                <input type="email" name="email" required>
+                <input type="submit" value="Subscribe">
+            </div>
             <div class="loading">Loading</div>
             <div class="error-message"></div>
             <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-          </form>
+        </form>
+        
           <p>support@snippat.com</p>
-          <p>RMZ MILLENIA BUSINESS PARK,<br>
-            Perungudi, Chennai, 600096</p>
+
          
       </div>
 
@@ -196,8 +188,7 @@
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Snippat</h4>
           <ul>
-            <li><a href="{% url 'About' %}">About</a></li>
-            <li><a href="{% url 'About' %}">Contact</a></li>
+            <li><a href="#contact">Contact</a></li>
             <li><a href="{% url 'market' %}">Marketplace</a></li>
           </ul>
         </div>
@@ -216,7 +207,7 @@
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p>© <strong class="px-1 sitename">Snippat 2025</strong><span>All Rights Reserved</span></p>
+      <p class="px-1 sitename">© Snippat 2025<span>All Rights Reserved</span></p>
     </div>
 
   </footer>

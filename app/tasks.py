@@ -1,63 +1,67 @@
+import boto3
 from celery import shared_task
-import face_recognition
-from io import BytesIO
-from PIL import Image, ImageEnhance
 from .models import KYCCapturedPhoto
-import numpy as np
+from django.conf import settings
+from netchemy.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION
+from django.core.mail import send_mail
 
 @shared_task
-def verify_faces(photo2_data, front_data, kyc_id):
+def verify_faces(photo2_path, front_path, kycid):
     try:
-        # Open images from byte data
-        photo2_image = Image.open(BytesIO(photo2_data))
-        front_image = Image.open(BytesIO(front_data))
+        print(f"Processing images: {kycid}")
 
-        # Enhance the images to improve quality
-        photo2_image = enhance_image(photo2_image)
-        front_image = enhance_image(front_image)
+        # Initialize AWS Rekognition
+        rekognition = boto3.client(
+            "rekognition",
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+            region_name=AWS_REGION
+        )
 
-        # Convert images to RGB
-        photo2_rgb = photo2_image.convert("RGB")
-        front_rgb = front_image.convert("RGB")
+        # Read images as binary
+        with open(front_path, 'rb') as f:
+            front_image = f.read()
+        with open(photo2_path, 'rb') as f:
+            photo2_image = f.read()
 
-        # Get face encodings for both images
-        photo2_face = face_recognition.face_encodings(np.array(photo2_rgb))
-        front_face = face_recognition.face_encodings(np.array(front_rgb))
+        # Compare faces
+        response = rekognition.compare_faces(
+            SourceImage={'Bytes': front_image},
+            TargetImage={'Bytes': photo2_image},
+            SimilarityThreshold=50
+        )
 
-        # Check if both images have faces
-        if len(photo2_face) > 0 and len(front_face) > 0:
-            # Compare faces with a more strict tolerance (lower is stricter)
-            matches = face_recognition.compare_faces(photo2_face, front_face, tolerance=0.5)
+        print(response)
+        # Check if faces match
+        kyc_record = KYCCapturedPhoto.objects.get(id=kycid)
+        if response.get('FaceMatches'):
+            kyc_record.verified = True
+            kyc_record.save()
+            print("Face verification successful!")
 
-            if matches[0]:
-                # If faces match, update the record as verified
-                KYCCapturedPhoto.objects.filter(kyc_id=kyc_id).update(verified=True)
-                return True  # Faces match
-            else:
-                # If faces don't match, delete the record
-                KYCCapturedPhoto.objects.filter(kyc_id=kyc_id).delete()
-                return False  # Faces don't match
-        return False  # No faces found in one or both images
+            # Send success email
+            send_mail(
+                'Face Verification Successful',
+                'Your face verification was successful.',
+                settings.DEFAULT_FROM_EMAIL,
+                [kyc_record.kyc_id.email],
+                fail_silently=False,
+            )
+            return True
+        else:
+            kyc_record.delete()
+            print("Face verification failed. KYC record deleted.")
+
+            # Send failure email
+            send_mail(
+                'Face Verification Failed',
+                'Your face verification failed and your KYC record has been deleted.',
+                settings.DEFAULT_FROM_EMAIL,
+                [kyc_record.kyc_id.email],
+                fail_silently=False,
+            )
+            return False
 
     except Exception as e:
-        # Log or handle the exception properly
         print(f"Error in verify_faces task: {e}")
-        return False  # Failure
-
-def enhance_image(image):
-    """
-    Enhance the image quality to make face recognition more accurate.
-    This can include resizing, contrast adjustment, and sharpening.
-    """
-    # Resize image to a consistent size (optional, based on typical image sizes)
-    image = image.resize((600, 800))  # Resize as needed for consistency
-
-    # Increase the contrast to enhance facial features
-    enhancer = ImageEnhance.Contrast(image)
-    image = enhancer.enhance(1.5)  # Adjust contrast (1.5 is an example)
-
-    # Sharpen the image slightly for clearer features
-    enhancer = ImageEnhance.Sharpness(image)
-    image = enhancer.enhance(2.0)  # Adjust sharpness (2.0 is an example)
-
-    return image
+        return False

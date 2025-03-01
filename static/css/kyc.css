@@ -1,9 +1,9 @@
 body {
-    font-family: "Parkinsans", serif;
+      font-family: "Inter", sans-serif;
     text-align: center;
     margin: 0;
     padding: 0;
-    background-color: #000;
+    background-color: #eeeeee;
 }
 
 
@@ -14,11 +14,11 @@ body {
 }
 
 h1 {
-    color: #ffffff;
+    color: #000;
     margin-top: 20px;
 }
 p {
-    color: #ffffff;
+    color: #000;
     font-size: 16px;
 }
 .video-container {
@@ -95,7 +95,7 @@ video {
     bottom: 12%;
     right: 12%;
     border-radius: 50%;
-    background-color: #ffffff;
+    background-color: #000;
     opacity: 0;
 }
 .ring {
@@ -157,24 +157,7 @@ video {
     text-align: center; /* Ensure the content inside is centered */
 }
 
-/* Center the video element inside the container */
-#document-camera {
-    width: 100%; /* Make the video element take the full width of the container */
-    height: 100%; /* Make the video element take the full height of the container */
-    object-fit: cover; /* Make sure the video fills the container and doesn't get stretched */
-    position: absolute;
-    top: 0;
-    left: 0;
-}
 
-
-
-/* Instructions styling */
-#instructions {
-    font-size: 18px;
-    color: #ffffff;
-    margin-bottom: 20px;
-}
 
 /* Video element styling */
 #document-camera {
@@ -187,7 +170,78 @@ video {
     object-fit: cover;
 }
 
-/* Shutter button container styling */
+/* Instructions styling */
+#instructions {
+    font-size: 18px;
+    color: #000;
+
+    margin-bottom: 20px;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    /* Center the video element inside the container */
+    #document-camera {
+        width: 100%;
+        max-width: 350px;
+        height: 250px;
+        border: 2px solid #000;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        padding:0;
+        object-fit: cover;
+    }
+/* Instructions styling */
+#instructions {
+    font-size: 18px;
+    color: #000;
+    padding: 0 100px;
+    margin-bottom: 20px;
+}
+.document-camera-container {
+    width: 550px;
+    height: 250px;
+    position: relative;
+    display: none;
+    margin: auto;
+    text-align: center;
+}
+}
+
+@media (max-width: 480px) {
+/* Center the video element inside the container */
+#document-camera {
+    width: 100%;
+    max-width: 350px;
+    height: 250px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 0;
+    object-fit: cover;
+}
+/* Instructions styling */
+#instructions {
+    font-size: 18px;
+    color: #000;
+    padding: 0 100px;
+    margin-bottom: 20px;
+}
+.document-camera-container {
+    width: 550px;
+    height: 250px;
+    position: relative;
+    display: none;
+    margin: auto;
+    text-align: center;
+}
+}
+
+
+
+
+
 .shutter-button-container {
     margin-top: 50px;
 }
@@ -199,6 +253,7 @@ video {
     background-color: #007bff;
     border: none;
     border-radius: 5px;
+    margin-top: 50px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -210,48 +265,49 @@ video {
 .doc-cam{
     position: relative;
     display: none;
-    margin: 0 auto; /* Center the container horizontally */
+    margin: 0 auto; 
     text-align: center; 
 }
 
 .doc-cam h1 h2{
-    color: #ffffff;
+    color: #000;
 }
 
 .doc-cam span{
     color: red;
 }
 
-.buts #Sumbit-button {
-    display: none; /* Ensures the button is initially hidden */
-    padding: 10px 20px; /* Adds spacing around the text */
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text color */
-    border: none; /* Removes the border */
-    border-radius: 5px; /* Slightly rounded corners */
-    font-size: 16px; /* Larger text for better readability */
-    cursor: pointer; /* Pointer cursor on hover */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
-    transition: all 0.3s ease; /* Smooth transitions on hover effects */
+.buts button {
+    display: none; 
+    margin-top: 50px;
+    padding: 10px 20px; 
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    border-radius: 5px; 
+    font-size: 16px;
+    cursor: pointer; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+    transition: all 0.3s ease; 
 }
 
-.buts #Sumbit-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Slightly deeper shadow */
+.buts button:hover {
+    background-color: #45a049;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); 
 }
 
-.buts #Sumbit-button:active {
-    background-color: #3e8e41; /* Even darker green when clicked */
-    transform: translateY(2px); /* Simulates a "pressed" effect */
+.buts button:active {
+    background-color: #3e8e41; 
+    transform: translateY(2px);
 }
 
 .buts {
-    text-align: center; /* Centers the button within the container */
-    margin-top: 20px; /* Adds some space above the button */
+    text-align: center; 
+    margin-top: 20px; 
 }
 
 .highlight {
-    color: red; /* Red text color */
-    font-weight: bold; /* Makes the text bold */
-    text-decoration: underline; /* Adds an underline for emphasis */
+    color: red; 
+    font-weight: bold; 
+    text-decoration: underline; 
 }

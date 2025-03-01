@@ -22,6 +22,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
   <!-- Vendor CSS Files -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
@@ -56,8 +60,8 @@
           
           <li><a href="{% url 'market' %}" class="">Explore</a></li>
           <li><a href="{% url 'index' %}">Sell</a></li>
-          <li><a href="{% url 'About' %}">About</a></li>
-          <li><a href="{% url 'About' %}">Contact</a></li>
+          <li><a href="{% url 'about-us' %}">About</a></li>
+          <li><a href="{% url 'about-us' %}">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -143,15 +147,19 @@
  
         <div class="col-lg-4 col-md-6   footer-newsletter">
           <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
-          <form action="https://formsubmit.co/support@snippat.com" method="post" class="php-email-form">
-            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+          <form action="{% url 'Submail' %}" method="POST" >
+            {% csrf_token %}
+            <div class="newsletter-form">
+                <input type="email" name="email" required>
+                <input type="submit" value="Subscribe">
+            </div>
             <div class="loading">Loading</div>
             <div class="error-message"></div>
             <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-          </form>
+        </form>
+        
           <p>support@snippat.com</p>
-          <p>RMZ MILLENIA BUSINESS PARK,<br>
-            Perungudi, Chennai, 600096</p>
+
          
       </div>
 
@@ -170,10 +178,9 @@
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
-          <h4>snippat</h4>
+          <h4>Snippat</h4>
           <ul>
-            <li><a href="{% url 'About' %}">About</a></li>
-            <li><a href="{% url 'About' %}">Contact</a></li>
+            <li><a href="#contact">Contact</a></li>
             <li><a href="{% url 'market' %}">Marketplace</a></li>
           </ul>
         </div>
@@ -181,9 +188,9 @@
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Connect</h4>
           <ul>
-            <li><a href="https://x.com/snippatHq">Twitter</a></li>
+            <li><a href="https://x.com/SnippatHq">Twitter</a></li>
             <li><a href="#">Discord</a></li>
-            <li><a href="https://www.linkedin.com/company/snippat/">Linkedln</a></li>
+            <li><a href="https://www.linkedin.com/company/Snippat/">Linkedln</a></li>
           </ul>
         </div>
         
@@ -192,7 +199,7 @@
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p class="px-1 sitename">© snippat 2025 All Rights Reserved</p>
+      <p class="px-1 sitename">© Snippat 2025<span>All Rights Reserved</span></p>
     </div>
 
   </footer>

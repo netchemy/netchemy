@@ -9,13 +9,13 @@ from rest_framework_simplejwt.tokens import UntypedToken
 import json
 from rest_framework.exceptions import AuthenticationFailed
 from .tasks import verify_faces
+from rest_framework.permissions import IsAuthenticated
 
 
 
-@method_decorator(login_required, name='dispatch')
 class SubmitKYCView(View):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
-        print("hello world")
         try:
             # Extract and verify the token
             auth_header = request.headers.get('Authorization', None)
@@ -27,7 +27,7 @@ class SubmitKYCView(View):
             user_id = decoded_token['user_id']
             user = account.objects.get(id=user_id)
             
-            # Parse JSON data
+            # frontend data
             data = json.loads(request.body)
 
             # Decode Base64 images
@@ -39,15 +39,14 @@ class SubmitKYCView(View):
 
             # Save images to model
             kyc_submission = KYCCapturedPhoto.objects.create(kyc_id=user)
-            kyc_submission.photo1.save('photo1.png', ContentFile(photo1_data), save=False)
-            kyc_submission.photo2.save('photo2.png', ContentFile(photo2_data), save=False)
-            kyc_submission.photo3.save('photo3.png', ContentFile(photo3_data), save=False)
-            kyc_submission.front.save('front.png', ContentFile(front_data), save=False)
-            kyc_submission.back.save('back.png', ContentFile(back_data), save=False)
+            kyc_submission.photo1.save('photo1.jpg', ContentFile(photo1_data), save=False)
+            kyc_submission.photo2.save('photo2.jpg', ContentFile(photo2_data), save=False)
+            kyc_submission.photo3.save('photo3.jpg', ContentFile(photo3_data), save=False)
+            kyc_submission.front.save('front.jpg', ContentFile(front_data), save=False)
+            kyc_submission.back.save('back.jpg', ContentFile(back_data), save=False)
             kyc_submission.save()
 
-            # Call Celery task for face verification asynchronously using .delay()
-            verify_faces.delay(photo2_data, front_data, kyc_submission.id)
+            verify_faces.delay(kyc_submission.photo2.path, kyc_submission.front.path, kyc_submission.id)
 
             
 

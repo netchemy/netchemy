@@ -10,6 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -153,21 +157,24 @@
         let currentStep = "front"; // Tracks the current step: 'front' or 'back'
         let capturedPhotos = {}; // Object to store captured photos
     
+        document.getElementById("shutter-button").textContent = "Front"; // Initial button text
+
         document.getElementById("shutter-button").addEventListener("click", function () {
             // Capture the photo
             captureDocumentPhoto(currentStep);
-    
-            // Switch instruction based on the current step
+        
             if (currentStep === "front") {
                 document.getElementById("instructions").innerHTML = 
                     'Please take a photo of the <span class="highlight">back</span> of the document in proper lighting.';
+                document.getElementById("shutter-button").textContent = "Back"; // Change button text
                 currentStep = "back";
             } else if (currentStep === "back") {
                 document.getElementById("instructions").textContent =
                     "Both photos captured successfully. Click Submit to proceed.";
                 currentStep = "completed";
-    
-                // Show the existing Submit button
+        
+                // Hide the capture button and show the Submit button
+                document.getElementById("shutter-button").style.display = "none";
                 document.getElementById("Submit-button").style.display = "inline-block";
             }
         });

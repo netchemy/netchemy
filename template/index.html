@@ -23,7 +23,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
 
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <!-- Vendor CSS Files -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
@@ -50,7 +52,7 @@
 
       <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto">
         <img src="{% static 'img/n3.svg' %}" alt="">
-        <h1 class="sitename"></h1>
+        <h1 class="sitename">Snippat.com</h1>
       </a>
 
       <nav id="navmenu" class="navmenu d-flex align-items-center me-auto">
@@ -58,8 +60,8 @@
           
           <li><a href="{% url 'market' %}" class="">Explore</a></li>
           <li><a href="{% url 'index' %}">Sell</a></li>
-          <li><a href="{% url 'About' %}">About</a></li>
-          <li><a href="{% url 'About' %}">Contact</a></li>
+          
+          <li><a href="#Contact">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -77,15 +79,16 @@
       <div class="container text-center">
         <div class="d-flex flex-column justify-content-center align-items-center">
 
-            <a  class="mar-logo d-flex align-items-center">
+            <!-- <a  class="mar-logo d-flex align-items-center">
                 <img src="{% static 'img/n3.svg' %}" alt="">
                 <h1 class="marketTitle">snippat.com</h1>
-              </a>
+              </a>-->
 
           <h1 data-aos="fade-up" class="market-slogan">Turn your code into  <span id="market-cash">c|</span></h1>
-          <p data-aos="fade-up" data-aos-delay="100" class="">Monetize your code snippets like never before. Sell your software, design assets and watch your income - incoming!<br></p>
-          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="#pricing" class="btn-get-started">Pricing</a>
+          <p data-aos="fade-up" data-aos-delay="100" class="">Every day, 30+ millions of developers write 5+ billion lines of code. But your code can do more. 
+            With Snippat, turn your code into a new revenue stream - Seamlessly. Instantly. Passively.<br></p>
+          <div class="d-flex flex-direction = column" data-aos="fade-up" data-aos-delay="200">
+            <a href="#pricing" class="btn-get-started">Get Lifetime Access</a><br>
             <a href="{% url 'signup' %}" class="btn-get-started2">Log in </a>
           </div>
          
@@ -94,20 +97,7 @@
       </div>
       
     </section><!-- /Hero Section -->
-    <div class="market-ben">
-      <div class="market-ben-item">Codebases</div>
-      <div class="market-ben-item">APIs & libraries</div>
-      <div class="market-ben-item">Scripts</div>
-      <div class="market-ben-item">Bots</div>
-      <div class="market-ben-item">UI kits</div>
-      <div class="market-ben-item">Design templates</div>
-      <div class="market-ben-item">Icon packs</div>
-      <div class="market-ben-item">Custom fonts</div>
-      <div class="market-ben-item">3D models</div>
-      <div class="market-ben-item">Mockups</div>
-      <div class="market-ben-item">Illustrations</div>
-  </div>
-   
+    
     <!-- Features Details Section
     <section id="market" class="market section">
 
@@ -142,13 +132,13 @@
 
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
-          <h2>How It <br> <span>Works</span></h2>
+          <h2>How It Works</h2>
         </div><!-- End Section Title -->
       <div class = "container">
           <div class="steps-container">
             <div class="step">
                 <h3><span>1</span> Create</h3>
-                <p>List resources to a global audience & monetize by choosing a plan that is affordable for you.</p>
+                <p>Document your problem solving code snippets as template in ready-to-use format.</p>
             </div>
             <div class="step">
                 <h3><span>2</span> Sell</h3>
@@ -177,17 +167,21 @@
         <h2>Start selling now</h2>
       </div><!-- End Section Title -->
       <div class="market-ben">
-        <div class="market-ben-item">Codebases</div>
-        <div class="market-ben-item">APIs & libraries</div>
+        <div class="market-ben-item">Code Snippets</div>
+        <div class="market-ben-item">APIs</div>
         <div class="market-ben-item">Scripts</div>
-        <div class="market-ben-item">Bots</div>
-        <div class="market-ben-item">UI kits</div>
-        <div class="market-ben-item">Design templates</div>
-        <div class="market-ben-item">Icon packs</div>
-        <div class="market-ben-item">Custom fonts</div>
-        <div class="market-ben-item">3D models</div>
-        <div class="market-ben-item">Mockups</div>
-        <div class="market-ben-item">Illustrations</div>
+        <div class="market-ben-item">Vue </div>
+        <div class="market-ben-item">React </div>
+        <div class="market-ben-item">Express </div>
+        <div class="market-ben-item">Next.js </div>
+        <div class="market-ben-item">Java </div>
+        <div class="market-ben-item">C# </div>
+        <div class="market-ben-item">Ruby </div>
+        <div class="market-ben-item">Swift </div>
+        <div class="market-ben-item">Kotlin </div>
+        <div class="market-ben-item">Angular </div>
+        <div class="market-ben-item">Django </div>
+        <div class="market-ben-item">Flask </div>
     </div>
     <div>
       
@@ -199,18 +193,12 @@
           <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="pricing-item featured">
                 <h3>Founding Creator</h3>
-                <h4><sup>₹</sup>8,499<span> /lifetime</span></h4>
+                <h4><sup>₹</sup>4,999<span> /lifetime</span></h4>
                 <ul>
-                    <li> <span>+ 0% Commission</span></li>
-                    <li> <span>+ Set your own price </span></li>
-                    <li> <span>+ Unlimited listings</span></li>
-                    <li> <span>+ Community forums</span></li>
-                    <li> <span>+ Advanced analytics</span></li>
-                    <li> <span>+ Secure payment processing</span></li>
+                    <li> <span>+ Unlimited Listings</span></li>
+                    <li> <span>+ 0% Platform fee </span></li>
                     <li> <span>+ Instant Payouts</span></li>
-                    <li> <span>+ 24/7 support</span></li>
-                    <li> <span>+ Access to all upcoming features</span></li>
-                
+                    <li> <span>+ API Marketplace(Upcoming Feature)</span></li>
                 </ul>
                 <a href="{% url 'signup' %}" class="cta-btn">Choose lifetime plan</a>
             </div>
@@ -222,15 +210,11 @@
               <h4><sup>₹</sup>2,499<span> / year</span></h4>
          
               <ul>
-                <li> <span>+ 0% Commission</span></li>
-                <li><span>+ Set your own price</span></li>
-                <li><span>+ 4 listings per month</span></li>
-                <li><span>+ Community forums</span></li>
-                <li><span>+ Advanced analytics</span></li>
-                <li><span>+ Secure payment processing</span></li>
-                <li></i> <span>+ Instant payouts</span></li>
-                <li></i> <span>+ 24/7 support</span></li>
-                <li></i> <span>+ Access to all upcoming features</span></li>
+                <li><span>+ 5 Listings Per Month</span></li>
+                <li> <span>+ 0% Platform fee</span></li>
+                <li><span>+ Instant Payouts</span></li>
+                <li> <span>+ API Marketplace(Upcoming Feature)</span></li>
+                
               </ul>
               <a href="{% url 'signup' %}" class="cta-btn">Choose yearly plan</a>
             </div>
@@ -243,15 +227,11 @@
               <h4><sup>₹</sup>299<span> / month</span></h4>
              
               <ul>
-                <li><span>+ 0% Commission</span></li>
-                <li><span>+ Set your own price</span></li>
-                <li><span>+ 2 listing per month</span></li>
-                <li><span>+ Community forums</span></li>
-                <li><span>+ Basic analytics</span></li>
-                <li><span>+ Secure payment processing</span></li>
-                <li><span>+ Instant payouts</span></li>
-                <li><span>+ 24/7 support</span></li>
-                <li><span>+ Limited-Access to upcoming features</span></li>
+                <li><span>+ 2 Listing Per Month</span></li>
+                <li><span>+ 0% Platform fee</span></li>
+                <li> <span>+ Instant Payouts</span></li>
+                <li><span>+ Analytics</span></li>
+                
               </ul>
               <a href="{% url 'signup' %}" class="cta-btn">Choose monthly plan</a>
             </div>
@@ -367,7 +347,23 @@
       </div>
 
     </section> -->
-
+    <section id = "Contact" class="contact section">
+      <div class = "container">
+      <div id = "net_con"  class="container11">
+        <h1>Contact</h1>
+        <p> Questions, feedbacks or want to join our team? Let us know.</p>
+        <form action="{% url 'ContactMail' %}" method="post"  class="contact-form11">
+          {% csrf_token %}
+          <input type="text" name="name" placeholder="Your Name">
+          <input type="email"  name="email"placeholder="Email">
+          <input type="tel"  name="Phone"placeholder="Phone Number">
+          <input type="text"  name="subject" placeholder="Subject">
+          <textarea name="message" placeholder="Send us a message"></textarea>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+    </section>
     
 
   </main>
@@ -380,7 +376,8 @@
  
         <div class="col-lg-4 col-md-6   footer-newsletter">
           <h4>Subscribe to the exciting* <br>newsletter out there.</h4>
-          <form action="https://formsubmit.co/support@snippat.com" method="post" class="php-email-form">
+          <form action="{% url 'Submail' %}" method="POST" >
+            {% csrf_token %}
             <div class="newsletter-form">
                 <input type="email" name="email" required>
                 <input type="submit" value="Subscribe">
@@ -391,8 +388,7 @@
         </form>
         
           <p>support@snippat.com</p>
-          <p>RMZ MILLENIA BUSINESS PARK,<br>
-            Perungudi, Chennai, 600096</p>
+
          
       </div>
 
@@ -413,8 +409,7 @@
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Snippat</h4>
           <ul>
-            <li><a href="{% url 'About' %}">About</a></li>
-            <li><a href="{% url 'About' %}">Contact</a></li>
+            <li><a href="#contact">Contact</a></li>
             <li><a href="{% url 'market' %}">Marketplace</a></li>
           </ul>
         </div>
@@ -497,6 +492,23 @@
 
 
 
+</script>
+
+<script>
+  window.intercomSettings = {
+    api_base: "https://api-iam.intercom.io",
+    app_id: "gqzvxpsq",
+    user_id: "{{ request.user.id|escapejs }}", // IMPORTANT: Replace "user.id" with the variable you use to capture the user's ID
+    name: "{{ request.user.name|escapejs }}", // IMPORTANT: Replace "user.name" with the variable you use to capture the user's name
+    email: "{{ request.user.email|escapejs }}", // IMPORTANT: Replace "user.email" with the variable you use to capture the user's email address
+    created_at: "{{ request.user.date_joined|date:'U' }}", // IMPORTANT: Replace "user.createdAt" with the variable you use to capture the user's sign-up date
+  };
+</script>
+
+
+<script>
+  // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/gqzvxpsq'
+  (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/gqzvxpsq';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
 </script>
 
 
