@@ -62,16 +62,6 @@ class ProjectRevenue(models.Model):
     total_revenue = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
 
 
-@receiver(post_save, sender=sales)
-def update_project_revenue(sender, instance, created, **kwargs):
-    """ Update the sold project's total revenue when a sale is made """
-    if created:
-        project = instance.SaleId
-        revenue, _ = ProjectRevenue.objects.get_or_create(project=project)
-
-        # Ensure price is a Decimal before addition
-        revenue.total_revenue += Decimal(str(project.price))
-        revenue.save()
 
 class KYCCapturedPhoto(models.Model):
     kyc_id = models.ForeignKey(account, on_delete=models.CASCADE)

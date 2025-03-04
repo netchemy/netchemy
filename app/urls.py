@@ -19,6 +19,7 @@ urlpatterns = [
     path("ChangePassword/",views.ChangePassword,name = "ChangePassword"),
     path('logout/', views.logout_view, name='logout'),
 
+    path('auth-receiver/',views.auth_receiver,name="auth-receiver"),
 
     path('withdraw/',views.withdraw,name = "withdraw"),
 

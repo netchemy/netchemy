@@ -3,7 +3,7 @@ from django.contrib import messages
 import re
 import razorpay
 from django.views.decorators.csrf import csrf_exempt
-from .models import account,Project,KYCCapturedPhoto,BankDetails,ProjectFile,sales,Payouts,WithdrawRequest
+from .models import account,Project,KYCCapturedPhoto,BankDetails,ProjectFile,sales,Payouts,WithdrawRequest,ProjectRevenue
 from netchemy.settings import RAZOR_KEY_ID,RAZOR_SECRET_ID
 
 from google.oauth2 import id_token
@@ -176,6 +176,7 @@ def market_pay(request):
             sale = sales(SaleId=product, PaymentId=razorpay_payment_id, BuyerAddress = full_address, BuyerMail = email)
             sale.save()
 
+            update_project_revenue(product.id)
             subject = "Snippat Purchase Confirmation"
             name = product.Title
             msg = f"""
@@ -202,6 +203,20 @@ def market_pay(request):
             return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
+
+def update_project_revenue(project_id):
+    """ Manually update total revenue for a given project """
+    try:
+        project = Project.objects.get(id=project_id)
+        total_sales = sales.objects.filter(SaleId=project).count()
+        total_revenue = total_sales * project.price 
+        revenue, created = ProjectRevenue.objects.get_or_create(project=project)
+        revenue.total_revenue = total_revenue
+        revenue.save()
+
+        return f"Revenue updated: {revenue.total_revenue}"
+    except Project.DoesNotExist:
+        return "Project not found"
 """def transfer_funds(amount, account_id):
     try:
         bank_details = BankDetails.objects.get(bankid=account_id)
